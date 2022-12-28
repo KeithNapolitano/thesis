@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TripFormRequest;
+use App\Models\Route;
 use App\Models\Trip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,8 @@ class TripController extends Controller
         // dd($trips);
         // return view('admin.index', [
         return view('admin.index', [
-                'trips' => Trip::orderBy('id', 'desc')->paginate(5)
+                'trips' => Trip::orderBy('id', 'desc')->paginate(5),
+                // 'routes' => Route::where('id', 'desc')
                 // 'trips' => Trip::where('dates', '2022-11-29')->paginate(5)
                 // Trip::orderBy('id', 'desc')->paginate(5)
 
@@ -53,13 +55,13 @@ class TripController extends Controller
         $request->validated();
 
         Trip::create([
-            'destination' => $request->destination,
+            'route_id' => $request->destination,
             'dates' => $request->dates,
-            'driver' => $request->driver,
-            'van' => $request->van,
+            'driver_id' => $request->driver,
+            'van_id' => $request->van,
             'seats_left' => $request->seats_left,
             'num_pass' => $request->num_pass,
-            'trip_status' => $request->trip_status === 'on',
+            'trip_status' => $request->trip_status,
             'orig_fare' => $request->orig_fare,
             'extra_fare' => $request->extra_fare
         ]);
