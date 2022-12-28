@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\VanController;
 use App\Http\Controllers\TripController;
+use App\Http\Controllers\RoutesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,6 +57,16 @@ Route::prefix('/van')->group(function (){
     Route::delete('/{id}', [VanController::class, 'destroy'])->name('van.destroy');
 });
 
+Route::prefix('/route')->group(function (){
+    Route::get('/', [RoutesController::class, 'index'])->name('route.index');
+    //Route::get('/{id}', [RoutesController::class, 'show'])->name('route.show');
+    Route::get('/create', [RoutesController::class, 'create'])->name('route.create');
+    Route::post('/', [RoutesController::class, 'store'])->name('route.store');
+    Route::get('/edit/{id}', [RoutesController::class, 'edit'])->name('route.edit');
+    Route::patch('/{id}', [RoutesController::class, 'update'])->name('route.update');
+    Route::delete('/{id}', [RoutesController::class, 'destroy'])->name('route.destroy');
+});
+
+//payments and finances
+
 Route::fallback(FallbackController::class);
-
-

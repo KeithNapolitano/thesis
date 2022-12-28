@@ -13,11 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vans', function (Blueprint $table) {
-            $table->id();
-            $table->text('plate_num')->unique();
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('routes')){
+            Schema::create('routes', function (Blueprint $table) {
+                $table->id();
+                $table->string('descr');
+                $table->integer('fare');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vans');
+        Schema::dropIfExists('routes');
     }
 };

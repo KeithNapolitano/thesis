@@ -11,4 +11,4 @@ class FallbackController extends Controller
     {
         return view('fallback.index');
     }
-}
+} 
