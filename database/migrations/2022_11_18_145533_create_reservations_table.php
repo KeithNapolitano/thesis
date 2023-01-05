@@ -16,17 +16,17 @@ return new class extends Migration
         if(!Schema::hasTable('reservations')){
             Schema::create('reservations', function (Blueprint $table) {
                 $table->id();
-                $table->unsignedBigInteger('route_id');
-                $table->unsignedBigInteger('passenger_id');
+                $table->unsignedBigInteger('sched_id');
+                $table->unsignedBigInteger('user_id');
                 $table->integer('tickets');
                 $table->unsignedBigInteger('payment_id');
-                $table->boolean('present');
-                $table->string('seat');
+                $table->boolean('present')->nullable();
+                $table->string('seat')->nullable();
                 $table->string('ref_num');
                 $table->timestamps();
 
-                $table->foreign('route_id')->references('id')->on('routes');
-                $table->foreign('passenger_id')->references('id')->on('passengers');
+                $table->foreign('sched_id')->references('id')->on('scheds');
+                $table->foreign('user_id')->references('id')->on('users');
                 $table->foreign('payment_id')->references('id')->on('payments');
             });
         }

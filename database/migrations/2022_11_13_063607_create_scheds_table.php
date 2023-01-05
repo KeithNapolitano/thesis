@@ -13,18 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable('drivers')){
-            Schema::create('drivers', function (Blueprint $table) {
+        if(!Schema::hasTable('scheds')){
+            Schema::create('scheds', function (Blueprint $table) {
                 $table->id();
-                $table->string('driver_name')->unique();
-                $table->string('driver_contact')->unique();
-                $table->string('driver_address');
                 $table->unsignedBigInteger('route_id');
-                $table->unsignedBigInteger('van_id');
+                $table->date('sched_date');
+                $table->boolean('flag');
                 $table->timestamps();
 
                 $table->foreign('route_id')->references('id')->on('routes');
-                $table->foreign('van_id')->references('id')->on('vans');
             });
         }
     }
@@ -36,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('drivers');
+        Schema::dropIfExists('scheds');
     }
 };

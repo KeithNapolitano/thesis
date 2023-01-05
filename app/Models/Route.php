@@ -8,5 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Route extends Model
 {
     use HasFactory;
+
+    public function scheds(){     //one route can have many scheds
+        return $this->hasMany(Sched::class);
+    }
+
+    public function van(){     //one van per route
+        return $this->hasOne(Van::class);
+    }
 }
 

@@ -4,19 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-//SHOWS THE SCHEDULE WHERE COMMUTERS CAN RESERVE
-
-class ScheduleController extends Controller
+class SchedController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    //SHOW EVERY SCHEDULE
     public function index()
     {
-        return view('operator.index');
+        //
     }
 
     /**
@@ -24,7 +21,6 @@ class ScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    //CREATES NEW SCHEDULE
     public function create()
     {
         //
@@ -47,10 +43,9 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //SHOW ONE SCHEDULE BASED ON ID 
     public function show($id)
     {
-        return $id;
+        //
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,8 +21,12 @@ class Trip extends Model
 
     //protected $timestamps = false;
 
-    public function users(){ //changed to many users
-        return $this->hasMany(User::class);
+    public function user(){ //for DRIVER AND COMMUTER
+        return $this->belongsTo(User::class);
+    }
+
+    public function scheds(){ //one sched per trip
+        return $this->hasOne(Sched::class);
     }
 
     public function route(){    //one route per trip
@@ -34,5 +39,8 @@ class Trip extends Model
 
     public function payments(){      //a trip can have many payments
         return $this->hasMany(Payment::class);
+    }
+    public function seat(){     //one seat per trip
+        return $this->hasOne(Seat::class);
     }
 }

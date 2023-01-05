@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('passengers', function (Blueprint $table) {
-            $table->id();
-            $table->string('pass_name');
-            $table->string('pass_contact');
-            $table->string('pass_email')->unique();
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('seats')){
+            Schema::create('seats', function (Blueprint $table) {
+                $table->id();
+                $table->integer('seat_status');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('passengers');
+        Schema::dropIfExists('seats');
     }
 };

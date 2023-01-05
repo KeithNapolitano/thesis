@@ -16,22 +16,20 @@ return new class extends Migration
         if(!Schema::hasTable('trips')){
             Schema::create('trips', function (Blueprint $table) {
                 $table->id();
-                $table->unsignedBigInteger('user_id');
-                $table->unsignedBigInteger('route_id');
+                $table->unsignedBigInteger('user_id');  //FOR DRIVER
+                $table->unsignedBigInteger('sched_id');
+                $table->unsignedBigInteger('seat_id')->nullable();
                 $table->date('dates');
-                $table->unsignedBigInteger('driver_id');
                 $table->unsignedBigInteger('van_id');
-                $table->integer('seats_left');
-                $table->integer('num_pass');
                 $table->boolean('trip_status');
-                $table->integer('orig_fare');
-                $table->integer('extra_fare');
+                $table->integer('orig_fare')->nullable();
+                $table->integer('extra_fare')->nullable();
                 $table->timestamps();
 
                 //DELETES TRIPS IF MADELETE ANG USER:onDelete(cascade)
                 $table->foreign('user_id')->references('id')->on('users');
-                $table->foreign('route_id')->references('id')->on('routes');
-                $table->foreign('driver_id')->references('id')->on('drivers');
+                $table->foreign('sched_id')->references('id')->on('scheds');
+                $table->foreign('seat_id')->references('id')->on('seats');
                 $table->foreign('van_id')->references('id')->on('vans');
             });
         }

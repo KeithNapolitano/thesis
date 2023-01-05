@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'userlvl',
+        'contact'
     ];
 
     /**
@@ -42,7 +44,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //For driver and commuter
     public function trips(){
         return $this->hasMany(Trip::class);
+    }
+
+    //For driver, one van only
+    public function van(){
+        return $this->hasMany(Van::class);
     }
 }

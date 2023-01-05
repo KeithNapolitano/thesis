@@ -16,12 +16,12 @@ return new class extends Migration
         if(!Schema::hasTable('payments')){
             Schema::create('payments', function (Blueprint $table) {
                 $table->id();
-                $table->unsignedBigInteger('passenger_id');
+                $table->unsignedBigInteger('user_id');
                 $table->unsignedBigInteger('trip_id');
                 $table->integer('amount');
                 $table->timestamps();
 
-                $table->foreign('passenger_id')->references('id')->on('passengers');
+                $table->foreign('user_id')->references('id')->on('users');
                 $table->foreign('trip_id')->references('id')->on('trips');
             });
         }
