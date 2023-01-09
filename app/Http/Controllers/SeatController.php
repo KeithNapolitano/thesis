@@ -42,6 +42,17 @@ class SeatController extends Controller
             'seat1' => $request->seat1,
             'seat2' => $request->seat2,
             'seat3' => $request->seat3,
+            'seat4' => $request->seat4,
+            'seat5' => $request->seat5,
+            'seat6' => $request->seat6,
+            'seat7' => $request->seat7,
+            'seat8' => $request->seat8,
+            'seat9' => $request->seat9,
+            'seat10' => $request->seat10,
+            'seat11' => $request->seat11,
+            'seat12' => $request->seat12,
+            'seat13' => $request->seat13,
+            'seat13' => $request->seat14,
         ]);
 
         return view('sched.test');
