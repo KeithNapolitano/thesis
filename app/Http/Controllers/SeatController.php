@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Seat;
 use Illuminate\Http\Request;
 
 class SeatController extends Controller
@@ -13,7 +14,7 @@ class SeatController extends Controller
      */
     public function index()
     {
-        //
+        return view('sched.test');
     }
 
     /**
@@ -23,7 +24,8 @@ class SeatController extends Controller
      */
     public function create()
     {
-        //
+        return view('sched.test1');
+
     }
 
     /**
@@ -34,7 +36,15 @@ class SeatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validated();
+
+        Seat::create([
+            'seat1' => $request->seat1,
+            'seat2' => $request->seat2,
+            'seat3' => $request->seat3,
+        ]);
+
+        return view('sched.test');
     }
 
     /**

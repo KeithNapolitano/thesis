@@ -55,12 +55,12 @@ class TripController extends Controller
         $request->validated();
 
         Trip::create([
-            'route_id' => $request->destination,
+            // 'route_id' => $request->destination,
+            'user_id' => $request->user_id,
+            'sched_id' => $request->sched_id,
+            'seat_id' => $request->seat_id,
             'dates' => $request->dates,
-            'driver_id' => $request->driver,
-            'van_id' => $request->van,
-            'seats_left' => $request->seats_left,
-            'num_pass' => $request->num_pass,
+            'van_id' => $request->van_id,
             'trip_status' => $request->trip_status,
             'orig_fare' => $request->orig_fare,
             'extra_fare' => $request->extra_fare

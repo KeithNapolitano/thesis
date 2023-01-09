@@ -9,6 +9,12 @@ class Seat extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'seat1',
+        'seat2',
+        'seat3',
+    ];
+
     public function trip(){     //one seat per trip
         return $this->hasOne(Trip::class);
     }

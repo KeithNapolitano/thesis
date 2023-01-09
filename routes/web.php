@@ -7,6 +7,8 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\VanController;
 use App\Http\Controllers\TripController;
 use App\Http\Controllers\RoutesController;
+use App\Http\Controllers\SeatController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +28,8 @@ Route::get('/', function () {
 
 
 Route::get('/home', HomeController::class);
+Route::get('/seat/create', [SeatController::class, 'create']);
+Route::post('/seat', [SeatController::class, 'store'])->name('seat.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -51,7 +55,7 @@ Route::prefix('/reservation')->group(function (){
     Route::delete('/{id}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
 });
 
-Route::prefix('/van')->group(function (){
+Route::prefix('/van')->middleware(['auth', 'isAdmin'])->group(function (){
     Route::get('/', [VanController::class, 'index'])->name('van.index');
     Route::get('/{id}', [VanController::class, 'show'])->name('van.show');
     Route::get('/create', [VanController::class, 'create'])->name('van.create');
@@ -74,3 +78,5 @@ Route::prefix('/route')->group(function (){
 //payments and finances
 
 Route::fallback(FallbackController::class);
+
+Auth::routes();
