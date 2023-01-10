@@ -9,6 +9,10 @@ class Van extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'plate_num', 'user_id', 'route_id'
+    ];
+
     public function user(){ //one DRIVER per van
         return $this->hasOne(User::class);
     }

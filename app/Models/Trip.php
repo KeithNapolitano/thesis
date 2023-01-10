@@ -10,10 +10,10 @@ class Trip extends Model
 {
     use HasFactory;
 
-    // protected $fillable = [
-    //     'route_id', 'dates', 'driver', 'van', 'seats_left', 'num_pass',
-    //     'trip_status', 'orig_fare', 'extra_fare'
-    // ];
+    protected $fillable = [
+        'user_id', 'sched_id', 'seat_id', 'dates', 'van_id', 'trip_status',
+        'orig_fare', 'extra_fare'
+    ];
     //protected $table = 'trips';
 
     //CHANGING THE PRIMAYKEY INSTREAD OF ID

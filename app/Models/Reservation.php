@@ -9,6 +9,11 @@ class Reservation extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'sched_id', 'user_id', 'tickets', 'payment_id', 'present',
+        'seat', 'ref_num'
+    ];
+
     public function trip(){ //many reservations per trip
         return $this->belongsTo(Trip::class);
     }

@@ -9,6 +9,10 @@ class Route extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'descr', 'fare'
+    ];
+
     public function scheds(){     //one route can have many scheds
         return $this->hasMany(Sched::class);
     }
