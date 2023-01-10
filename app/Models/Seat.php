@@ -24,7 +24,7 @@ class Seat extends Model
         'seat12',
         'seat13',
         'seat14',
-
+        'seat14',
     ];
 
     public function trip(){     //one seat per trip
