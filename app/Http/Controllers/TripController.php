@@ -40,7 +40,7 @@ class TripController extends Controller
      */
     public function create()
     {
-        return view('operator.create');
+        return view('operator.login');
     }
 
     /**
