@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//use Illuminate\Routing\Route;
+use App\Models\Route;
 
 class RoutesController extends Controller
 {
@@ -13,7 +15,11 @@ class RoutesController extends Controller
      */
     public function index()
     {
-        //
+        return view('route.index', [
+             'routes' => Route::orderBy('id', 'desc')->paginate(5)
+            // 'routes' => Route::orderBy('id', 'desc')->paginate(5)
+            //'routes' => Route::where('fare', '>1000')->paginate(5)
+        ]);
     }
 
     /**

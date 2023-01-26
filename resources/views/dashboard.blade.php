@@ -12,6 +12,19 @@
                     {{ __("You're logged in!") }}
                 </div>
             </div>
+
+            <div>
+                <h1>
+                    Trips of {{ Auth::user()->name }}
+                </h1>
+
+                @foreach (Auth::user()->trips as $trips)
+                    <h2>
+                        {{ $trips->route_id }}
+                    </h2>
+                    
+                @endforeach
+            </div>
         </div>
     </div>
 </x-app-layout>

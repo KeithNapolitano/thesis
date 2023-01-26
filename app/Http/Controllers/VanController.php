@@ -13,7 +13,7 @@ class VanController extends Controller
      */
     public function index()
     {
-        return 'Mama mo van';
+        // return view ('sched.test');
     }
 
     /**

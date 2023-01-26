@@ -25,10 +25,10 @@ class TripFormRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'destination' => 'required|max:50',
+            'route_id' => 'required',
             'dates' => 'required',
-            'driver' => 'required',
-            'van' => 'required',
+            'driver_id' => 'required',
+            'van_id' => 'required',
             'num_pass' => 'required'
         ];
 

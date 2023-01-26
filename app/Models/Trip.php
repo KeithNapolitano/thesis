@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,8 +11,8 @@ class Trip extends Model
     use HasFactory;
 
     protected $fillable = [
-        'destination', 'dates', 'driver', 'van', 'seats_left', 'num_pass',
-        'trip_status', 'orig_fare', 'extra_fare'
+        'user_id', 'sched_id', 'seat_id', 'dates', 'van_id', 'trip_status',
+        'orig_fare', 'extra_fare'
     ];
     //protected $table = 'trips';
 
@@ -19,4 +20,27 @@ class Trip extends Model
     //protected $primaryKey = 'destination'
 
     //protected $timestamps = false;
+
+    public function user(){ //for DRIVER AND COMMUTER
+        return $this->belongsTo(User::class);
+    }
+
+    public function scheds(){ //one sched per trip
+        return $this->hasOne(Sched::class);
+    }
+
+    public function route(){    //one route per trip
+        return $this->belongsTo(Route::class);
+    }
+
+    public function van(){      //one van per trip
+        return $this->belongsTo(Van::class);
+    }
+
+    public function payments(){      //a trip can have many payments
+        return $this->hasMany(Payment::class);
+    }
+    public function seat(){     //one seat per trip
+        return $this->hasOne(Seat::class);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TripFormRequest;
+use App\Models\Route;
 use App\Models\Trip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,8 +23,9 @@ class TripController extends Controller
         // $trips = Trip::orderBy('id', 'desc')->get();       //TRIP IS MODEL
         // dd($trips);
         // return view('admin.index', [
-        return view('admin.index', [
-                'trips' => Trip::orderBy('id', 'desc')->paginate(5)
+        return view('admin.trips', [
+                'trips' => Trip::orderBy('id', 'desc')->paginate(5),
+                // 'routes' => Route::where('id', 'desc')
                 // 'trips' => Trip::where('dates', '2022-11-29')->paginate(5)
                 // Trip::orderBy('id', 'desc')->paginate(5)
 
@@ -38,7 +40,7 @@ class TripController extends Controller
      */
     public function create()
     {
-        return view('operator.create');
+        return view('operator.login');
     }
 
     /**
@@ -53,13 +55,13 @@ class TripController extends Controller
         $request->validated();
 
         Trip::create([
-            'destination' => $request->destination,
+            // 'route_id' => $request->destination,
+            'user_id' => $request->user_id,
+            'sched_id' => $request->sched_id,
+            'seat_id' => $request->seat_id,
             'dates' => $request->dates,
-            'driver' => $request->driver,
-            'van' => $request->van,
-            'seats_left' => $request->seats_left,
-            'num_pass' => $request->num_pass,
-            'trip_status' => $request->trip_status === 'on',
+            'van_id' => $request->van_id,
+            'trip_status' => $request->trip_status,
             'orig_fare' => $request->orig_fare,
             'extra_fare' => $request->extra_fare
         ]);

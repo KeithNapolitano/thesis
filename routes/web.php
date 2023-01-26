@@ -1,10 +1,14 @@
 <?php
 
 use App\Http\Controllers\FallbackController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\VanController;
 use App\Http\Controllers\TripController;
+use App\Http\Controllers\RoutesController;
+use App\Http\Controllers\SeatController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +25,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('/home', HomeController::class);
+Route::get('/seat/create', [SeatController::class, 'create']);
+Route::post('/seat', [SeatController::class, 'store'])->name('seat.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -46,7 +55,7 @@ Route::prefix('/reservation')->group(function (){
     Route::delete('/{id}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
 });
 
-Route::prefix('/van')->group(function (){
+Route::prefix('/van')->middleware(['auth', 'isAdmin'])->group(function (){
     Route::get('/', [VanController::class, 'index'])->name('van.index');
     Route::get('/{id}', [VanController::class, 'show'])->name('van.show');
     Route::get('/create', [VanController::class, 'create'])->name('van.create');
@@ -56,6 +65,18 @@ Route::prefix('/van')->group(function (){
     Route::delete('/{id}', [VanController::class, 'destroy'])->name('van.destroy');
 });
 
+Route::prefix('/route')->group(function (){
+    Route::get('/', [RoutesController::class, 'index'])->name('route.index');
+    //Route::get('/{id}', [RoutesController::class, 'show'])->name('route.show');
+    Route::get('/create', [RoutesController::class, 'create'])->name('route.create');
+    Route::post('/', [RoutesController::class, 'store'])->name('route.store');
+    Route::get('/edit/{id}', [RoutesController::class, 'edit'])->name('route.edit');
+    Route::patch('/{id}', [RoutesController::class, 'update'])->name('route.update');
+    Route::delete('/{id}', [RoutesController::class, 'destroy'])->name('route.destroy');
+});
+
+//payments and finances
+
 Route::fallback(FallbackController::class);
 
-
+Auth::routes();
