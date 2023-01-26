@@ -1,7 +1,0 @@
-.horitzontalScroll {
-  min-width: 100%;
-  min-height: 100px;
-  display: flex;
-  overflow-x: auto;
-}
-
