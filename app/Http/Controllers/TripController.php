@@ -23,7 +23,7 @@ class TripController extends Controller
         // $trips = Trip::orderBy('id', 'desc')->get();       //TRIP IS MODEL
         // dd($trips);
         // return view('admin.index', [
-        return view('admin.index', [
+        return view('admin.trips', [
                 'trips' => Trip::orderBy('id', 'desc')->paginate(5),
                 // 'routes' => Route::where('id', 'desc')
                 // 'trips' => Trip::where('dates', '2022-11-29')->paginate(5)
