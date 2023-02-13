@@ -43,7 +43,17 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::resource('trip', TripController::class);
+// Route::resource('trip', TripController::class);
+
+Route::prefix('/trip')->group(function (){
+    Route::get('/', [TripController::class, 'index'])->name('trip.index');
+    Route::get('/{id}', [TripController::class, 'show'])->name('trip.show');
+    Route::get('/create', [TripController::class, 'create'])->name('trip.create');
+    Route::post('/', [TripController::class, 'store'])->name('trip.store');
+    Route::get('/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');
+    Route::patch('/{id}', [TripController::class, 'update'])->name('trip.update');
+    Route::delete('/{id}', [TripController::class, 'destroy'])->name('trip.destroy');
+});
 
 Route::prefix('/reservation')->group(function (){
     Route::get('/', [ReservationController::class, 'index'])->name('reservation.index');
