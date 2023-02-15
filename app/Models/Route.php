@@ -13,12 +13,8 @@ class Route extends Model
         'descr', 'fare'
     ];
 
-    public function scheds(){     //one route can have many scheds
-        return $this->hasMany(Sched::class);
-    }
-
-    public function van(){     //one van per route
-        return $this->hasOne(Van::class);
+    public function scheds(){     //one route can have many trips
+        return $this->hasMany(Trip::class);
     }
 }
 

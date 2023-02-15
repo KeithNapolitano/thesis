@@ -4,7 +4,6 @@ use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
-use App\Http\Controllers\VanController;
 use App\Http\Controllers\TripController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\SeatController;
@@ -26,6 +25,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('/trips', function () {
+//     return view('trips');
+// });
 
 Route::get('/home', HomeController::class);
 Route::get('/seat/create', [SeatController::class, 'create']);
@@ -47,7 +49,8 @@ require __DIR__.'/auth.php';
 
 Route::prefix('/trip')->group(function (){
     Route::get('/', [TripController::class, 'index'])->name('trip.index');
-    Route::get('/{id}', [TripController::class, 'show'])->name('trip.show');
+    Route::get('/account', [TripController::class, 'account'])->name('trip.account');
+    //Route::get('/{id}', [TripController::class, 'show'])->name('trip.show');
     Route::get('/create', [TripController::class, 'create'])->name('trip.create');
     Route::post('/', [TripController::class, 'store'])->name('trip.store');
     Route::get('/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');
@@ -65,15 +68,15 @@ Route::prefix('/reservation')->group(function (){
     Route::delete('/{id}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
 });
 
-Route::prefix('/van')->middleware(['auth', 'isAdmin'])->group(function (){
-    Route::get('/', [VanController::class, 'index'])->name('van.index');
-    Route::get('/{id}', [VanController::class, 'show'])->name('van.show');
-    Route::get('/create', [VanController::class, 'create'])->name('van.create');
-    Route::post('/', [VanController::class, 'store'])->name('van.store');
-    Route::get('/edit/{id}', [VanController::class, 'edit'])->name('van.edit');
-    Route::patch('/{id}', [VanController::class, 'update'])->name('van.update');
-    Route::delete('/{id}', [VanController::class, 'destroy'])->name('van.destroy');
-});
+// Route::prefix('/van')->middleware(['auth', 'isAdmin'])->group(function (){
+//     Route::get('/', [VanController::class, 'index'])->name('van.index');
+//     Route::get('/{id}', [VanController::class, 'show'])->name('van.show');
+//     Route::get('/create', [VanController::class, 'create'])->name('van.create');
+//     Route::post('/', [VanController::class, 'store'])->name('van.store');
+//     Route::get('/edit/{id}', [VanController::class, 'edit'])->name('van.edit');
+//     Route::patch('/{id}', [VanController::class, 'update'])->name('van.update');
+//     Route::delete('/{id}', [VanController::class, 'destroy'])->name('van.destroy');
+// });
 
 Route::prefix('/route')->group(function (){
     Route::get('/', [RoutesController::class, 'index'])->name('route.index');

@@ -11,7 +11,7 @@ class Trip extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'sched_id', 'seat_id', 'dates', 'van_id', 'trip_status',
+        'route_id', 'seat_id', 'dates', 'trip_status', 'van_plate', 'driver_name', 
         'orig_fare', 'extra_fare'
     ];
     //protected $table = 'trips';
@@ -21,26 +21,18 @@ class Trip extends Model
 
     //protected $timestamps = false;
 
-    public function user(){ //for DRIVER AND COMMUTER
+    public function user(){ //forCOMMUTER
         return $this->belongsTo(User::class);
-    }
-
-    public function scheds(){ //one sched per trip
-        return $this->hasOne(Sched::class);
     }
 
     public function route(){    //one route per trip
         return $this->belongsTo(Route::class);
     }
 
-    public function van(){      //one van per trip
-        return $this->belongsTo(Van::class);
-    }
-
     public function payments(){      //a trip can have many payments
         return $this->hasMany(Payment::class);
     }
-    public function seat(){     //one seat per trip
+    public function seat(){     //one seat per trip but can access all the 15 seat status
         return $this->hasOne(Seat::class);
     }
 }

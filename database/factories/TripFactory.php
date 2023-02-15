@@ -18,15 +18,13 @@ class TripFactory extends Factory
     {
         return [
             'route_id' => $this->faker->numberBetween(1, 100),
+            'seat_id' => $this->faker->numberBetween(1, 100),
             'dates' => $this->faker->dateTimeBetween('now', '+4 week'),
-            'driver_id' => $this->faker->numberBetween(1, 100),
-            'van_id' => $this->faker->numberBetween(1, 100),
-            'seats_left' => $this->faker->numberBetween(1, 14),
-            'num_pass' => $this->faker->numberBetween(1, 14),
+            'driver_name' => $this->faker->name(),
+            'van_plate' => $this->faker->text($maxNbChars=6),
             'trip_status' => $this->faker->boolean(),
             'orig_fare' => $this->faker->numberBetween(1, 10000),
             'extra_fare' => $this->faker->numberBetween(1, 1000),
-            'user_id' => $this->faker->numberBetween(1, 100)
         ];
     }
 }

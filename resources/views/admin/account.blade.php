@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>test</title>
-    <link rel="stylesheet" href="{{('import/assets/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('import/assets/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC&amp;display=swap">
@@ -23,20 +23,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fjalla+One&amp;display=swap">
-    <link rel="stylesheet" href="{{('import/assets/fonts/fontawesome-all.min.css')}}">
-    <link rel="stylesheet" href="{{('import/assets/css/Event-Schedule.css')}}">
-    <link rel="stylesheet" href="{{('import/assets/css/Footer-Basic.css')}}">
+    <link rel="stylesheet" href="{{asset('import/assets/fonts/fontawesome-all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('import/assets/css/Event-Schedule.css')}}">
+    <link rel="stylesheet" href="{{asset('import/assets/css/Footer-Basic.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="{{('import/assets/css/styles.css')}}">
+    <link rel="stylesheet" href="{{asset('import/assets/css/styles.css')}}">
 </head>
 
 <body style="background: rgb(205,220,235);">
     <nav class="navbar navbar-light navbar-expand-xxl sticky-top bg-white" style="height: 77px;padding: 17px 0px;background: rgba(255,255,255,0.62);">
-        <div class="container-fluid"><a class="navbar-brand text-end" href="index" style="height: 50px;"><img src="{{('import/assets/img/logo.png')}}" style="width: 100px;"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1" style="height: 40px;width: 45px;"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon" style="width: 19px;height: 13px;"></span></button>
+        <div class="container-fluid"><a class="navbar-brand text-end" href="index" style="height: 50px;"><img src="{{asset('import/assets/img/logo.png')}}" style="width: 100px;"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1" style="height: 40px;width: 45px;"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon" style="width: 19px;height: 13px;"></span></button>
             <div class="collapse navbar-collapse text-center" id="navcol-1" style="margin: 22px;width: 356px;height: 100;">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="trips">Trips</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Account</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{ route('trip.create') }}">Trips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('trip.account') }}">Account</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
                 </ul>
             </div>
@@ -124,8 +124,8 @@
             <p class="mb-0">Copyright © 2022&nbsp;siGÒ<br></p>
         </div>
     </footer>
-    <script src="{{('import/assets/bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src="{{('import/assets/js/Date-Range-Picker.js')}}"></script>
+    <script src="{{asset('import/assets/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('import/assets/js/Date-Range-Picker.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

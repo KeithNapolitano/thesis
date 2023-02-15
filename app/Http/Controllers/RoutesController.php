@@ -16,9 +16,9 @@ class RoutesController extends Controller
     public function index()
     {
         return view('route.index', [
-             'routes' => Route::orderBy('id', 'desc')->paginate(5)
-            // 'routes' => Route::orderBy('id', 'desc')->paginate(5)
-            //'routes' => Route::where('fare', '>1000')->paginate(5)
+              'routes' => Route::orderBy('id', 'desc')->paginate(5)
+        //     // 'routes' => Route::orderBy('id', 'desc')->paginate(5)
+        //     //'routes' => Route::where('fare', '>1000')->paginate(5)
         ]);
     }
 
@@ -40,7 +40,17 @@ class RoutesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'descr' => 'required|unique:routes',
+            'fare' => 'required'
+        ]);
+
+        Route::create([
+            'descr' => $request->descr,
+            'fare' => $request->fare,
+        ]);
+
+        return redirect('/trip/create');
     }
 
     /**

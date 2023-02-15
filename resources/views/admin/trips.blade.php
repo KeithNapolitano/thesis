@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>test</title>
-    <link rel="stylesheet" href="{{('import/assets/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('import/assets/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC&amp;display=swap">
@@ -23,20 +23,20 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fjalla+One&amp;display=swap">
-    <link rel="stylesheet" href="{{('import/assets/fonts/fontawesome-all.min.css')}}">
-    <link rel="stylesheet" href="{{('import/assets/css/Event-Schedule.css')}}">
-    <link rel="stylesheet" href="{{('import/assets/css/Footer-Basic.css')}}">
+    <link rel="stylesheet" href="{{asset('import/assets/fonts/fontawesome-all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('import/assets/css/Event-Schedule.css')}}">
+    <link rel="stylesheet" href="{{asset('import/assets/css/Footer-Basic.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="{{('import/assets/css/styles.css')}}">
+    <link rel="stylesheet" href="{{asset('import/assets/css/styles.css')}}">
 </head>
 
 <body style="background: rgb(205,220,235);">
     <nav class="navbar navbar-light navbar-expand-xxl sticky-top bg-white" style="height: 77px;padding: 17px 0px;background: rgba(255,255,255,0.62);">
-        <div class="container-fluid"><a class="navbar-brand text-end" href="index" style="height: 50px;"><img src="{{('import/assets/img/logo.png')}}" style="width: 100px;"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1" style="height: 40px;width: 45px;"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon" style="width: 19px;height: 13px;"></span></button>
+        <div class="container-fluid"><a class="navbar-brand text-end" href="index" style="height: 50px;"><img src="{{asset('import/assets/img/logo.png')}}" style="width: 100px;"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1" style="height: 40px;width: 45px;"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon" style="width: 19px;height: 13px;"></span></button>
             <div class="collapse navbar-collapse text-center" id="navcol-1" style="margin: 22px;width: 356px;height: 100;">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">Trips</a></li>
-                    <li class="nav-item"><a class="nav-link" href="account">Account</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{ route('trip.create') }}">Trips</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('trip.account') }}">Account</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
                 </ul>
             </div>
@@ -51,6 +51,7 @@
                     </header>
                 </div>
             </section>
+           
             <div class="card-group text-center" style="height: 100%;">
                 <div class="card" style="border-style: none;margin: 10px;background: rgba(255,255,255,0);">
                     <div class="card-body" style="border: 3px solid rgb(12,37,126);border-radius: 15px;box-shadow: -3px 3px;width: 100%;">
@@ -61,29 +62,45 @@
                                             <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
                                             <path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"></path>
                                         </svg></button>
+                                    {{-- ----------------------------------------------------------------------- --}}
+                                    <form
+                                    action="{{ route('route.store') }}"
+                                    method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('POST')
                                     <div class="row">
                                         <div class="col">
                                             <div class="modal fade" role="dialog" tabindex="-1" id="modalInstrucciones">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
+                                                        
                                                         <div class="modal-header">
-                                                            <h3 class="text-primary">Add Trip</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            <h3 class="text-primary">Add Route</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body"><div class="row">
-    <input class="margenesEspacio inputLargo" type="text" placeholder="Destination" style="margin: 10px;width: 90%;" />
+                                                            
+    <input class="margenesEspacio inputLargo" type="text" name='descr' placeholder="Destination" style="margin: 10px;width: 90%;" />
 
 </div><div class="row">
-    <input class="margenesEspacio inputLargo" type="text" placeholder="Fare" style="margin: 10px;width: 90%;" />
+    <input class="margenesEspacio inputLargo" type="text" name='fare' placeholder="Fare" style="margin: 10px;width: 90%;" />
 
 </div></div>
-                                                        <div class="modal-footer">
-                                                            <div class="row">
-                                                                <div class="col-12 col-sm-2 col-md-3 col-lg-3 text-center"><button class="btn btn-primary margenesTxts" type="button" data-bs-target="#modalPermitir" data-bs-toggle="modal" data-bs-dismiss="modal">ADD</button></div>
-                                                            </div>
+<button
+    type="submit"
+    class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
+    Submit Post
+</button>
+    </form>
+                                                    {{-- <div class="modal-footer">
+                                                        <div class="row">
+                                                            <div class="col-12 col-sm-2 col-md-3 col-lg-3 text-center"><button class="btn btn-primary margenesTxts" type="button" data-bs-target="#modalPermitir" data-bs-toggle="modal" data-bs-dismiss="modal">ADD</button></form></div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
+                                                    
                                                 </div>
                                             </div>
+                                        </form>
                                         </div>
                                     </div>
                                 </div>
@@ -91,6 +108,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
                 <div class="card text-xl-center text-xxl-center" style="border-style: none;margin: 10px;background: rgba(255,255,255,0);">
                     <div class="card-body" style="border-style: solid;border-color: rgb(12,37,126);border-radius: 15px;box-shadow: -3px 3px;width: 100%;">
                         <h4 class="card-title">Account</h4><a class="btn btn-primary" role="button" style="width: 100%;" href="account"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" style="margin-right: 10px;">
@@ -117,9 +136,17 @@
                     <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Panabo</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-3">Mati</a></li>
                 </ul>
+                
                 <div class="tab-content">
                     <div class="tab-pane" role="tabpanel" id="tab-1">
                         <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#myModal" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip</a>
+                             {{-- ----------------------------------------------------------------------- --}}
+                             <form
+                             action="{{ route('route.store') }}"
+                             method="POST"
+                             enctype="multipart/form-data">
+                             @csrf
+                             @method('POST')
                             <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -129,10 +156,16 @@
                                         <div class="modal-body">
                                             <form><input class="form-control" type="date"><input class="form-control" type="number" placeholder="Fare"><input class="form-control" type="text" placeholder="Van Plate Number"><input class="form-control" type="text" placeholder="Van Driver"></form>
                                         </div>
-                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Submit</button></div>
+                                        <button
+                                            type="submit"
+                                            class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
+                                            Submit Post
+                                        </button>
+                                        {{-- <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Submit</button></div> --}}
                                     </div>
                                 </div>
                             </div>
+                             </form>
                             <div class="table-responsive text-center" style="border-style: solid;border-right-style: solid;">
                                 <table class="table">
                                     <thead>
@@ -373,8 +406,8 @@
             <p class="mb-0">Copyright © 2022&nbsp;siGÒ<br></p>
         </div>
     </footer>
-    <script src="{{('import/assets/bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src="{{('import/assets/js/Date-Range-Picker.js')}}"></script>
+    <script src="{{asset('import/assets/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('import/assets/js/Date-Range-Picker.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

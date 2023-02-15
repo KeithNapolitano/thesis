@@ -23,7 +23,7 @@ class TripController extends Controller
         // $trips = Trip::orderBy('id', 'desc')->get();       //TRIP IS MODEL
         // dd($trips);
         // return view('admin.index', [
-        return view('admin.trips', [
+        return view('admin.index', [
                 'trips' => Trip::orderBy('id', 'desc')->paginate(5),
                 // 'routes' => Route::where('id', 'desc')
                 // 'trips' => Trip::where('dates', '2022-11-29')->paginate(5)
@@ -40,7 +40,7 @@ class TripController extends Controller
      */
     public function create()
     {
-        return view('operator.login');
+        return view('admin.trips');
     }
 
     /**
@@ -51,22 +51,20 @@ class TripController extends Controller
      */
     public function store(TripFormRequest $request)
     {
-        //ERROR: SEATS LEFT CAN BE LEFT NULL
         $request->validated();
 
         Trip::create([
-            // 'route_id' => $request->destination,
-            'user_id' => $request->user_id,
-            'sched_id' => $request->sched_id,
+            'route_id' => $request->route_id,
             'seat_id' => $request->seat_id,
             'dates' => $request->dates,
-            'van_id' => $request->van_id,
+            'van_plate' => $request->van_plate,
+            'driver_name' => $request->driver_name,
             'trip_status' => $request->trip_status,
             'orig_fare' => $request->orig_fare,
             'extra_fare' => $request->extra_fare
         ]);
 
-        return redirect(route('trip.index'));
+        return redirect('/trip/create');
     }
 
     /**
@@ -76,13 +74,17 @@ class TripController extends Controller
      * @return \Illuminate\Http\Response
      */
     //SHOW INDIVIDUAL TRIP
-    public function show($id)
+    public function show()
     {
-        return view('admin.show', [
-            'trips' => Trip::findOrFail($id)
-        ]);
+        // return view('admin.show', [
+        //     'trips' => Trip::findOrFail($id)
+        // ]);
+        return view('admin.account');
     }
 
+    public function account(){
+        return view('admin.account');
+    }
     /**
      * Show the form for editing the specified resource.
      *

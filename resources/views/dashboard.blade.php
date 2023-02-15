@@ -14,16 +14,16 @@
             </div>
 
             <div>
-                <h1>
+                {{-- <h1>
                     Trips of {{ Auth::user()->name }}
-                </h1>
+                </h1> --}}
 
-                @foreach (Auth::user()->trips as $trips)
+                {{-- @foreach (Auth::user()->trips as $trips)
                     <h2>
                         {{ $trips->route_id }}
                     </h2>
                     
-                @endforeach
+                @endforeach --}}
             </div>
         </div>
     </div>
