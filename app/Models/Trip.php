@@ -12,7 +12,8 @@ class Trip extends Model
 
     protected $fillable = [
         'route_id', 'seat_id', 'dates', 'trip_status', 'van_plate', 'driver_name', 
-        'orig_fare', 'extra_fare'
+        'orig_fare', 'extra_fare', 'driver_status', 'passenger_status', 'payment_status',
+        'supervisor_status'
     ];
     //protected $table = 'trips';
 

@@ -20,10 +20,14 @@ return new class extends Migration
                 $table->unsignedBigInteger('seat_id')->nullable();
                 $table->date('dates');
                 $table->string('driver_name');
-                $table->string('plate_num');
-                $table->boolean('trip_status');
+                $table->string('van_plate');
+                $table->boolean('trip_status')->nullable();
                 $table->integer('orig_fare')->nullable();
                 $table->integer('extra_fare')->nullable();
+                $table->boolean('driver_status')->nullable();
+                $table->boolean('passenger_status')->nullable();
+                $table->boolean('payment_status')->nullable();
+                $table->boolean('supervisor_status')->nullable();
                 $table->timestamps();
 
                 //DELETES TRIPS IF MADELETE ANG USER:onDelete(cascade)

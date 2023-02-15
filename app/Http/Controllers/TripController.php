@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TripFormRequest;
+// use App\Http\Requests\TripFormRequest;
 use App\Models\Route;
 use App\Models\Trip;
 use Illuminate\Http\Request;
@@ -41,6 +41,7 @@ class TripController extends Controller
     public function create()
     {
         return view('admin.trips');
+        // return view('operator.opview');
     }
 
     /**
@@ -49,22 +50,28 @@ class TripController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TripFormRequest $request)
+    public function store(Request $request)
     {
-        $request->validated();
+        // $request->validated();
 
         Trip::create([
-            'route_id' => $request->route_id,
-            'seat_id' => $request->seat_id,
+            // 'route_id' => $request->route_id,
+            // 'seat_id' => $request->seat_id,
             'dates' => $request->dates,
             'van_plate' => $request->van_plate,
             'driver_name' => $request->driver_name,
-            'trip_status' => $request->trip_status,
-            'orig_fare' => $request->orig_fare,
-            'extra_fare' => $request->extra_fare
+            // 'trip_status' => $request->trip_status,
+            // 'orig_fare' => $request->orig_fare,
+            // 'extra_fare' => $request->extra_fare
+            // 'driver_status' => $request->driver_status,
+            // 'passenger_status' => $request->passenger_status,
+            // 'payment_status' => $request->payment_status,
+            // 'supervisor_status' => $request->supervisor_status
         ]);
 
-        return redirect('/trip/create');
+        // return redirect('/trip/create');
+
+        return view('admin.trips');
     }
 
     /**
@@ -105,7 +112,7 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(TripFormRequest $request, $id)
+    public function update(Request $request, $id)
     {
         //ERROR: SEATS LEFT CAN BE LEFT NULL
         $request->validated();
