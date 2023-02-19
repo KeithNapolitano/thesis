@@ -131,12 +131,12 @@
             <div>
                 <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 24px;">
                     <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-1">Tagum</a></li>
-                    <!-- <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Panabo</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-3">Mati</a></li> -->
+                    <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Panabo</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-3">Mati</a></li>
                 </ul>
                 
                 {{--<div class="tab-content">
-                    <div class="tab-pane" role="tabpanel" id="tab-1">
+                    <div class="tab-pane active" role="tabpanel" id="tab-1">
                         <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#myModal" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip</a>
                             <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
                                 <div class="modal-dialog" role="document">
@@ -227,7 +227,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="tab-pane" role="tabpanel" id="tab-2">
+                    <div class="tab-pane" role="tabpanel" id="tab-2">
                         <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#myModal-2" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip</a><div id="myModal-2" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
          {{-- ----------------------------------------------------------------------- --}}
@@ -313,8 +313,8 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> -->
-                    <div class="tab-pane active" role="tabpanel" id="tab-3">
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="tab-3">
                         <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#myModal-5" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip</a><div id="myModal-5" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">--}}
@@ -436,6 +436,13 @@
     <script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- Bootstrap JavaScript file -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
 </body>
 
 </html>
