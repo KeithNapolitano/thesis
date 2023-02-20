@@ -73,6 +73,12 @@ class TripController extends Controller
 
         return view('admin.trips');
     }
+    // public function showDestination()
+    // {
+    //     $routes = Route::all();
+
+    //     return view('trips', compact('routes'));
+    // }
 
     /**
      * Display the specified resource.

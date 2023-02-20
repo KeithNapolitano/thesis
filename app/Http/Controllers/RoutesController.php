@@ -61,9 +61,13 @@ class RoutesController extends Controller
      */
     public function show($id)
     {
-        //
+        //q
     }
-
+    public function showDestination()
+    {
+        $routes = Route::all();
+        return view('/admin/trips')->with('routes', $routes);
+    }
     /**
      * Show the form for editing the specified resource.
      *
