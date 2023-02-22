@@ -25,10 +25,7 @@ class DatabaseSeeder extends Seeder
     {
         //Trip::factory(100)->create();
         User::factory(100)->create();
-        Passenger::factory(100)->create();
-        Van::factory(100)->create();
         Route::factory(100)->create();
-        Driver::factory(100)->create();
         Trip::factory(100)->create();
         Payment::factory(100)->create();
         Reservation::factory(100)->create();

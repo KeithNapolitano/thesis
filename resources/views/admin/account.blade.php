@@ -60,7 +60,11 @@
                             </header>
                         </div>
                         <div class="col" style="width: 50%;margin: 0px;margin-left: 2.5px;">
-                            <p class="text-start" style="height: 100%;">Income:<br><br># of Trips:<br></p>
+                            <p class="text-start" style="height: 100%;">Income:<br>
+                                {{ $daily[0]['daily']}}
+                                {{-- {{dd($daily) }} --}}
+                                <br># of Trips:
+                                {{ $dailytrips }}<br></p>
                         </div>
                     </div>
                 </div>
@@ -72,7 +76,11 @@
                             </header>
                         </div>
                         <div class="col" style="width: 50%;margin: 0px;margin-left: 2.5px;">
-                            <p class="text-start" style="height: 100%;">Income:<br><br># of Trips:<br></p>
+                            <p class="text-start" style="height: 100%;">Income:<br>
+                                {{ $weekly[0]['weekly'] }}
+                                <br># of Trips:
+                                {{ $weeklytrips }}
+                                <br></p>
                         </div>
                     </div>
                 </div>
@@ -84,7 +92,10 @@
                             </header>
                         </div>
                         <div class="col" style="width: 50%;margin: 0px;margin-left: 2.5px;">
-                            <p class="text-start" style="height: 100%;">Income:<br><br># of Trips:<br></p>
+                            <p class="text-start" style="height: 100%;">Income:<br>
+                                {{ $monthly[0]['monthly'] }}
+                                <br># of Trips:
+                                {{ $monthlytrips }}<br></p>
                         </div>
                     </div>
                 </div>
@@ -96,7 +107,10 @@
                             </header>
                         </div>
                         <div class="col" style="width: 50%;margin: 0px;margin-left: 2.5px;">
-                            <p class="text-start" style="height: 100%;">Income:<br><br># of Trips:<br></p>
+                            <p class="text-start" style="height: 100%;">Income:<br>
+                                {{ $yearly[0]['yearly'] }}
+                                <br># of Trips:
+                                {{ $yearlytrips }}<br></p>
                         </div>
                     </div>
                 </div>

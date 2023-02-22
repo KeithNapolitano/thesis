@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-// use App\Http\Requests\TripFormRequest;
+use App\Http\Requests\TripFormRequest;
 use App\Models\Route;
 use App\Models\Trip;
 use Illuminate\Http\Request;
@@ -20,15 +20,8 @@ class TripController extends Controller
     //SHOW EVERY TRIP
     public function index()
     {
-        // $trips = Trip::orderBy('id', 'desc')->get();       //TRIP IS MODEL
-        // dd($trips);
-        // return view('admin.index', [
         return view('admin.index', [
                 'trips' => Trip::orderBy('id', 'desc')->paginate(5),
-                // 'routes' => Route::where('id', 'desc')
-                // 'trips' => Trip::where('dates', '2022-11-29')->paginate(5)
-                // Trip::orderBy('id', 'desc')->paginate(5)
-
         ]);
 
     }
@@ -41,7 +34,6 @@ class TripController extends Controller
     public function create()
     {
         return view('admin.trips');
-        // return view('operator.opview');
     }
 
     /**
@@ -50,9 +42,9 @@ class TripController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TripFormRequest $request)
     {
-        // $request->validated();
+        $request->validated();
 
         Trip::create([
             // 'route_id' => $request->route_id,
@@ -69,9 +61,7 @@ class TripController extends Controller
             // 'supervisor_status' => $request->supervisor_status
         ]);
 
-        // return redirect('/trip/create');
-
-        return view('admin.trips');
+        return redirect('/trip/create');
     }
 
     /**
@@ -97,7 +87,7 @@ class TripController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function edit($id)
     {
         return view('admin.edit', [
@@ -112,16 +102,15 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TripFormRequest $request, $id)
     {
-        //ERROR: SEATS LEFT CAN BE LEFT NULL
         $request->validated();
 
         Trip::where('id', $id)->update($request->except([
             '_token', '_method'
         ]));
 
-        return redirect(route('trip.index'));
+        return redirect(route('admin.trips'));
     }
 
     /**
@@ -134,6 +123,22 @@ class TripController extends Controller
     {
         Trip::destroy($id);
 
-        return redirect(route('trip.index'))->with('message', 'Trip has been deleted.');
+        return redirect(route('admin.trips'))->with('message', 'Trip has been deleted.');
+    }
+
+    public function tripticket(Request $request, $id){
+        $request->validate([
+            'driver_status' => 'required' . $id,
+            'passenger_status' => 'required',
+            'payment_status' => 'required',
+            'supervisor_status' => 'required',
+        ]);
+        
+        Trip::where('id', $id)->update($request->except([
+        '_token', '_method'
+        ]));
+        
+        return redirect(route('admin.superadmin'));
+
     }
 }

@@ -62,7 +62,6 @@
                                             <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
                                             <path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"></path>
                                         </svg></button>
-                                    {{-- ----------------------------------------------------------------------- --}}
                                     <form
                                     action="{{ route('route.store') }}"
                                     method="POST"
@@ -90,11 +89,6 @@
     Submit Post
 </button>
     </form>
-                                                    {{-- <div class="modal-footer">
-                                                        <div class="row">
-                                                            <div class="col-12 col-sm-2 col-md-3 col-lg-3 text-center"><button class="btn btn-primary margenesTxts" type="button" data-bs-target="#modalPermitir" data-bs-toggle="modal" data-bs-dismiss="modal">ADD</button></form></div>
-                                                        </div>
-                                                    </div> --}}
                                                     
                                                 </div>
                                             </div>
@@ -131,11 +125,11 @@
             <div>
                 <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 24px;">
                     <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-1">Tagum</a></li>
-                    <!-- <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Panabo</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-3">Mati</a></li> -->
+                    <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Panabo</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-3">Mati</a></li>
                 </ul>
                 
-                {{--<div class="tab-content">
+                <div class="tab-content">
                     <div class="tab-pane" role="tabpanel" id="tab-1">
                         <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#myModal" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip</a>
                             <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
@@ -154,17 +148,17 @@
                                                 class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
                                                 Add Trip Now
                                         </button>
-                                        {{-- <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Submit</button></div> --}}
-                                    {{-- </div>
+                                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Submit</button></div> 
+                                    </div>
                                 </div>
                             </div>
-                             </form> --}}
-                            {{-- <div class="table-responsive text-center" style="border-style: solid;border-right-style: solid;">
+                             </form>
+                            <div class="table-responsive text-center" style="border-style: solid;border-right-style: solid;">
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th style="width: 137.297px;">DATE</th>
-                                           {{-- <th class="text-center" style="width: 94.422px;">VAN</th>
+                                           <th class="text-center" style="width: 94.422px;">VAN</th>
                                             <th class="text-center" style="width: 170.797px;">DRIVER</th>
                                             <th class="text-center">TRIP STATUS</th>
                                             <th class="text-center" style="width: 42.172px;">ACTION</th>
@@ -227,11 +221,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="tab-pane" role="tabpanel" id="tab-2">
+                    <div class="tab-pane" role="tabpanel" id="tab-2">
                         <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#myModal-2" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip</a><div id="myModal-2" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
-         {{-- ----------------------------------------------------------------------- --}}
-    {{--<div class="modal-content">
+        
+   <div class="modal-content">
             <div class="modal-header">
                 <h4>Add Trip </h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -313,11 +307,11 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> -->
+                    </div> 
                     <div class="tab-pane active" role="tabpanel" id="tab-3">
                         <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#myModal-5" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip</a><div id="myModal-5" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">--}}
+        <div class="modal-content">
             
             <div class="modal-header">
                 <h4>Add dsms Trip</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -338,8 +332,8 @@
                         Add Trip Now
                 </button>
             </form>
-            {{-- <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Submit</button></div> --}}
-        {{-- </div>
+            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Submit</button></div> 
+        </div>
     </div>
 </div>
                             <div class="table-responsive text-center" style="border-style: solid;border-right-style: solid;">
@@ -409,7 +403,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div> 
     <footer class="text-center d-sm-flex" style="width: 100%;border-style: none;border-color: var(--bs-purple);">
         <div class="container text-muted py-4 py-lg-5" style="background: rgba(251,251,251,0);margin-top: 25px;">
             <ul class="list-inline">
