@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{asset('import_admin/assets/css/Footer-Basic.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="{{asset('import_admin/assets/css/styles.css')}}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body style="background: rgb(205,220,235);">
@@ -123,10 +124,12 @@
                 </div>
             </section>
             <div>
-                <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 24px;">
+                <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-bottom: 24px;">
                     @foreach($routes as $route)
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link" id="tab-{{ $route->id }}" data-toggle="tab" href="#{{ $route->id }}" role="tab" aria-controls="{{ $route->id }}" aria-selected="false">{{ $route->descr }}</a>
+                        <li class="nav-item @if ($loop->first)
+                            active
+                        @endif" role="presentation">
+                            <a class="nav-link" id="tab-{{ $route->id }}" data-toggle="tab" data-bs-target="#tab-pane-{{ $route->id }}" href="#tab-pane-{{ $route->id }}" role="tab" aria-controls="{{ $route->id }}" aria-selected="false">{{ $route->descr }}</a>
                         </li>
                     @endforeach
                     {{-- @foreach ($data as $i)
@@ -153,25 +156,27 @@
                 </ul>
                 
                 <div class="tab-content">
-                <div class="tab-pane active" role="tabpanel" id="tab-1">
-                        <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#myModal-2" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip</a><div id="myModal-2" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        
-   <div class="modal-content">
-            <div class="modal-header">
-                <h4>Add Trip </h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form><input class="form-control" type="date" />
+                    @foreach ($routes as $rroute)
+                        
+                <div class="tab-pane fade" role="tabpanel" id="tab-pane-{{ $rroute->id }}" aria-labelledby="tab-{{ $rroute->id }}">
+                        <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#addModal-{{ $rroute->id }}" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip</a>
+                            <div id="addModal-{{ $rroute->id }}" class="modal fade" role="dialog" tabindex="-1">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4>Add Trip for {{ $rroute->descr }}</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form><input class="form-control" type="date" />
 
-                    <input class="form-control" type="text" placeholder="Van Plate Number" />
-                    <input class="form-control" type="text" placeholder="Van Driver" /></form>
-                </div>
+                                                    <input class="form-control" type="text" placeholder="Van Plate Number" />
+                                                    <input class="form-control" type="text" placeholder="Van Driver" /></form>
+                                                </div>
 
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Submit</button></div>
-        </div>
-    </div>
-</div></div>
+                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Submit</button></div>
+                                    </div>
+                                </div>
+</div>                  </div>
                         <div class="table-responsive text-center" style="border-style: solid;border-right-style: solid;">
                             <table class="table">
                                 <thead>
@@ -191,12 +196,15 @@
                                         <td>Cell 2</td>
                                         <td class="text-center">Cell 2</td>
                                         <td style="width: 210.297px;"></td>
-                                        <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;"><button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
-                                            <div style="width: 43px;"><a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#myModal-3" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;"><i class="fas fa-pen" style="font-size: 10px;"></i></a><div id="myModal-3" class="modal fade" role="dialog" tabindex="-1">
+                                        <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;">
+                                            <button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
+                                            <div style="width: 43px;">
+                                                <a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#editModal-{{ $rroute->id }}" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;">
+                                                <i class="fas fa-pen" style="font-size: 10px;"></i></a><div id="editModal-{{ $rroute->id }}" class="modal fade" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4>Edit Trip</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h4>Edit Trip for {{ $rroute->descr }}</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form><input class="form-control" type="date" />
@@ -205,7 +213,8 @@
                 <input type="text" style="width: 100%;" placeholder="Van Plate Number" />
                 <input type="text" style="width: 100%;" placeholder="Van Driver" />
             </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Edit</button></div>
+            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary" type="button">Edit</button></div>
         </div>
     </div>
 </div></div>
@@ -419,6 +428,7 @@
                             </div>
                         </div>
                     </div> -->
+                @endforeach
                 </div>
             </div>
         </div>
@@ -451,6 +461,13 @@
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        $('#myTab a').on('click', function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    </script>
+
 </body>
 
 </html>
