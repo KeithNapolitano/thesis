@@ -81,7 +81,7 @@
     <input class="margenesEspacio inputLargo" type="text" name='descr' placeholder="Destination" style="margin: 10px;width: 90%;" />
 
 </div><div class="row">
-    <input class="margenesEspacio inputLargo" type="text" name='fare' placeholder="Fare" style="margin: 10px;width: 90%;" />
+    <input class="margenesEspacio inputLargo" type="number" name='fare' placeholder="Fare" style="margin: 10px;width: 90%;" />
 
 </div></div>
 <button
@@ -159,7 +159,7 @@
                     @foreach ($routes as $rroute)
                         
                 <div class="tab-pane fade" role="tabpanel" id="tab-pane-{{ $rroute->id }}" aria-labelledby="tab-{{ $rroute->id }}">
-                        <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#addModal-{{ $rroute->id }}" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip</a>
+                        {{-- <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#addModal-{{ $rroute->id }}" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip for {{ $rroute->descr }} </a>
                             <div id="addModal-{{ $rroute->id }}" class="modal fade" role="dialog" tabindex="-1">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -167,16 +167,56 @@
                                                 <h4>Add Trip for {{ $rroute->descr }}</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form><input class="form-control" type="date" />
-
+                                                <form>
+                                                    <input class="form-control" type="date" />
                                                     <input class="form-control" type="text" placeholder="Van Plate Number" />
-                                                    <input class="form-control" type="text" placeholder="Van Driver" /></form>
-                                                </div>
+                                                    <input class="form-control" type="text" placeholder="Van Driver" />
+                                                </form>
+                                            </div>
 
                                             <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Submit</button></div>
                                     </div>
                                 </div>
-</div>                  </div>
+                            </div>                  
+                        </div> --}}
+                        <div class="text-center">
+                            <a class="btn btn-primary btn-lg" role="button" href="#addModal-{{ $rroute->id }}" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">
+                                Add Trip for {{ $rroute->descr }}
+                            </a>
+                            <div id="addModal-{{ $rroute->id }}" class="modal fade" role="dialog" tabindex="-1">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4>Add Trip for {{ $rroute->descr }}</h4>
+                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form method="POST" action="{{ route('trip.store') }}">
+                                            @csrf
+                                            <input type="hidden" name="route_id" value="{{ $rroute->id }}">
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="date">Date:</label>
+                                                    <input class="form-control" type="date" name="date" id="date" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="van_plate">Van Plate Number:</label>
+                                                    <input class="form-control" type="text" name="van_plate" id="van_plate" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="driver_name">Van Driver:</label>
+                                                    <input class="form-control" type="text" name="driver_name" id="driver_name" required>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                                                <button class="btn btn-primary" type="submit">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="table-responsive text-center" style="border-style: solid;border-right-style: solid;">
                             <table class="table">
                                 <thead>
@@ -185,12 +225,52 @@
                                         <th class="text-center" style="width: 66.188px;">FARE</th>
                                         <th class="text-center" style="width: 94.422px;">VAN</th>
                                         <th class="text-center" style="width: 170.797px;">DRIVER</th>
-                                        <th class="text-center">TRIP STATUS</th>
+                                        {{-- <th class="text-center">TRIP STATUS</th> --}}
                                         <th class="text-center" style="width: 42.172px;">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    @foreach ($trips as $trip)
+    @if ($trip)
+        <tr>
+            <td>{{ $trip->dates }}</td>
+            <td class="text-center">{{ $trip->route->fare }}</td>
+            <td class="text-center">{{ $trip->van_plate }}</td>
+            <td class="text-center">{{ $trip->driver_name }}</td>
+            {{-- <td style="width: 210.297px;"></td> --}}
+            <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;">
+                <button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
+                <div style="width: 43px;">
+                    <a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#editModal-{{ $trip->id }}" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;">
+                        <i class="fas fa-pen" style="font-size: 10px;"></i>
+                    </a>
+                    <div id="editModal-{{ $trip->id }}" class="modal fade" role="dialog" tabindex="-1">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>Edit Trip for {{ $trip->route->descr }}</h4>
+                                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <input class="form-control" type="date" />
+                                        <input type="text" style="width: 100%;" placeholder="Van Plate Number" />
+                                        <input type="text" style="width: 100%;" placeholder="Van Driver" />
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                                    <button class="btn btn-primary" type="button">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    @endif
+@endforeach
+                                    {{-- <tr>
                                         <td>Cell 1</td>
                                         <td>Cell 2</td>
                                         <td>Cell 2</td>
@@ -219,7 +299,7 @@
     </div>
 </div></div>
                                         </td>
-                                    </tr>
+                                    </tr> --}}
                                     <!-- <tr>
                                         <td style="height: 66.5px;">Cell 3</td>
                                         <td>Cell 3</td>

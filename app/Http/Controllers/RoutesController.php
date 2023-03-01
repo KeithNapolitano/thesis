@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //use Illuminate\Routing\Route;
 use App\Models\Route;
+use App\Models\Trip;
 
 class RoutesController extends Controller
 {
@@ -66,7 +67,8 @@ class RoutesController extends Controller
     public function showDestination()
     {
         $routes = Route::all();
-        return view('/admin/trips')->with('routes', $routes);
+        $trips = Trip::all();
+        return view('/admin/trips')->with('routes', $routes)->with('trips', $trips);
     }
     /**
      * Show the form for editing the specified resource.

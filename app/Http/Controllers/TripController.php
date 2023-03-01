@@ -53,11 +53,15 @@ class TripController extends Controller
     public function store(Request $request)
     {
         // $request->validated();
-
+        #dd($request->all());
+        $request->validate([
+            'driver_name' => 'required',
+            // add other validation rules for the remaining fields
+        ]);
         Trip::create([
-            // 'route_id' => $request->route_id,
+            'route_id' => $request->route_id,
             // 'seat_id' => $request->seat_id,
-            'dates' => $request->dates,
+            'dates' => $request->date,
             'van_plate' => $request->van_plate,
             'driver_name' => $request->driver_name,
             // 'trip_status' => $request->trip_status,
@@ -71,7 +75,9 @@ class TripController extends Controller
 
         // return redirect('/trip/create');
 
-        return view('admin.trips');
+        #return view('admin.trips');
+        
+        return redirect('/trip/create'); // pass the $routes variable to the view
     }
     // public function showDestination()
     // {
@@ -94,6 +100,7 @@ class TripController extends Controller
         // ]);
         return view('admin.account');
     }
+    
 
     public function account(){
         return view('admin.account');
