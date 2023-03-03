@@ -52,11 +52,9 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validated();
-        #dd($request->all());
         $request->validate([
             'driver_name' => 'required',
-            // add other validation rules for the remaining fields
+            
         ]);
         Trip::create([
             'route_id' => $request->route_id,
@@ -73,18 +71,10 @@ class TripController extends Controller
             // 'supervisor_status' => $request->supervisor_status
         ]);
 
-        // return redirect('/trip/create');
-
-        #return view('admin.trips');
-        
-        return redirect('/trip/create'); // pass the $routes variable to the view
+      
+        return redirect('/trip/create'); 
     }
-    // public function showDestination()
-    // {
-    //     $routes = Route::all();
-
-    //     return view('trips', compact('routes'));
-    // }
+    
 
     /**
      * Display the specified resource.

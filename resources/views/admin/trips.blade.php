@@ -132,53 +132,13 @@
                             <a class="nav-link" id="tab-{{ $route->id }}" data-toggle="tab" data-bs-target="#tab-pane-{{ $route->id }}" href="#tab-pane-{{ $route->id }}" role="tab" aria-controls="{{ $route->id }}" aria-selected="false">{{ $route->descr }}</a>
                         </li>
                     @endforeach
-                    {{-- @foreach ($data as $i)
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">{{ $data->descr }}</a>
-                        </li>        
-                    @endforeach --}}
-                    {{-- @foreach ($routes as $route)
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">{{ $route->descr }}</a>
-                        </li>
-                    @endforeach --}}
-                    {{-- @foreach($routes as $route)
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">{{ $route->descr }}</a>
-                        </li>
-                    @endforeach
-                    {{-- @foreach ($routes as $route) --}}
-                    {{-- <a class="nav-item nav-link" id="tab-{{ $route->id }}" data-toggle="tab" href="#{{ $route->id }}" role="tab" aria-controls="{{ $route->id }}" aria-selected="false">{{ $route->descr }}</a>
-                    @endforeach --}} 
-                    {{-- <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-1">Tagum</a></li> --}}
-                    <!-- <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Panabo</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-3">Mati</a></li> -->
                 </ul>
                 
                 <div class="tab-content">
                     @foreach ($routes as $rroute)
                         
                 <div class="tab-pane fade" role="tabpanel" id="tab-pane-{{ $rroute->id }}" aria-labelledby="tab-{{ $rroute->id }}">
-                        {{-- <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#addModal-{{ $rroute->id }}" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip for {{ $rroute->descr }} </a>
-                            <div id="addModal-{{ $rroute->id }}" class="modal fade" role="dialog" tabindex="-1">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4>Add Trip for {{ $rroute->descr }}</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <input class="form-control" type="date" />
-                                                    <input class="form-control" type="text" placeholder="Van Plate Number" />
-                                                    <input class="form-control" type="text" placeholder="Van Driver" />
-                                                </form>
-                                            </div>
-
-                                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Submit</button></div>
-                                    </div>
-                                </div>
-                            </div>                  
-                        </div> --}}
+                    
                         <div class="text-center">
                             <a class="btn btn-primary btn-lg" role="button" href="#addModal-{{ $rroute->id }}" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">
                                 Add Trip for {{ $rroute->descr }}
@@ -231,283 +191,50 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($trips as $trip)
-    @if ($trip)
-        <tr>
-            <td>{{ $trip->dates }}</td>
-            <td class="text-center">{{ $trip->route->fare }}</td>
-            <td class="text-center">{{ $trip->van_plate }}</td>
-            <td class="text-center">{{ $trip->driver_name }}</td>
-            {{-- <td style="width: 210.297px;"></td> --}}
-            <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;">
-                <button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
-                <div style="width: 43px;">
-                    <a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#editModal-{{ $trip->id }}" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;">
-                        <i class="fas fa-pen" style="font-size: 10px;"></i>
-                    </a>
-                    <div id="editModal-{{ $trip->id }}" class="modal fade" role="dialog" tabindex="-1">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4>Edit Trip for {{ $trip->route->descr }}</h4>
-                                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <input class="form-control" type="date" />
-                                        <input type="text" style="width: 100%;" placeholder="Van Plate Number" />
-                                        <input type="text" style="width: 100%;" placeholder="Van Driver" />
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                                    <button class="btn btn-primary" type="button">Edit</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    @endif
-@endforeach
-                                    {{-- <tr>
-                                        <td>Cell 1</td>
-                                        <td>Cell 2</td>
-                                        <td>Cell 2</td>
-                                        <td class="text-center">Cell 2</td>
-                                        <td style="width: 210.297px;"></td>
-                                        <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;">
-                                            <button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
-                                            <div style="width: 43px;">
-                                                <a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#editModal-{{ $rroute->id }}" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;">
-                                                <i class="fas fa-pen" style="font-size: 10px;"></i></a><div id="editModal-{{ $rroute->id }}" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>Edit Trip for {{ $rroute->descr }}</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form><input class="form-control" type="date" />
-                </form>
-                
-                <input type="text" style="width: 100%;" placeholder="Van Plate Number" />
-                <input type="text" style="width: 100%;" placeholder="Van Driver" />
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-            <button class="btn btn-primary" type="button">Edit</button></div>
-        </div>
-    </div>
-</div></div>
-                                        </td>
-                                    </tr> --}}
-                                    <!-- <tr>
-                                        <td style="height: 66.5px;">Cell 3</td>
-                                        <td>Cell 3</td>
-                                        <td>Cell 3</td>
-                                        <td>Cell 4</td>
-                                        <td></td>
-                                        <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;"><button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
-                                            <div style="width: 43px;"><a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#myModal-4" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;"><i class="fas fa-pen" style="font-size: 10px;"></i></a><div id="myModal-4" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>Edit Trip</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form><input class="form-control" type="date" />
-                
-                <input type="text" style="width: 100%;" placeholder="Van Plate Number" />
-                <input type="text" style="width: 100%;" placeholder="Van Driver" />
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Edit</button></div>
-        </div>
-    </div>
-</div></div>
-                                        </td>
-                                    </tr> -->
+                                        @if ($trip)
+                                                <tr>
+                                                    <td>{{ $trip->dates }}</td>
+                                                    <td class="text-center">{{ $trip->route->fare }}</td>
+                                                    <td class="text-center">{{ $trip->van_plate }}</td>
+                                                    <td class="text-center">{{ $trip->driver_name }}</td>
+                                                    {{-- <td style="width: 210.297px;"></td> --}}
+                                                    <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;">
+                                                        <button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
+                                                        <div style="width: 43px;">
+                                                            <a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#editModal-{{ $trip->id }}" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;">
+                                                                <i class="fas fa-pen" style="font-size: 10px;"></i>
+                                                            </a>
+                                                            <div id="editModal-{{ $trip->id }}" class="modal fade" role="dialog" tabindex="-1">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h4>Edit Trip for {{ $trip->route->descr }}</h4>
+                                                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <form>
+                                                                                <input class="form-control" type="date" />
+                                                                                <input type="text" style="width: 100%;" placeholder="Van Plate Number" />
+                                                                                <input type="text" style="width: 100%;" placeholder="Van Driver" />
+                                                                            </form>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                                                                            <button class="btn btn-primary" type="button">Edit</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                        @endif
+                                    @endforeach
+                                    
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <!-- <div class="tab-pane" role="tabpanel" id="tab-2">
-                        <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#myModal-2" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip</a><div id="myModal-2" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        
-   <div class="modal-content">
-            <div class="modal-header">
-                <h4>Add Trip </h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form><input class="form-control" type="date" />
-
-                    <input class="form-control" type="text" placeholder="Van Plate Number" />
-                    <input class="form-control" type="text" placeholder="Van Driver" /></form>
-                </div>
-
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Submit</button></div>
-        </div>
-    </div>
-</div></div>
-                        <div class="table-responsive text-center" style="border-style: solid;border-right-style: solid;">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 137.297px;">DATE</th>
-                                        <th class="text-center" style="width: 66.188px;">FARE</th>
-                                        <th class="text-center" style="width: 94.422px;">VAN</th>
-                                        <th class="text-center" style="width: 170.797px;">DRIVER</th>
-                                        <th class="text-center">TRIP STATUS</th>
-                                        <th class="text-center" style="width: 42.172px;">ACTION</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Cell 1</td>
-                                        <td>Cell 2</td>
-                                        <td>Cell 2</td>
-                                        <td class="text-center">Cell 2</td>
-                                        <td style="width: 210.297px;"></td>
-                                        <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;"><button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
-                                            <div style="width: 43px;"><a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#myModal-3" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;"><i class="fas fa-pen" style="font-size: 10px;"></i></a><div id="myModal-3" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>Edit Trip</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form><input class="form-control" type="date" />
-                </form>
-                
-                <input type="text" style="width: 100%;" placeholder="Van Plate Number" />
-                <input type="text" style="width: 100%;" placeholder="Van Driver" />
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Edit</button></div>
-        </div>
-    </div>
-</div></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="height: 66.5px;">Cell 3</td>
-                                        <td>Cell 3</td>
-                                        <td>Cell 3</td>
-                                        <td>Cell 4</td>
-                                        <td></td>
-                                        <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;"><button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
-                                            <div style="width: 43px;"><a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#myModal-4" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;"><i class="fas fa-pen" style="font-size: 10px;"></i></a><div id="myModal-4" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>Edit Trip</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form><input class="form-control" type="date" />
-                
-                <input type="text" style="width: 100%;" placeholder="Van Plate Number" />
-                <input type="text" style="width: 100%;" placeholder="Van Driver" />
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Edit</button></div>
-        </div>
-    </div>
-</div></div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> 
-                    <div class="tab-pane" role="tabpanel" id="tab-3">
-                        <div class="text-center"><a class="btn btn-primary btn-lg" role="button" href="#myModal-5" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">Add Trip</a><div id="myModal-5" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            
-            <div class="modal-header">
-                <h4>Add dsms Trip</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form
-                action="{{ route('trip.store') }}"
-                method="POST"
-                enctype="multipart/form-data">
-                @csrf
-                <div class="modal-body">
-                    <input class="form-control" name="dates" type="date" />
-                    <input class="form-control" type="text" name="van_plate" placeholder="Van Plate Number" />
-                    <input class="form-control" type="text" name="driver_name" placeholder="Van Driver" />
-                </div>
-                <button
-                        type="submit"
-                        class="uppercase mt-15 bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
-                        Add Trip Now
-                </button>
-            </form>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Submit</button></div> 
-        </div>
-    </div>
-</div>
-                            <div class="table-responsive text-center" style="border-style: solid;border-right-style: solid;">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 137.297px;">DATE</th>
-                                            <th class="text-center" style="width: 66.188px;">FARE</th>
-                                            <th class="text-center" style="width: 94.422px;">VAN</th>
-                                            <th class="text-center" style="width: 170.797px;">DRIVER</th>
-                                            <th class="text-center">TRIP STATUS</th>
-                                            <th class="text-center" style="width: 42.172px;">ACTION</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Cell 1</td>
-                                            <td>Cell 2</td>
-                                            <td>Cell 2</td>
-                                            <td class="text-center">Cell 2</td>
-                                            <td style="width: 210.297px;"></td>
-                                            <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;"><button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
-                                                <div style="width: 43px;"><a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#myModal-6" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;"><i class="fas fa-pen" style="font-size: 10px;"></i></a><div id="myModal-6" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>Edit Trip</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form><input class="form-control" type="date" /></form><input type="text" style="width: 100%;" placeholder="Van Plate Number" /><input type="text" style="width: 100%;" placeholder="Van Driver" />
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Edit</button></div>
-        </div>
-    </div>
-</div></div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="height: 66.5px;">Cell 3</td>
-                                            <td>Cell 3</td>
-                                            <td>Cell 3</td>
-                                            <td>Cell 4</td>
-                                            <td></td>
-                                            <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;"><button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
-                                                <div style="width: 43px;"><a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#myModal-7" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;"><i class="fas fa-pen" style="font-size: 10px;"></i></a><div id="myModal-5" class="modal fade" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4>Edit Trip</h4><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form><input class="form-control" type="date" /></form>
-                
-                <input type="text" style="width: 100%;" placeholder="Van Plate Number" /><input type="text" style="width: 100%;" placeholder="Van Driver" />
-            </div>
-            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Edit</button></div>
-        </div>
-    </div>
-</div></div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div> -->
                 @endforeach
                 </div>
             </div>
