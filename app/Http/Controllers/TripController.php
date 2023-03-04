@@ -47,9 +47,9 @@ class TripController extends Controller
         $request->validated();
 
         Trip::create([
-            // 'route_id' => $request->route_id,
+            'route_id' => $request->route_id,
             // 'seat_id' => $request->seat_id,
-            'dates' => $request->dates,
+            'dates' => $request->date,
             'van_plate' => $request->van_plate,
             'driver_name' => $request->driver_name,
             // 'trip_status' => $request->trip_status,
@@ -61,7 +61,7 @@ class TripController extends Controller
             // 'supervisor_status' => $request->supervisor_status
         ]);
 
-        return redirect('/trip/create');
+        return redirect('/trip/create'); // pass the $routes variable to the view
     }
 
     /**

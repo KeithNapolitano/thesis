@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RouteFormRequest;
 //use Illuminate\Routing\Route;
 use App\Models\Route;
+use App\Models\Trip;
 
 class RoutesController extends Controller
 {
@@ -41,7 +42,7 @@ class RoutesController extends Controller
      */
     public function store(RouteFormRequest $request)
     {
-        $request->validate();
+        $request->validated();
 
         Route::create([
             'descr' => $request->descr,
@@ -61,7 +62,12 @@ class RoutesController extends Controller
     {
         //
     }
-
+    public function showDestination()
+    {
+        $routes = Route::all();
+        $trips = Trip::all();
+        return view('/admin/trips')->with('routes', $routes)->with('trips', $trips);
+    }
     /**
      * Show the form for editing the specified resource.
      *

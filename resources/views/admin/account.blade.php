@@ -62,7 +62,6 @@
                         <div class="col" style="width: 50%;margin: 0px;margin-left: 2.5px;">
                             <p class="text-start" style="height: 100%;">Income:<br>
                                 {{ $daily[0]['daily']}}
-                                {{-- {{dd($daily) }} --}}
                                 <br># of Trips:
                                 {{ $dailytrips }}<br></p>
                         </div>

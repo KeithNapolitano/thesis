@@ -59,7 +59,7 @@ Route::prefix('/trip')->group(function (){
     Route::get('/account', [FinancesController::class, 'finances'])->name('trip.account');
     // Route::get('/account', [TripController::class, 'account'])->name('trip.account');
     //Route::get('/{id}', [TripController::class, 'show'])->name('trip.show');
-    Route::get('/create', [TripController::class, 'create'])->name('trip.create');
+    Route::get('/create', [RoutesController::class, 'showDestination'])->name('trip.create');
     Route::post('/', [TripController::class, 'store'])->name('trip.store');
     Route::get('/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');
     Route::patch('/{id}', [TripController::class, 'update'])->name('trip.update');
