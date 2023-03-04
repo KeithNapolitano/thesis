@@ -22,7 +22,41 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function () {
+    return view('welcome');
+});
 
+Route::get('/create', function () {
+    return view('operator.create');
+});
+
+Route::get('/edit', function () {
+    return view('operator.edit');
+});
+
+Route::get('/index', function () {
+    return view('operator.index');
+});
+
+Route::get('/login', function () {
+    return view('operator.login');
+});
+
+Route::get('/opview', function () {
+    return view('operator.opview');
+});
+
+Route::get('/qr', function () {
+    return view('operator.qr');
+});
+
+Route::get('/schedule', function () {
+    return view('operator.schedule');
+});
+
+Route::get('/show', function () {
+    return view('operator.show');
+});
 Route::get('/', function () {
     return view('welcome');
 });
