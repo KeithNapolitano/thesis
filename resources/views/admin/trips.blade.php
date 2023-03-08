@@ -76,13 +76,14 @@
                                                         <div class="modal-header">
                                                             <h3 class="text-primary">Add Destination</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="modal-body"><div class="row">
-                                                            
-    <input class="margenesEspacio inputLargo" type="text" name='descr' placeholder="Destination" style="margin: 10px;width: 90%;" />
-
-</div><div class="row">
-    <input class="margenesEspacio inputLargo" type="number" name='fare' placeholder="Fare" style="margin: 10px;width: 90%;" />
-</div></div>
+                                                        <div class="modal-body">
+                                                            <div class="row">                                                            
+                                                                <input class="margenesEspacio inputLargo" type="text" name='descr' placeholder="Destination" style="margin: 10px;width: 90%;" />
+                                                        </div>
+                                                        <div class="row">
+                                                            <input class="margenesEspacio inputLargo" type="number" name='fare' placeholder="Fare" style="margin: 10px;width: 90%;" />
+                                                        </div>
+                                                        </div>
 <button
     type="submit"
     class="btn btn-primary">
@@ -137,6 +138,7 @@
                     @foreach ($routes as $rroute)
                         
                 <div class="tab-pane fade" role="tabpanel" id="tab-pane-{{ $rroute->id }}" aria-labelledby="tab-{{ $rroute->id }}">
+
                         <div class="text-center">
                             <a class="btn btn-primary btn-lg" role="button" href="#addModal-{{ $rroute->id }}" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">
                                 Add Trip for {{ $rroute->descr }}
@@ -188,48 +190,52 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($trips as $trip)
-    @if ($trip)
-          <tr>
-            <td>{{ $trip->dates }}</td>
-            <td class="text-center">{{ $trip->route->fare }}</td>
-            <td class="text-center">{{ $trip->van_plate }}</td>
-            <td class="text-center">{{ $trip->driver_name }}</td>
-            {{-- <td style="width: 210.297px;"></td> --}}
-            <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;">
-                <button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
-                <div style="width: 43px;">
-                    <a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#editModal-{{ $trip->id }}" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;">
-                        <i class="fas fa-pen" style="font-size: 10px;"></i>
-                    </a>
-                    <div id="editModal-{{ $trip->id }}" class="modal fade" role="dialog" tabindex="-1">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4>Edit Trip for {{ $trip->route->descr }}</h4>
-                                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <input class="form-control" type="date" />
-                                        <input type="text" style="width: 100%;" placeholder="Van Plate Number" />
-                                        <input type="text" style="width: 100%;" placeholder="Van Driver" />
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                                    <button class="btn btn-primary" type="button">Edit</button>
-                            </div>
-                        </div>
+                @foreach ($trips as $trip)
+                    @if ($trip->route_id==$rroute->id)
+                        <tr>
+                            <td>{{ $trip->dates }}</td>
+                            <td class="text-center">{{ $trip->route?->fare }}</td>
+                            <td class="text-center">{{ $trip->van_plate }}</td>
+                            <td class="text-center">{{ $trip->driver_name }}</td>
+                            <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;">
+                                <button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
+                                <div style="width: 43px;">
+                                    <a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#editModal-{{ $trip->id }}" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;">
+                                        <i class="fas fa-pen" style="font-size: 10px;"></i>
+                                    </a>
+                                    <div id="editModal-{{ $trip->id }}" class="modal fade" role="dialog" tabindex="-1">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4>Edit Trip for {{ $trip->route?->descr }}</h4>
+                                                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <input class="form-control" type="date" />
+                                                        <input type="text" style="width: 100%;" placeholder="Van Plate Number" />
+                                                        <input type="text" style="width: 100%;" placeholder="Van Driver" />
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                                                    <button class="btn btn-primary" type="button">Edit</button>
+                                            </div>
+                                        </div>
+                                                    </div>
                                     </div>
-                    </div>
-                </div>
-            </td>
-            </tr>
-    @endif
-@endforeach
-    
+                                </div>
+                            </td>
+                            </tr>
+                        @endif
                     @endforeach
+
+                    </tbody>
+                    </table>
+                    </div>
+                    </div>
+                    
+                @endforeach
                 </div>
             </div>
         </div>

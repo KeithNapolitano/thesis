@@ -73,9 +73,6 @@ class TripController extends Controller
     //SHOW INDIVIDUAL TRIP
     public function show()
     {
-        // return view('admin.show', [
-        //     'trips' => Trip::findOrFail($id)
-        // ]);
         return view('admin.account');
     }
 
