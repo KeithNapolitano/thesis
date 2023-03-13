@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\RouteFormRequest;
 //use Illuminate\Routing\Route;
 use App\Models\Route;
 use App\Models\Trip;
@@ -39,12 +40,9 @@ class RoutesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RouteFormRequest $request)
     {
-        $request->validate([
-            'descr' => 'required|unique:routes',
-            'fare' => 'required'
-        ]);
+        $request->validated();
 
         Route::create([
             'descr' => $request->descr,
@@ -88,9 +86,15 @@ class RoutesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RouteFormRequest $request, $id)
     {
-        //
+        $request->validated();
+
+        Route::where('id', $id)->update($request->except([
+            '_token', '_method'
+        ]));
+
+        return redirect(route('admin.trips'));
     }
 
     /**
@@ -101,6 +105,8 @@ class RoutesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Route::destroy($id);
+
+        return redirect(route('admin.trips'))->with('message', 'Route has been deleted.');
     }
 }

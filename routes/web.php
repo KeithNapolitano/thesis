@@ -3,10 +3,12 @@
 use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FinancesController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TripController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\SeatController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +39,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'isSuperAdmin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -45,14 +47,19 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-// Route::resource('trip', TripController::class);
+//update and destory only. edit===update(popup)
+Route::prefix('/superadmin')->middleware('auth')->group(function () {
+    // Route::get('/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::patch('/', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/', [UserController::class, 'destroy'])->name('user.destroy');
+});
 
 Route::prefix('/trip')->group(function (){
     Route::get('/', [TripController::class, 'index'])->name('trip.index');
-    Route::get('/account', [TripController::class, 'account'])->name('trip.account');
-    //Route::get('/{id}', [TripController::class, 'show'])->name('trip.show');
-    
+    Route::get('/account', [FinancesController::class, 'finances'])->name('trip.account');
     Route::get('/create', [TripController::class, 'create'])->name('trip.create');
+    //Route::get('/{id}', [TripController::class, 'show'])->name('trip.show');
+    Route::get('/create', [RoutesController::class, 'showDestination'])->name('trip.create');
     Route::post('/', [TripController::class, 'store'])->name('trip.store');
     Route::get('/create', [RoutesController::class, 'showDestination'])->name('trip.create');
     Route::get('/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');

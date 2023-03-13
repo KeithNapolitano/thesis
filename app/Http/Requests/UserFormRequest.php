@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TripFormRequest extends FormRequest
+class UserFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,6 @@ class TripFormRequest extends FormRequest
      */
     public function authorize()
     {
-        //TO ENABLE USERS TO DO REQUEST
         return true;
     }
 
@@ -25,10 +24,10 @@ class TripFormRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'dates' => 'required' . $this->id,
-            'van_plate' => 'required',
-            'driver_name' => 'required'
-
+            'name' => 'required' . $this->id,
+            'email' => 'required',
+            'userlvl' => 'required',
+            'contact' => 'required'
         ];
 
         return $rules;
