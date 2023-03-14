@@ -63,7 +63,6 @@ class TripController extends Controller
 
         return redirect('/trip/create'); // pass the $routes variable to the view
     }
-
     /**
      * Display the specified resource.
      *
@@ -75,6 +74,7 @@ class TripController extends Controller
     {
         return view('admin.account');
     }
+    
 
     public function account(){
         return view('admin.account');

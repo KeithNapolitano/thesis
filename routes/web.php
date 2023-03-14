@@ -61,6 +61,7 @@ Route::prefix('/trip')->group(function (){
     //Route::get('/{id}', [TripController::class, 'show'])->name('trip.show');
     Route::get('/create', [RoutesController::class, 'showDestination'])->name('trip.create');
     Route::post('/', [TripController::class, 'store'])->name('trip.store');
+    Route::get('/create', [RoutesController::class, 'showDestination'])->name('trip.create');
     Route::get('/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');
     Route::patch('/{id}', [TripController::class, 'update'])->name('trip.update');
     Route::delete('/{id}', [TripController::class, 'destroy'])->name('trip.destroy');
