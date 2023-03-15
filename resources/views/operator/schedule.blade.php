@@ -1,4 +1,4 @@
-< !DOCTYPE html>
+
     <html lang="en">
 
     <head>
@@ -47,7 +47,6 @@
                     <section class="horitzontalScroll">'
 
 
-                        @foreach ($posts as $post)
                         <a href="#">
                             <div class="border rounded border-5 horitzontalScrollContent me-3">
                                 <div class="row">
@@ -64,8 +63,6 @@
                                 </div>
                             </div>
                         </a>
-
-                        @endforeach
 
                     </section>
                 </div>
