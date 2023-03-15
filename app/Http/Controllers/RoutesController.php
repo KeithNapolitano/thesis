@@ -60,7 +60,7 @@ class RoutesController extends Controller
      */
     public function show($id)
     {
-        //
+        //q
     }
     public function showDestination()
     {
