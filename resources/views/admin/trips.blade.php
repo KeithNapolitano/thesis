@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>test</title>
     <link rel="stylesheet" href="{{asset('import_admin/assets/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('import_admin/assets/bootstrap/css/styles.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alatsi&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC&amp;display=swap">
@@ -150,7 +151,7 @@
                                             <h4>Add Trip for {{ $rroute->descr }}</h4>
                                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <form method="POST" action="{{ route('trip.store') }}">
+                                        <form method="POST" action="{{ route('trip.store') }}" class="form-custom">
                                             @csrf
                                             <input type="hidden" name="route_id" value="{{ $rroute->id }}">
                                             <div class="modal-body">
@@ -199,7 +200,12 @@
                                                 <td class="text-center">{{ $trip->driver_name }}</td>
                                                 {{-- <td style="width: 210.297px;"></td> --}}
                                                 <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;">
-                                                    <button class="btn btn-primary" type="button" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
+                                                    <form method="POST" action="{{ route('trip.destroy', $trip->id) }}" class="form-custom">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-primary" type="submit" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
+                                                    </form>
+                                                    
                                                     <div style="width: 43px;">
                                                         <a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#editModal-{{ $trip->id }}" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;">
                                                             <i class="fas fa-pen" style="font-size: 10px;"></i>
@@ -212,16 +218,33 @@
                                                                         <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <form>
-                                                                            <input class="form-control" type="date" />
-                                                                            <input type="text" style="width: 100%;" placeholder="Van Plate Number" />
-                                                                            <input type="text" style="width: 100%;" placeholder="Van Driver" />
+                                                                        <form method="POST" action="{{ route('trip.update', ['id' => $trip->id]) }}">
+                                                                            @csrf
+                                                                            @method('PUT')
+                                                                        
+                                                                            <div class="modal-body">
+                                                                                
+                                                                                <div class="form-group">
+                                                                                    <label for="dates">Dates:</label>
+                                                                                    <input type="date" class="form-control" id="date" name="date" value="{{ $trip->dates }}" >
+                                                                                </div>
+                                                                        
+                                                                                <div class="form-group">
+                                                                                    <label for="van_plate">Van Plate:</label>
+                                                                                    <input type="text" class="form-control" id="van_plate" name="van_plate" value="{{ $trip->van_plate }}">
+                                                                                </div>
+                                                                        
+                                                                                <div class="form-group">
+                                                                                    <label for="driver_name">Driver Name:</label>
+                                                                                    <input type="text" class="form-control" id="driver_name" name="driver_name" value="{{ $trip->driver_name }}">
+                                                                                </div>
+                                                                            </div>
+                                                                        
+                                                                            <div class="modal-footer">
+                                                                                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                                                                                <button class="btn btn-primary" type="submit">Edit</button>
+                                                                            </div>
                                                                         </form>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
-                                                                        <button class="btn btn-primary" type="button">Edit</button>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
