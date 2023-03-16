@@ -30,6 +30,40 @@ Route::get('/', function () {
 // Route::get('/trips', function () {
 //     return view('trips');
 // });
+Route::prefix('operator')->group(function () {
+    Route::get('/create', function () {
+        return view('operator.create');
+    })->name('operator.create');
+
+    Route::get('/edit', function () {
+        return view('operator.edit');
+    })->name('operator.edit');
+
+    Route::get('/index', function () {
+        return view('operator.index');
+    })->name('operator.index');
+
+    Route::get('/login', function () {
+        return view('operator.login');
+    })->name('operator.login');
+
+    Route::get('/opview', function () {
+        return view('operator.opview');
+    })->name('operator.opview');
+
+    Route::get('/qr', function () {
+        return view('operator.qr');
+    })->name('operator.qr');
+
+    Route::get('/schedule', function () {
+        return view('operator.schedule');
+    })->name('operator.schedule');
+
+    Route::get('/show', function () {
+        return view('operator.show');
+    })->name('operator.show');
+});
+
 
 Route::get('/home', HomeController::class);
 Route::get('/seat/create', [SeatController::class, 'create']);
