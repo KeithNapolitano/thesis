@@ -25,7 +25,7 @@ class TripFormRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'date' => 'required' . $this->id,
+            'date' => 'required',
             'van_plate' => 'required',
             'driver_name' => 'required'
 

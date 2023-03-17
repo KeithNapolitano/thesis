@@ -103,11 +103,10 @@ class TripController extends Controller
     {
         $request->validated();
 
-        Trip::where('id', $id)->update($request->except([
-            '_token', '_method'
-        ]));
+        $trip = Trip::findOrFail($id);
+        $trip->update($request->except(['_token', '_method']));
 
-        return redirect(route('admin.trips'));
+        return redirect('/trip/create')->with('message', 'Trip has been updated.');
     }
 
     /**
@@ -118,9 +117,10 @@ class TripController extends Controller
      */
     public function destroy($id)
     {
-        Trip::destroy($id);
+        $trip = Trip::findOrFail($id);
+        $trip->delete();
 
-        return redirect(route('admin.trips'))->with('message', 'Trip has been deleted.');
+        return redirect('/trip/create');
     }
 
     public function tripticket(Request $request, $id){
