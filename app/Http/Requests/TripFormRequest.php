@@ -27,7 +27,6 @@ class TripFormRequest extends FormRequest
         $rules = [
             'date' => 'required',
             'van_plate' => 'required',
-            'driver_name' => 'required'
 
         ];
 

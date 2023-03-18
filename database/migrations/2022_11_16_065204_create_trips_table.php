@@ -19,7 +19,7 @@ return new class extends Migration
                 $table->unsignedBigInteger('route_id')->nullable();
                 $table->unsignedBigInteger('seat_id')->nullable();
                 $table->date('dates');
-                $table->string('driver_name');
+                $table->unsignedBigInteger('user_id')->nullable();  
                 $table->string('van_plate');
                 $table->boolean('trip_status')->nullable();
                 $table->integer('orig_fare')->nullable();
@@ -34,6 +34,7 @@ return new class extends Migration
                 //$table->foreign('user_id')->references('id')->on('users');
                 $table->foreign('route_id')->references('id')->on('routes');
                 $table->foreign('seat_id')->references('id')->on('seats');
+                $table->foreign('user_id')->references('id')->on('users');
             });
         }
     }

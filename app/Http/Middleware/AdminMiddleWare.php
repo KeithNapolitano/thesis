@@ -17,9 +17,9 @@ class AdminMiddleWare
      */
     public function handle(Request $request, Closure $next)
     {
-        #0-guest, 1-user, 2-ope, 3-admin, 4-superadmin
+        #0-guest, 1-user, 2-ope, 3-admin, 4-driver (for role only)
         if(Auth::check()){
-            if(Auth::user()->userlvl == 3 or Auth::user()->userlvl == 4){
+            if(Auth::user()->userlvl == 3){
                 return $next($request);
             }
             else{
