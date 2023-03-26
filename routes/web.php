@@ -31,38 +31,18 @@ Route::get('/', function () {
 //     return view('trips');
 // });
 Route::prefix('operator')->group(function () {
-    Route::get('/create', function () {
-        return view('operator.create');
-    })->name('operator.create');
-
-    Route::get('/edit', function () {
-        return view('operator.edit');
-    })->name('operator.edit');
-
-    Route::get('/index', function () {
-        return view('operator.index');
-    })->name('operator.index');
-
-    Route::get('/login', function () {
-        return view('operator.login');
-    })->name('operator.login');
-
-    Route::get('/opview', function () {
-        return view('operator.opview');
-    })->name('operator.opview');
-
-    Route::get('/qr', function () {
-        return view('operator.qr');
-    })->name('operator.qr');
-
-    Route::get('/schedule', function () {
-        return view('operator.schedule');
-    })->name('operator.schedule');
-
-    Route::get('/show', function () {
-        return view('operator.show');
-    })->name('operator.show');
+    Route::get('/create', function () {return view('operator.create');})->name('operator.create');
+    Route::get('/edit', function () {return view('operator.edit');})->name('operator.edit');
+    Route::get('/index', function () {return view('operator.index');})->name('operator.index');
+    Route::get('/login', function () {return view('operator.login');})->name('operator.login');
+    Route::get('/opview', [RoutesController::class, 'OPshowDestination'])->name('operator.opview');
+    Route::put('/{id}', [TripController::class, 'OPupdate'])->name('trip.OPupdate');
+    Route::get('/qr', function () {return view('operator.qr');})->name('operator.qr');
+    Route::get('/schedule', [RoutesController::class, 'OPSchedshowDestination'])->name('operator.schedule');
 });
+// web.php
+
+
 
 
 Route::get('/home', HomeController::class);
@@ -95,7 +75,6 @@ Route::prefix('/trip')->group(function (){
     //Route::get('/{id}', [TripController::class, 'show'])->name('trip.show');
     Route::get('/create', [RoutesController::class, 'showDestination'])->name('trip.create');
     Route::post('/', [TripController::class, 'store'])->name('trip.store');
-    Route::get('/create', [RoutesController::class, 'showDestination'])->name('trip.create');
     Route::get('/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');
     Route::put('/{id}', [TripController::class, 'update'])->name('trip.update');
     Route::delete('/{id}', [TripController::class, 'destroy'])->name('trip.destroy');

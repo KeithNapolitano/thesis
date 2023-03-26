@@ -19,6 +19,8 @@
     </head>
 
     <body>
+        @foreach ($routes as $route)
+        @foreach ($trips as $trip)
         <nav class="navbar navbar-light navbar-expand-md py-3">
             <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"></a><img
                     src="{{ asset('import/assets/img/Logo.png')}}"><button data-bs-toggle="collapse"
@@ -62,7 +64,9 @@
                                     </div>
                                 </div>
                             </div>
+
                         </a>
+
 
                     </section>
                 </div>
@@ -74,8 +78,8 @@
                     <div class="card-body" style="padding: 16px;">
                         <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px;"><strong>Toyota
                                 HiAce&nbsp;
-                            </strong><br><strong>NSM 192</strong><br><span></span></h4>
-                        <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to Kidapawan City</p>
+                            </strong><br><strong> {{ $trip->van_plate }}</strong><br><span></span></h4>
+                        <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to {{ $route->descr }}</p>
                         <ul class="list-group" style="padding: 0;padding-bottom: 10px;">
                             <li class="list-group-item"><span>5 Seats available</span></li>
                             <li class="list-group-item"><span>4 paid&nbsp;
@@ -105,7 +109,7 @@
                         <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px;"><strong>Toyota
                                 HiAce&nbsp;
                             </strong><br><strong>THS 612</strong><br><span></span></h4>
-                        <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to General Santos City</p>
+                        <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to </p>
                         <ul class="list-group" style="padding: 0;padding-bottom: 10px;">
                             <li class="list-group-item"><span>5 Seats available</span></li>
                             <li class="list-group-item"><span>4 paid&nbsp;
@@ -174,6 +178,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js')}}"></script>
         <script src="{{ asset('import/assets/js/bold-and-bright.js')}}"></script>
         <script src="{{ asset('import/assets/js/Card-Carousel.js')}}"></script>
+        @endforeach
+        @endforeach
     </body>
 
     </html>
