@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TripFormRequest;
+use App\Http\Requests\OPTripFormUpdateRequest;
 use App\Models\Route;
 use App\Models\Trip;
 use Illuminate\Http\Request;
@@ -21,11 +22,10 @@ class TripController extends Controller
     public function index()
     {
         return view('admin.index', [
-                'trips' => Trip::orderBy('id', 'desc')->paginate(5),
+            'trips' => Trip::orderBy('id', 'desc')->paginate(5),
         ]);
-
     }
- 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -74,9 +74,10 @@ class TripController extends Controller
     {
         return view('admin.account');
     }
-    
 
-    public function account(){
+
+    public function account()
+    {
         return view('admin.account');
     }
     /**
@@ -84,11 +85,11 @@ class TripController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */ 
+     */
     public function edit($id)
     {
         return view('admin.edit', [
-            'trip' => Trip::where('id', $id)->first() 
+            'trip' => Trip::where('id', $id)->first()
         ]);
     }
 
@@ -109,6 +110,33 @@ class TripController extends Controller
         return redirect('/trip/create')->with('message', 'Trip has been updated.');
     }
 
+    public function OPupdate(OPTripFormUpdateRequest $request, $id)
+    {
+        $request->validated();
+
+        $trip = Trip::findOrFail($id);
+        $trip->driver_status = $request->has('driver_status') ? 1 : 0; // set to 0 if unchecked
+        $trip->passenger_status = $request->has('passenger_status') ? 1 : 0; // set to 0 if unchecked
+        $trip->payment_status = $request->has('payment_status') ? 1 : 0; // set to 0 if unchecked
+        $trip->supervisor_status = $request->has('supervisor_status') ? 1 : 0; // set to 0 if unchecked
+        $trip->save();
+        if($trip->driver_status == 1 && $trip->passenger_status == 1 && $trip->payment_status == 1 && $trip->supervisor_status == 1) {
+            $trip->trip_status = 1;
+            $trip->save();
+        }
+        else if ($trip->driver_status == NULL && $trip->passenger_status == NULL && $trip->payment_status == NULL && $trip->supervisor_status == NULL){
+            $trip->trip_status = 0;
+            $trip->save();
+        }
+        else {
+            $trip->trip_status = 0;
+            $trip->save();
+        }
+        return redirect('/operator/opview')->with('message', 'Trip has been updated.');
+    }
+
+
+
     /**
      * Remove the specified resource from storage.
      *
@@ -123,19 +151,19 @@ class TripController extends Controller
         return redirect('/trip/create');
     }
 
-    public function tripticket(Request $request, $id){
+    public function tripticket(Request $request, $id)
+    {
         $request->validate([
             'driver_status' => 'required' . $id,
             'passenger_status' => 'required',
             'payment_status' => 'required',
             'supervisor_status' => 'required',
         ]);
-        
-        Trip::where('id', $id)->update($request->except([
-        '_token', '_method'
-        ]));
-        
-        return redirect(route('admin.superadmin'));
 
+        Trip::where('id', $id)->update($request->except([
+            '_token', '_method'
+        ]));
+
+        return redirect(route('admin.superadmin'));
     }
 }
