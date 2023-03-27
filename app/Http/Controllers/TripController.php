@@ -124,7 +124,11 @@ class TripController extends Controller
             $trip->trip_status = 1;
             $trip->save();
         }
-        else{
+        else if ($trip->driver_status == NULL && $trip->passenger_status == NULL && $trip->payment_status == NULL && $trip->supervisor_status == NULL){
+            $trip->trip_status = 0;
+            $trip->save();
+        }
+        else {
             $trip->trip_status = 0;
             $trip->save();
         }

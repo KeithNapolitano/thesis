@@ -45,12 +45,16 @@
                 <div class="row">
                     <div class="col">
                         <ul class="list-group">
+                            @php
+                            $vanPlate = $_GET['van_plate'];
 
-                            <li class="list-group-item">
-                                <span><strong>Operator:&nbsp;</strong></span><span>Test name </span></li>
-                            <li class="list-group-item"><span><strong>Assigned van:&nbsp;</strong></span><span>Toyota
-                                    HiAce {{ $trip->van_plate }}<br></span></li>
+                            // Filter the data based on the van plate number
+                            $vanData = DB::table('trips')->where('van_plate', $vanPlate)->first();
 
+                            // Display the van data
+                            echo "<li class=\"list-group-item\"><span><strong>Assigned van:&nbsp;</strong></span><span>Toyota HiAce " . $vanData->van_plate . "<br></span></li>";
+                            echo "<li class=\"list-group-item\"><span><strong>Operator:&nbsp;</strong></span><span>Test name " . $vanData->van_plate . "</span></li>";
+                            @endphp
                         </ul>
                     </div>
                 </div>
@@ -120,7 +124,8 @@
                         <div class="row">
                             <div class="col">
                                 <ul class="list-group">
-                                    <form method="POST" id="trip-form" action="{{ route('trip.OPupdate', ['id' => $trip->id]) }}">
+                                    <form method="POST" id="trip-form"
+                                        action="{{ route('trip.OPupdate', ['id' => $trip->id]) }}">
                                         @csrf
                                         @method('PUT')
 
