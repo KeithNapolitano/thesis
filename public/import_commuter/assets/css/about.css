@@ -1,0 +1,47 @@
+.eventEssentials{
+    margin-left: 15%;
+    font-family: 'Gotham Light', sans-serif;
+}
+
+.management{
+    padding-top: 200px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding-left: 180px;
+    padding-right: 100px;
+    
+}
+
+.talent , .event{
+    clip-path: circle();
+    width: 40%;
+    height: auto;
+    position: relative;
+    margin: 5%;
+}
+
+h2.event-text, h2.talent-text{
+    font-family: 'Gotham Light', sans-serif;
+    font-weight: bold;
+}
+
+.event-management , .talent-management{
+    text-align: center;
+    padding-bottom: 100px;
+    margin-top: -70px;
+}
+
+.talent-management2 {
+    margin-left: -1120px;
+    margin-top: 330px;
+    text-align: center;
+    padding-bottom: 100px;
+}
+
+.talent-management3 {
+    margin-left: 10px;
+    margin-top: 330px;
+    text-align: center;
+    padding-bottom: 100px;
+}
