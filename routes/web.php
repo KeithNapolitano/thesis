@@ -9,6 +9,7 @@ use App\Http\Controllers\TripController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\SeatController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommuterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,21 @@ Route::get('/', function () {
 // Route::get('/trips', function () {
 //     return view('trips');
 // });
+
+Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes');
+
+Route::get('/explore', function () {
+    return view('commuter.explore');
+});
+
+Route::get('/about', function () {
+    return view('commuter.about');
+});
+
+Route::get('/help', function () {
+    return view('commuter.help');
+});
+
 Route::prefix('operator')->group(function () {
     Route::get('/create', function () {return view('operator.create');})->name('operator.create');
     Route::get('/edit', function () {return view('operator.edit');})->name('operator.edit');
