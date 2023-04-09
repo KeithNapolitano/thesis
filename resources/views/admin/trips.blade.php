@@ -266,8 +266,14 @@
                                                                                 </div>
                                                                         
                                                                                 <div class="form-group">
-                                                                                    <label for="driver_name">Driver Name:</label>
-                                                                                    <input type="text" class="form-control" id="driver_name" name="driver_name" value="{{ $trip->driver_name }}">
+                                                                                    <label for="driver_name">Driver's Name:</label>
+                                                                                    <select class="form-control" id="driver_name" name="driver_name">
+                                                                                        @foreach ($users as $user)
+                                                                                            @if ($user->userlvl==3)
+                                                                                                <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    </select>
                                                                                 </div>
                                                                             </div>
                                                                         
