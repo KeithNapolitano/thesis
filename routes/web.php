@@ -9,6 +9,7 @@ use App\Http\Controllers\TripController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\SeatController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommuterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,39 +31,34 @@ Route::get('/', function () {
 // Route::get('/trips', function () {
 //     return view('trips');
 // });
-Route::prefix('operator')->group(function () {
-    Route::get('/create', function () {
-        return view('operator.create');
-    })->name('operator.create');
 
-    Route::get('/edit', function () {
-        return view('operator.edit');
-    })->name('operator.edit');
+Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes');
 
-    Route::get('/index', function () {
-        return view('operator.index');
-    })->name('operator.index');
-
-    Route::get('/login', function () {
-        return view('operator.login');
-    })->name('operator.login');
-
-    Route::get('/opview', function () {
-        return view('operator.opview');
-    })->name('operator.opview');
-
-    Route::get('/qr', function () {
-        return view('operator.qr');
-    })->name('operator.qr');
-
-    Route::get('/schedule', function () {
-        return view('operator.schedule');
-    })->name('operator.schedule');
-
-    Route::get('/show', function () {
-        return view('operator.show');
-    })->name('operator.show');
+Route::get('/explore', function () {
+    return view('commuter.explore');
 });
+
+Route::get('/about', function () {
+    return view('commuter.about');
+});
+
+Route::get('/help', function () {
+    return view('commuter.help');
+});
+
+Route::prefix('operator')->group(function () {
+    Route::get('/create', function () {return view('operator.create');})->name('operator.create');
+    Route::get('/edit', function () {return view('operator.edit');})->name('operator.edit');
+    Route::get('/index', function () {return view('operator.index');})->name('operator.index');
+    Route::get('/login', function () {return view('operator.login');})->name('operator.login');
+    Route::get('/opview', [RoutesController::class, 'OPshowDestination'])->name('operator.opview');
+    Route::put('/{id}', [TripController::class, 'OPupdate'])->name('trip.OPupdate');
+    Route::get('/qr', function () {return view('operator.qr');})->name('operator.qr');
+    Route::get('/schedule', [RoutesController::class, 'OPSchedshowDestination'])->name('operator.schedule');
+});
+// web.php
+
+
 
 
 Route::get('/home', HomeController::class);
@@ -95,7 +91,6 @@ Route::prefix('/trip')->group(function (){
     Route::get('/create', [TripController::class, 'create'])->name('trip.create');
     Route::get('/create', [UserController::class, 'index'])->name('trip.create');
     Route::post('/', [TripController::class, 'store'])->name('trip.store');
-    Route::get('/create', [RoutesController::class, 'showDestination'])->name('trip.create');
     Route::get('/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');
     Route::put('/{id}', [TripController::class, 'update'])->name('trip.update');
     Route::delete('/{id}', [TripController::class, 'destroy'])->name('trip.destroy');

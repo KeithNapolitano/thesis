@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TripFormRequest extends FormRequest
+class OPTripFormUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,7 @@ class TripFormRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'date' => 'required',
-            'van_plate' => 'required',
+
 
         ];
 

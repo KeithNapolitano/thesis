@@ -70,6 +70,18 @@ class RoutesController extends Controller
         $users = User::all();
         return view('admin.trips')->with('routes', $routes)->with('trips', $trips)->with('users',$users);
     }
+    public function OPshowDestination()
+    {
+        $routes = Route::all();
+        $trips = Trip::all();
+        return view('/operator/opview')->with('routes', $routes)->with('trips', $trips);
+    }
+    public function OPSchedshowDestination()
+    {
+        $routes = Route::all();
+        $trips = Trip::all();
+        return view('/operator/schedule')->with('routes', $routes)->with('trips', $trips);
+    }
     /**
      * Show the form for editing the specified resource.
      *
