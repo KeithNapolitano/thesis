@@ -64,34 +64,29 @@
                                             <!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
                                             <path d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z"></path>
                                         </svg></button>
-                                    <form
-                                    action="{{ route('route.store') }}"
-                                    method="POST"
-                                    enctype="multipart/form-data">@csrf
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="modal fade" role="dialog" tabindex="-1" id="modalInstrucciones">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        
-                                                        <div class="modal-header">
-                                                            <h3 class="text-primary">Add Destination</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <input class="margenesEspacio inputLargo" type="text" name='descr' placeholder="Destination" style="margin: 10px;width: 90%;" />
-                                                            </div>
-                                                            <div class="row">
-                                                                <input class="margenesEspacio inputLargo" type="number" name='fare' placeholder="Fare" style="margin: 10px;width: 90%;" />
-                                                            </div>
-                                                        </div>
-<button
-    type="submit"
-    class="btn btn-primary">
-    Submit Post
-</button>
-    </form>
-                                                    
+                                                        <form action="{{ route('route.store') }}" method="POST" enctype="multipart/form-data">@csrf
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="modal fade" role="dialog" tabindex="-1" id="modalInstrucciones">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            
+                                                                            <div class="modal-header">
+                                                                                <h3 class="text-primary">Add Destination</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+                                                                                    <input class="margenesEspacio inputLargo" type="text" name='descr' placeholder="Destination" style="margin: 10px;width: 90%;" />
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <input class="margenesEspacio inputLargo" type="number" name='fare' placeholder="Fare" style="margin: 10px;width: 90%;" />
+                                                                                </div>
+                                                                            </div>
+                                                            
+                                                            <button type="submit" class="btn btn-primary">
+                                                                Add Destination
+                                                            </button>
+                                                        </form>
                                                 </div>
                                             </div>
                                         </form>
@@ -137,12 +132,14 @@
                 
                 <div class="tab-content">
                     @foreach ($routes as $rroute)
-                        
-                <div class="tab-pane fade" role="tabpanel" id="tab-pane-{{ $rroute->id }}" aria-labelledby="tab-{{ $rroute->id }}">
+                    <div class="tab-pane fade" role="tabpanel" id="tab-pane-{{ $rroute->id }}" aria-labelledby="tab-{{ $rroute->id }}">
                         
                         <div class="text-center">
                             <a class="btn btn-primary btn-lg" role="button" href="#addModal-{{ $rroute->id }}" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">
                                 Add Trip for {{ $rroute->descr }}
+                            </a>
+                            <a class="btn btn-primary btn-lg" role="button" href="#editModalDest-{{ $rroute->id }}" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">
+                                Edit {{ $rroute->descr }} Details
                             </a>
                             <div id="addModal-{{ $rroute->id }}" class="modal fade" role="dialog" tabindex="-1">
                                 <div class="modal-dialog" role="document">
@@ -164,20 +161,54 @@
                                                     <input class="form-control" type="text" name="van_plate" id="van_plate" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="driver_name">Van Driver:</label>
-                                                    <input class="form-control" type="text" name="driver_name" id="driver_name" required>
+                                                    <label for="driver_name">Driver's Name:</label>
+                                                    <select class="form-control" id="driver_name" name="driver_name">
+                                                        @foreach ($users as $user)
+                                                            @if ($user->userlvl==3)
+                                                                <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
                                                 <button class="btn btn-primary" type="submit">Submit</button>
                                             </div>
+                                        </form> 
+                                    </div>
+                                </div>
+                                </div>
+                            <div id="editModalDest-{{ $rroute->id }}" class="modal fade" role="dialog" tabindex="-1">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4>Edit {{ $rroute->descr }} Details</h4>
+                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form method="POST" action="{{ route('route.update', $rroute->id) }}" class="form-custom">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="descr" class="form-label text-start">Destination:</label>
+                                                    <input class="form-control" type="text" name="descr" id="descr" value="{{ $rroute->descr }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="fare" class="form-label text-start">Fare:</label>
+                                                    <input class="form-control" type="number" name="fare" id="fare" value="{{ $rroute->fare }}" required>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        
                         <div class="table-responsive text-center" style="border-style: solid;border-right-style: solid;">
                             <table class="table">
                                 <thead>
@@ -253,12 +284,10 @@
                                             </tr>
                                         @endif
                                     @endforeach
-            
                                 </tbody>
                             </table>
                         </div>
                     </div>
-            
                 @endforeach
                 </div>
             </div>

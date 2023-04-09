@@ -7,6 +7,7 @@ use App\Http\Requests\RouteFormRequest;
 //use Illuminate\Routing\Route;
 use App\Models\Route;
 use App\Models\Trip;
+use App\Models\User;
 
 class RoutesController extends Controller
 {
@@ -66,7 +67,8 @@ class RoutesController extends Controller
     {
         $routes = Route::all();
         $trips = Trip::all();
-        return view('/admin/trips')->with('routes', $routes)->with('trips', $trips);
+        $users = User::all();
+        return view('admin.trips')->with('routes', $routes)->with('trips', $trips)->with('users',$users);
     }
     /**
      * Show the form for editing the specified resource.
@@ -86,15 +88,14 @@ class RoutesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RouteFormRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $request->validated();
-
-        Route::where('id', $id)->update($request->except([
-            '_token', '_method'
-        ]));
-
-        return redirect(route('admin.trips'));
+    $route = Route::findOrFail($id);
+    $route->descr = $request->input('descr');
+    $route->fare = $request->input('fare');
+    $route->save();
+    
+    return redirect('/trip/create')->with('success', 'Route details updated successfully!');
     }
 
     /**
