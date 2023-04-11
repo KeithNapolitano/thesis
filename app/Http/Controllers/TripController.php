@@ -52,6 +52,7 @@ class TripController extends Controller
             'dates' => $request->date,
             'van_plate' => $request->van_plate,
             'user_id' => $request->user_id,
+            'driver_name' => $request->driver_name,
             // 'trip_status' => $request->trip_status,
             // 'orig_fare' => $request->orig_fare,
             // 'extra_fare' => $request->extra_fare
