@@ -100,13 +100,12 @@ class RoutesController extends Controller
      */
     public function update(RouteFormRequest $request, $id)
     {
-        $request->validated();
+    $route = Route::findOrFail($id);
+    $route->descr = $request->input('descr');
+    $route->fare = $request->input('fare');
+    $route->save();
 
-        Route::where('id', $id)->update($request->except([
-            '_token', '_method'
-        ]));
-
-        return redirect(route('admin.trips'));
+    return redirect('/trip/create')->with('success', 'Route details updated successfully!');
     }
 
     /**
