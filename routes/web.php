@@ -27,9 +27,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/trips', function () {
-//     return view('trips');
-// });
 Route::prefix('operator')->group(function () {
     Route::get('/create', function () {return view('operator.create');})->name('operator.create');
     Route::get('/edit', function () {return view('operator.edit');})->name('operator.edit');
@@ -40,7 +37,6 @@ Route::prefix('operator')->group(function () {
     Route::get('/qr', function () {return view('operator.qr');})->name('operator.qr');
     Route::get('/schedule', [RoutesController::class, 'OPSchedshowDestination'])->name('operator.schedule');
 });
-// web.php
 
 
 
