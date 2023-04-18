@@ -27,6 +27,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('operator')->group(function () {
+    Route::get('/create', function () {return view('operator.create');})->name('operator.create');
+    Route::get('/edit', function () {return view('operator.edit');})->name('operator.edit');
+    Route::get('/index', function () {return view('operator.index');})->name('operator.index');
+    Route::get('/login', function () {return view('operator.login');})->name('operator.login');
+    Route::get('/opview', [RoutesController::class, 'OPshowDestination'])->name('operator.opview');
+    Route::put('/{id}', [TripController::class, 'OPupdate'])->name('trip.OPupdate');
+    Route::get('/qr', function () {return view('operator.qr');})->name('operator.qr');
+    Route::get('/schedule', [RoutesController::class, 'OPSchedshowDestination'])->name('operator.schedule');
+});
+
 
 
 Route::get('/home', HomeController::class);
