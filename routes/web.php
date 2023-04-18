@@ -40,10 +40,10 @@ Route::prefix('operator')->group(function () {
 
 
 
-
 Route::get('/home', HomeController::class);
 Route::get('/seat/create', [SeatController::class, 'create']);
 Route::post('/seat', [SeatController::class, 'store'])->name('seat.store');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -68,9 +68,9 @@ Route::prefix('/trip')->group(function (){
     Route::get('/', [TripController::class, 'index'])->name('trip.index');
     Route::get('/account', [FinancesController::class, 'finances'])->name('trip.account');
     Route::get('/create', [TripController::class, 'create'])->name('trip.create');
-    //Route::get('/{id}', [TripController::class, 'show'])->name('trip.show');
-    Route::get('/create', [RoutesController::class, 'showDestination'])->name('trip.create');
+    Route::get('/create', [UserController::class, 'index'])->name('trip.create');
     Route::post('/', [TripController::class, 'store'])->name('trip.store');
+    Route::get('/create', [RoutesController::class, 'showDestination'])->name('trip.create');
     Route::get('/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');
     Route::put('/{id}', [TripController::class, 'update'])->name('trip.update');
     Route::delete('/{id}', [TripController::class, 'destroy'])->name('trip.destroy');
@@ -103,6 +103,7 @@ Route::prefix('/route')->group(function (){
     Route::post('/', [RoutesController::class, 'store'])->name('route.store');
     Route::get('/edit/{id}', [RoutesController::class, 'edit'])->name('route.edit');
     Route::patch('/{id}', [RoutesController::class, 'update'])->name('route.update');
+    Route::put('/route/{id}', [RoutesController::class, 'update'])->name('route.update');
     Route::delete('/{id}', [RoutesController::class, 'destroy'])->name('route.destroy');
 });
 

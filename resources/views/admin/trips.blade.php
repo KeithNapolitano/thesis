@@ -79,49 +79,40 @@
                                                 d="M432 256c0 17.69-14.33 32.01-32 32.01H256v144c0 17.69-14.33 31.99-32 31.99s-32-14.3-32-31.99v-144H48c-17.67 0-32-14.32-32-32.01s14.33-31.99 32-31.99H192v-144c0-17.69 14.33-32.01 32-32.01s32 14.32 32 32.01v144h144C417.7 224 432 238.3 432 256z">
                                             </path>
                                         </svg></button>
-                                    <form action="{{ route('route.store') }}" method="POST"
-                                        enctype="multipart/form-data">@csrf
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="modal fade" role="dialog" tabindex="-1"
-                                                    id="modalInstrucciones">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-
-                                                            <div class="modal-header">
-                                                                <h3 class="text-primary">Add Destination</h3><button
-                                                                    type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="row">
-                                                                    <input class="margenesEspacio inputLargo"
-                                                                        type="text" name='descr'
-                                                                        placeholder="Destination"
-                                                                        style="margin: 10px;width: 90%;" />
-                                                                </div>
-                                                                <div class="row">
-                                                                    <input class="margenesEspacio inputLargo"
-                                                                        type="number" name='fare' placeholder="Fare"
-                                                                        style="margin: 10px;width: 90%;" />
-                                                                </div>
-                                                            </div>
+                                                        <form action="{{ route('route.store') }}" method="POST" enctype="multipart/form-data">@csrf
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="modal fade" role="dialog" tabindex="-1" id="modalInstrucciones">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            
+                                                                            <div class="modal-header">
+                                                                                <h3 class="text-primary">Add Destination</h3><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <div class="row">
+                                                                                    <input class="margenesEspacio inputLargo" type="text" name='descr' placeholder="Destination" style="margin: 10px;width: 90%;" />
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <input class="margenesEspacio inputLargo" type="number" name='fare' placeholder="Fare" style="margin: 10px;width: 90%;" />
+                                                                                </div>
+                                                                            </div>
+                                                            
                                                             <button type="submit" class="btn btn-primary">
-                                                                Submit Post
+                                                                Add Destination
                                                             </button>
-                                    </form>
-
+                                                        </form>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
-    </div>
 
     <div class="card text-xl-center text-xxl-center"
         style="border-style: none;margin: 10px;background: rgba(255,255,255,0);">
@@ -168,14 +159,15 @@
 
                 <div class="tab-content">
                     @foreach ($routes as $rroute)
-
-                    <div class="tab-pane fade" role="tabpanel" id="tab-pane-{{ $rroute->id }}"
-                        aria-labelledby="tab-{{ $rroute->id }}">
-
+                    <div class="tab-pane fade" role="tabpanel" id="tab-pane-{{ $rroute->id }}" aria-labelledby="tab-{{ $rroute->id }}">
+                        
                         <div class="text-center">
                             <a class="btn btn-primary btn-lg" role="button" href="#addModal-{{ $rroute->id }}"
                                 data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">
                                 Add Trip for {{ $rroute->descr }}
+                            </a>
+                            <a class="btn btn-primary btn-lg" role="button" href="#editModalDest-{{ $rroute->id }}" data-bs-toggle="modal" style="font-size: 13px;width: 100%;margin-bottom: 15px;">
+                                Edit {{ $rroute->descr }} Details
                             </a>
                             <div id="addModal-{{ $rroute->id }}" class="modal fade" role="dialog" tabindex="-1">
                                 <div class="modal-dialog" role="document">
@@ -200,9 +192,14 @@
                                                         id="van_plate" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="driver_name">Van Driver:</label>
-                                                    <input class="form-control" type="text" name="driver_name"
-                                                        id="driver_name" required>
+                                                    <label for="driver_name">Driver's Name:</label>
+                                                    <select class="form-control" id="driver_name" name="driver_name">
+                                                        @foreach ($users as $user)
+                                                            @if ($user->userlvl==3)
+                                                                <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -210,14 +207,41 @@
                                                     data-bs-dismiss="modal">Close</button>
                                                 <button class="btn btn-primary" type="submit">Submit</button>
                                             </div>
+                                        </form> 
+                                    </div>
+                                </div>
+                                </div>
+                            <div id="editModalDest-{{ $rroute->id }}" class="modal fade" role="dialog" tabindex="-1">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4>Edit {{ $rroute->descr }} Details</h4>
+                                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form method="POST" action="{{ route('route.update', $rroute->id) }}" class="form-custom">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="descr" class="form-label text-start">Destination:</label>
+                                                    <input class="form-control" type="text" name="descr" id="descr" value="{{ $rroute->descr }}" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="fare" class="form-label text-start">Fare:</label>
+                                                    <input class="form-control" type="number" name="fare" id="fare" value="{{ $rroute->fare }}" required>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                                                <button class="btn btn-primary" type="submit">Save Changes</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="table-responsive text-center"
-                            style="border-style: solid;border-right-style: solid;">
+                        
+                        <div class="table-responsive text-center" style="border-style: solid;border-right-style: solid;">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -231,92 +255,78 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($trips as $trip)
-                                    @if ($trip->route_id == $rroute->id)
-                                    <tr>
-                                        <td>{{ $trip->dates }}</td>
-                                        <td class="text-center">{{ $trip->route->fare }}</td>
-                                        <td class="text-center">{{ $trip->van_plate }}</td>
-                                        <td class="text-center">{{ $trip->driver_name }}</td>
-                                        {{-- <td style="width: 210.297px;"></td> --}}
-                                        <td class="d-flex flex-row-reverse justify-content-center align-items-center"
-                                            style="width: 100%;height: 66.5px;">
-                                            <form method="POST" action="{{ route('trip.destroy', $trip->id) }}"
-                                                class="form-custom">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-primary" type="submit"
-                                                    style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i
-                                                        class="fas fa-trash-alt"></i></button>
-                                            </form>
-
-                                            <div style="width: 43px;">
-                                                <a class="btn btn-primary btn-lg fs-6 text-center" role="button"
-                                                    href="#editModal-{{ $trip->id }}" data-bs-toggle="modal"
-                                                    style="border-radius: 65px;height: 43px;width: 43px;">
-                                                    <i class="fas fa-pen" style="font-size: 10px;"></i>
-                                                </a>
-                                                <div id="editModal-{{ $trip->id }}" class="modal fade" role="dialog"
-                                                    tabindex="-1">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h4>Edit Trip for {{ $trip->route->descr }}</h4>
-                                                                <button class="btn-close" type="button"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form method="POST"
-                                                                    action="{{ route('trip.update', ['id' => $trip->id]) }}">
-                                                                    @csrf
-                                                                    @method('PUT')
-
+                                        @if ($trip->route_id  == $rroute->id)
+                                            <tr>
+                                                <td>{{ $trip->dates }}</td>
+                                                <td class="text-center">{{ $trip->route->fare }}</td>
+                                                <td class="text-center">{{ $trip->van_plate }}</td>
+                                                <td class="text-center">{{ $trip->driver_name }}</td>
+                                                {{-- <td style="width: 210.297px;"></td> --}}
+                                                <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;">
+                                                    <form method="POST" action="{{ route('trip.destroy', $trip->id) }}" class="form-custom">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-primary" type="submit" style="border-radius: 66px;width: 43px;min-width: 43px;height: 43px;"><i class="fas fa-trash-alt"></i></button>
+                                                    </form>
+                                                    
+                                                    <div style="width: 43px;">
+                                                        <a class="btn btn-primary btn-lg fs-6 text-center" role="button" href="#editModal-{{ $trip->id }}" data-bs-toggle="modal" style="border-radius: 65px;height: 43px;width: 43px;">
+                                                            <i class="fas fa-pen" style="font-size: 10px;"></i>
+                                                        </a>
+                                                        <div id="editModal-{{ $trip->id }}" class="modal fade" role="dialog" tabindex="-1">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4>Edit Trip for {{ $trip->route->descr }}</h4>
+                                                                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
                                                                     <div class="modal-body">
-
-                                                                        <div class="form-group">
-                                                                            <label for="dates">Dates:</label>
-                                                                            <input type="date" class="form-control"
-                                                                                id="date" name="date"
-                                                                                value="{{ $trip->dates }}">
-                                                                        </div>
-
-                                                                        <div class="form-group">
-                                                                            <label for="van_plate">Van Plate:</label>
-                                                                            <input type="text" class="form-control"
-                                                                                id="van_plate" name="van_plate"
-                                                                                value="{{ $trip->van_plate }}">
-                                                                        </div>
-
-                                                                        <div class="form-group">
-                                                                            <label for="driver_name">Driver
-                                                                                Name:</label>
-                                                                            <input type="text" class="form-control"
-                                                                                id="driver_name" name="driver_name"
-                                                                                value="{{ $trip->driver_name }}">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="modal-footer">
-                                                                        <button class="btn btn-light" type="button"
-                                                                            data-bs-dismiss="modal">Close</button>
-                                                                        <button class="btn btn-primary"
-                                                                            type="submit">Edit</button>
-                                                                    </div>
-                                                                </form>
+                                                                        <form method="POST" action="{{ route('trip.update', ['id' => $trip->id]) }}">
+                                                                            @csrf
+                                                                            @method('PUT')
+                                                                        
+                                                                            <div class="modal-body">
+                                                                                
+                                                                                <div class="form-group">
+                                                                                    <label for="dates">Dates:</label>
+                                                                                    <input type="date" class="form-control" id="date" name="date" value="{{ $trip->dates }}" >
+                                                                                </div>
+                                                                        
+                                                                                <div class="form-group">
+                                                                                    <label for="van_plate">Van Plate:</label>
+                                                                                    <input type="text" class="form-control" id="van_plate" name="van_plate" value="{{ $trip->van_plate }}">
+                                                                                </div>
+                                                                        
+                                                                                <div class="form-group">
+                                                                                    <label for="driver_name">Driver's Name:</label>
+                                                                                    <select class="form-control" id="driver_name" name="driver_name">
+                                                                                        @foreach ($users as $user)
+                                                                                            @if ($user->userlvl==3)
+                                                                                                <option value="{{ $user->name }}">{{ $user->name }}</option>
+                                                                                            @endif
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        
+                                                                            <div class="modal-footer">
+                                                                                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
+                                                                                <button class="btn btn-primary" type="submit">Edit</button>
+                                                                            </div>
+                                                                        </form>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                        </td>
-                                    </tr>
-                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
-                    @endforeach
+                @endforeach
                 </div>
             </div>
         </div>

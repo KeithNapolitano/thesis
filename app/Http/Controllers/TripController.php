@@ -52,6 +52,7 @@ class TripController extends Controller
             'dates' => $request->date,
             'van_plate' => $request->van_plate,
             'user_id' => $request->user_id,
+            'driver_name' => $request->driver_name,
             // 'trip_status' => $request->trip_status,
             // 'orig_fare' => $request->orig_fare,
             // 'extra_fare' => $request->extra_fare
@@ -105,7 +106,7 @@ class TripController extends Controller
         $request->validated();
 
         $trip = Trip::findOrFail($id);
-        $trip->update($request->except(['_token', '_method']));
+        $trip->update($request->except('_token', '_method') + ['dates' => $request->date]);
 
         return redirect('/trip/create')->with('message', 'Trip has been updated.');
     }
