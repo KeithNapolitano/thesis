@@ -94,7 +94,7 @@ class RoutesController extends Controller
     $route->descr = $request->input('descr');
     $route->fare = $request->input('fare');
     $route->save();
-    
+
     return redirect('/trip/create')->with('success', 'Route details updated successfully!');
     }
 
