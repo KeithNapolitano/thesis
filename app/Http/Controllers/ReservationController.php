@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReservationFormRequest;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -23,7 +25,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        //
+        //insert page for the creation
     }
 
     /**
@@ -32,9 +34,23 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ReservationFormRequest $request)
     {
-        //
+        $request->validated();  //need formrequest
+
+        Reservation::create([
+            'user_id' => $request->user_id,
+            'trip_id' => $request->trip_id,
+            'tickets' => $request->tickets,
+            'payment_id' => $request->payment_id,
+            //'present' => $request->present,  NOT NEEDED BC OPE WILL JUST EDIT THIS
+            'seat' => $request->seat,
+            'ref_num' => $request->ref_num,
+            'image_path' => $this->storeImage($request)//image lang pangalan ani sa frontend kay mao nakabutang sa formrequest
+        ]);
+
+        //PAADD ASA MAGREDIRECT
+        //return redirect('');
     }
 
     /**
@@ -80,5 +96,11 @@ class ReservationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function storeImage($request){
+        $newImageName = uniqid() . '-' . $request->user_id . '.' . $request->image->extension();
+
+        return $request->image->move(public_path('images'), $newImageName);
     }
 }

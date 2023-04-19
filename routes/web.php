@@ -47,11 +47,11 @@ Route::middleware('auth', 'isSuperAdmin')->group(function () {
 require __DIR__.'/auth.php';
 
 //update and destory only. edit===update(popup)
-Route::prefix('/superadmin')->middleware('auth')->group(function () {
-    // Route::get('/edit', [UserController::class, 'edit'])->name('user.edit');
-    Route::patch('/', [UserController::class, 'update'])->name('user.update');
-    Route::delete('/', [UserController::class, 'destroy'])->name('user.destroy');
-});
+// Route::prefix('/superadmin')->middleware('auth')->group(function () {
+//     // Route::get('/edit', [UserController::class, 'edit'])->name('user.edit');
+//     Route::patch('/', [UserController::class, 'update'])->name('user.update');
+//     Route::delete('/', [UserController::class, 'destroy'])->name('user.destroy');
+// });
 
 Route::prefix('/trip')->group(function (){
     Route::get('/', [TripController::class, 'index'])->name('trip.index');

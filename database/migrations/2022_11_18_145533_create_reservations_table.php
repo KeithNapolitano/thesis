@@ -23,6 +23,7 @@ return new class extends Migration
                 $table->boolean('present')->nullable();
                 $table->string('seat')->nullable();
                 $table->string('ref_num');
+                $table->string('image_path');
                 $table->timestamps();
 
                 $table->foreign('trip_id')->references('id')->on('trips');

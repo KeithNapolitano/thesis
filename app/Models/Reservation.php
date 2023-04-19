@@ -11,7 +11,7 @@ class Reservation extends Model
 
     protected $fillable = [
         'sched_id', 'user_id', 'tickets', 'payment_id', 'present',
-        'seat', 'ref_num'
+        'seat', 'ref_num', 'image_path'
     ];
 
     public function trip(){ //many reservations per trip
