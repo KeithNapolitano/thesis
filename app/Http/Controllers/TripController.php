@@ -113,8 +113,7 @@ class TripController extends Controller
 
     public function OPupdate(OPTripFormUpdateRequest $request, $id)
 {
-    $request->validated();
-
+    $validated = $request->validated();
     $trip = Trip::findOrFail($id);
     $trip->driver_status = $request->has('driver_status') ? 1 : 0; // set to 0 if unchecked
     $trip->passenger_status = $request->has('passenger_status') ? 1 : 0; // set to 0 if unchecked
