@@ -104,33 +104,37 @@
             $trips = DB::table('trips')->where('dates', $selectedDate)->get();
         @endphp
 
-        @if (count($trips))
-            <div class="card-group">
-                @foreach ($trips as $trip)
-                @foreach ($routes as $route)
-                    <div class="card">
-                        <div class="card-body" style="padding: 16px;">
-                            <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px;"><strong>Toyota HiAce&nbsp;
-                                </strong><br><strong>{{ $trip->van_plate }}</strong><br><span></span></h4>
-                            <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to {{ $route->descr }}</p>
-                            <ul class="list-group" style="padding: 0;padding-bottom: 10px;">
-                                <li class="list-group-item"><span>5 Seats available</span></li>
-                                <li class="list-group-item"><span>4 paid&nbsp;</span></li>
-                                <li class="list-group-item"><span>10 reserved</span></li>
-                                <li class="list-group-item"><span>Driver: {{ $trip->van_plate }}</span></li>
-                            </ul>
-                            <a class="btn btn-primary" role="button" href="/operator/opview?van_plate={{ $trip->van_plate }}">Van View</a>
+@if (count($trips))
+<div class="card-group">
 
-                        </div>
-                    </div>
+    @foreach ($trips as $trip)
+        <div class="card">
+            <div class="card-body" style="padding: 16px;">
+                <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px;"><strong>Toyota HiAce&nbsp;
+                    </strong><br><strong>{{ $trip->van_plate }}</strong><br><span></span></h4>
+                @foreach ($routes as $route)
+                    @if ($trip->route_id == $route->id)
+                        <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to {{ $route->descr }}</p>
+                    @endif
                 @endforeach
-                @endforeach
+                <ul class="list-group" style="padding: 0;padding-bottom: 10px;">
+                    <li class="list-group-item"><span>5 Seats available</span></li>
+                    <li class="list-group-item"><span>4 paid&nbsp;</span></li>
+                    <li class="list-group-item"><span>10 reserved</span></li>
+                    <li class="list-group-item"><span>Driver: {{ $trip->van_plate }}</span></li>
+                </ul>
+                <a class="btn btn-primary" role="button" href="/operator/opview?van_plate={{ $trip->van_plate }}">Van View</a>
+
             </div>
-        @else
-            <div class="container">
-                <p>Select a date first</p>
-            </div>
-        @endif
+        </div>
+    @endforeach
+
+</div>
+@else
+<div class="container">
+    <p>Select a date first</p>
+</div>
+@endif
 
     </div>
 
