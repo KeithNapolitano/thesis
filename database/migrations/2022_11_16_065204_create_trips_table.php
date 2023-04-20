@@ -21,6 +21,7 @@ return new class extends Migration
                 $table->date('dates');
                 $table->unsignedBigInteger('user_id')->nullable();  
                 $table->string('van_plate');
+                $table->string('driver_name');
                 $table->boolean('trip_status')->nullable();
                 $table->integer('orig_fare')->nullable();
                 $table->integer('extra_fare')->nullable();

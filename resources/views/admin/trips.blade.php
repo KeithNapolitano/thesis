@@ -45,7 +45,8 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="{{ route('trip.create') }}">Trips</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('trip.account') }}">Account</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+                    {{-- <form method="POST" action="{{ route('logout') }}"> --}}
+                    <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -195,7 +196,7 @@
                                                     <label for="driver_name">Driver's Name:</label>
                                                     <select class="form-control" id="driver_name" name="driver_name">
                                                         @foreach ($users as $user)
-                                                            @if ($user->userlvl==3)
+                                                            @if ($user->userlvl==2)
                                                                 <option value="{{ $user->name }}">{{ $user->name }}</option>
                                                             @endif
                                                         @endforeach

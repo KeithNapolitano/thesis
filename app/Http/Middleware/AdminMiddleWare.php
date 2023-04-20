@@ -23,7 +23,7 @@ class AdminMiddleWare
                 return $next($request);
             }
             else{
-                return redirect()->back();
+                return redirect()->back()->with('status', 'You dont have the authority');
             }
         }
         else{

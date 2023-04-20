@@ -27,6 +27,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/logout', function(){
+    Auth::logout();
+    return redirect('/login');
+});
+
 Route::prefix('operator')->group(function () {
     Route::get('/create', function () {return view('operator.create');})->name('operator.create');
     Route::get('/edit', function () {return view('operator.edit');})->name('operator.edit');
@@ -49,7 +54,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth', 'isSuperAdmin')->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -64,7 +69,7 @@ require __DIR__.'/auth.php';
 //     Route::delete('/', [UserController::class, 'destroy'])->name('user.destroy');
 // });
 
-Route::prefix('/trip')->group(function (){
+Route::prefix('/trip')->middleware(['auth', 'isAdmin'])->group(function (){
     Route::get('/', [TripController::class, 'index'])->name('trip.index');
     Route::get('/account', [FinancesController::class, 'finances'])->name('trip.account');
     Route::get('/create', [TripController::class, 'create'])->name('trip.create');

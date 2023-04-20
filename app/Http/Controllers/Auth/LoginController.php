@@ -31,12 +31,12 @@ class LoginController extends Controller
 
     public function authenticated(){
         if(Auth::user()->userlvl == 3){     //admin
-            return redirect('/trip')->with('status', 'Welcome to Admin Dashboard');
+            return redirect('/trip/create')->with('status', 'Welcome to Admin Dashboard');
         }
-        else if(Auth::user()->userlvl == 2){
-            return redirect('/operator')->with('status', 'Welcome to Operator Dashboard');
+        else if(Auth::user()->userlvl == 2){   //ope
+            return redirect('/operator/opview')->with('status', 'Welcome to Operator Dashboard');
         }
-        else{
+        else{   //user
             return redirect('/dashboard')->with('status', 'Welcome to your Dashboard');
         }
     }
