@@ -28,21 +28,28 @@
                     <li class="nav-item"><a class="nav-link active" href="schedule"><strong><span
                                     style="color: rgb(0, 0, 0);">Schedule</span></strong></a></li>
                                     @php
-                                    // Get the most recently opened van plate
-                                    $recentVanPlate = ""; // Replace with your code to get the van plate
-                                    // Sort trips by date and get the most recent one
-                                    $mostRecentTrip = DB::table('trips')->orderBy('dates', 'desc')->first();
-                                    // Get the van plate for the most recent trip
-                                    $mostRecentVanPlate = $mostRecentTrip->van_plate;
-                                @endphp
+// Get the most recently opened van plate
+$recentVanPlate = ""; // Replace with your code to get the van plate
+// Sort trips by date and get the most recent one
+$mostRecentTrip = DB::table('trips')->orderBy('dates', 'desc')->first();
+// Get the van plate for the most recent trip
+$mostRecentVanPlate = $mostRecentTrip->van_plate;
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/operator/opview?van_plate={{ $recentVanPlate ?: $mostRecentVanPlate }}">
-                                        <span style="color: rgb(0, 0, 0);">
-                                            Operator View
-                                        </span>
-                                    </a>
-                                </li>
+$urlParams = [];
+if ($recentVanPlate) {
+    $urlParams['van_plate'] = $recentVanPlate;
+} else if ($mostRecentVanPlate) {
+    $urlParams['van_plate'] = $mostRecentVanPlate;
+}
+@endphp
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ url('/operator/opview', $urlParams) }}">
+        <span style="color: rgb(0, 0, 0);">
+            Operator View
+        </span>
+    </a>
+</li>
 
                     <li class="nav-item"><a class="nav-link" href="qr"><span style="color: rgb(0, 0, 0);">QR
                                 Scanner</span></a></li>
