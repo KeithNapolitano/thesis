@@ -160,12 +160,14 @@ class TripController extends Controller
             $trip->orig_fare = $origFare;
 
             $trip->trip_status = 1;
+            $trip->save();
         } else {
             $trip->orig_fare = null;
             $trip->trip_status = 0;
+            $trip->save();
         }
 
-        $trip->save();
+
 
         return redirect()->route('operator.opview', [
             'van_plate' => $request->input('van_plate')
