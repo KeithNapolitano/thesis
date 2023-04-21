@@ -59,7 +59,11 @@
                     <header class="text-center">
                         <p class="text-center"
                             style="text-align: center;font-size: 35px;margin-bottom: 0px;font-family: 'Fira Sans Condensed', sans-serif;">
-                            <b>siGO ka sa [TERMINAL'S NAME]</b></p>
+                            @foreach ($users as $user)
+                                @if ($user->userlvl==3)
+                                    <b>siGO ka sa {{ $user->name }}</b></p>
+                                @endif
+                            @endforeach
                     </header>
                 </div>
             </section>
@@ -141,7 +145,11 @@
                     <header class="text-center">
                         <p class="text-center"
                             style="text-align: center;font-size: 35px;margin-bottom: 0px;font-family: 'Fira Sans Condensed', sans-serif;">
-                            <strong>TRIPS FOR</strong>&nbsp;[<strong>TERMINAL'S NAME]</strong></p>
+                            @foreach ($users as $user)
+                                @if ($user->userlvl==3)
+                                    <b>siGO ka sa {{ $user->name }}</b></p>
+                                @endif
+                            @endforeach
                     </header>
                 </div>
             </section>
@@ -196,7 +204,7 @@
                                                     <label for="driver_name">Driver's Name:</label>
                                                     <select class="form-control" id="driver_name" name="driver_name">
                                                         @foreach ($users as $user)
-                                                            @if ($user->userlvl==2)
+                                                            @if ($user->userlvl==4)
                                                                 <option value="{{ $user->name }}">{{ $user->name }}</option>
                                                             @endif
                                                         @endforeach
@@ -246,12 +254,12 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 137.297px;">DATE</th>
-                                        <th class="text-center" style="width: 66.188px;">FARE</th>
-                                        <th class="text-center" style="width: 94.422px;">VAN</th>
-                                        <th class="text-center" style="width: 170.797px;">DRIVER</th>
-                                        {{-- <th class="text-center">TRIP STATUS</th> --}}
-                                        <th class="text-center" style="width: 42.172px;">ACTION</th>
+                                        <th class="text-center">DATE</th>
+                                        <th class="text-center">FARE</th>
+                                        <th class="text-center">VAN</th>
+                                        <th class="text-center">DRIVER</th>
+                                        <th class="text-center">TRIP STATUS</th>
+                                        <th class="text-center">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -262,7 +270,14 @@
                                                 <td class="text-center">{{ $trip->route->fare }}</td>
                                                 <td class="text-center">{{ $trip->van_plate }}</td>
                                                 <td class="text-center">{{ $trip->driver_name }}</td>
-                                                {{-- <td style="width: 210.297px;"></td> --}}
+                                                <td style="width: 210.297px;">
+                                                    @if ($trip->trip_status == 1)
+                                                        Departed
+                                                        @elseif ($trip->trip_status == 0)
+                                                        Stand By
+                                                    @endif
+                                                    
+                                                </td>
                                                 <td class="d-flex flex-row-reverse justify-content-center align-items-center" style="width: 100%;height: 66.5px;">
                                                     <form method="POST" action="{{ route('trip.destroy', $trip->id) }}" class="form-custom">
                                                         @csrf
@@ -302,7 +317,7 @@
                                                                                     <label for="driver_name">Driver's Name:</label>
                                                                                     <select class="form-control" id="driver_name" name="driver_name">
                                                                                         @foreach ($users as $user)
-                                                                                            @if ($user->userlvl==3)
+                                                                                            @if ($user->userlvl==4)
                                                                                                 <option value="{{ $user->name }}">{{ $user->name }}</option>
                                                                                             @endif
                                                                                         @endforeach
