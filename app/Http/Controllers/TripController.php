@@ -130,33 +130,47 @@ class TripController extends Controller
     }
 
     public function OPupdate(OPTripFormUpdateRequest $request, $id)
-{
-    $validated = $request->validated();
-    $trip = Trip::findOrFail($id);
-    $trip->driver_status = $request->has('driver_status') ? 1 : 0; // set to 0 if unchecked
-    $trip->passenger_status = $request->has('passenger_status') ? 1 : 0; // set to 0 if unchecked
-    $trip->payment_status = $request->has('payment_status') ? 1 : 0; // set to 0 if unchecked
-    $trip->supervisor_status = $request->has('supervisor_status') ? 1 : 0; // set to 0 if unchecked
-    $trip->save();
+    {
+        $validated = $request->validated();
+        $trip = Trip::findOrFail($id);
 
-    if(
-        $trip->driver_status == 1 &&
-        $trip->passenger_status == 1 &&
-        $trip->payment_status == 1 &&
-        $trip->supervisor_status == 1
-    ) {
-        $trip->trip_status = 1;
+        // Update trip status
+        $trip->driver_status = $request->has('driver_status') ? 1 : 0;
+        $trip->passenger_status = $request->has('passenger_status') ? 1 : 0;
+        $trip->payment_status = $request->has('payment_status') ? 1 : 0;
+        $trip->supervisor_status = $request->has('supervisor_status') ? 1 : 0;
+
+        // Calculate orig_fare if trip status is 1
+        if (
+            $trip->driver_status == 1 &&
+            $trip->passenger_status == 1 &&
+            $trip->payment_status == 1 &&
+            $trip->supervisor_status == 1
+        ) {
+            $seats = Seat::where('id', $id)->firstOrFail();
+            $filledSeatsCount = 0;
+            for ($i = 1; $i <= 14; $i++) {
+                if ($seats->{'seat'.$i} == 1) {
+                    $filledSeatsCount++;
+                }
+            }
+            $route = Route::findOrFail($trip->route_id);
+            $fare = $route->fare;
+            $origFare = $filledSeatsCount * $fare;
+            $trip->orig_fare = $origFare;
+
+            $trip->trip_status = 1;
+        } else {
+            $trip->orig_fare = null;
+            $trip->trip_status = 0;
+        }
+
         $trip->save();
-    } else {
-        $trip->trip_status = 0;
-        $trip->save();
+
+        return redirect()->route('operator.opview', [
+            'van_plate' => $request->input('van_plate')
+        ])->with('message', 'Trip has been updated.');
     }
-    
-
-    return redirect()->route('operator.opview', [
-        'van_plate' => $request->input('van_plate')
-    ])->with('message', 'Trip has been updated.');
-}
 
 
 
