@@ -273,7 +273,7 @@
                                                 <td style="width: 210.297px;">
                                                     @if ($trip->trip_status == 1)
                                                         Departed
-                                                        @elseif ($trip->trip == 0)
+                                                        @elseif ($trip->trip_status == 0)
                                                         Stand By
                                                     @endif
                                                     
