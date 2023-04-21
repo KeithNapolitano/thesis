@@ -34,7 +34,7 @@ class LoginController extends Controller
             return redirect('/trip/create')->with('status', 'Welcome to Admin Dashboard');
         }
         else if(Auth::user()->userlvl == 2){   //ope
-            return redirect('/operator/opview')->with('status', 'Welcome to Operator Dashboard');
+            return redirect('/operator/schedule')->with('status', 'Welcome to Operator Dashboard');
         }
         else{   //user
             return redirect('/dashboard')->with('status', 'Welcome to your Dashboard');

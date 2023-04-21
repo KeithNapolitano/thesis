@@ -196,7 +196,7 @@
                                                     <label for="driver_name">Driver's Name:</label>
                                                     <select class="form-control" id="driver_name" name="driver_name">
                                                         @foreach ($users as $user)
-                                                            @if ($user->userlvl==2)
+                                                            @if ($user->userlvl==4)
                                                                 <option value="{{ $user->name }}">{{ $user->name }}</option>
                                                             @endif
                                                         @endforeach
@@ -302,7 +302,7 @@
                                                                                     <label for="driver_name">Driver's Name:</label>
                                                                                     <select class="form-control" id="driver_name" name="driver_name">
                                                                                         @foreach ($users as $user)
-                                                                                            @if ($user->userlvl==3)
+                                                                                            @if ($user->userlvl==4)
                                                                                                 <option value="{{ $user->name }}">{{ $user->name }}</option>
                                                                                             @endif
                                                                                         @endforeach

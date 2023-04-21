@@ -53,7 +53,7 @@ if ($recentVanPlate) {
 
                     <li class="nav-item"><a class="nav-link" href="qr"><span style="color: rgb(0, 0, 0);">QR
                                 Scanner</span></a></li>
-                </ul><a class="btn btn-primary" role="button" href="index" style="margin-left: 20px;">Log Out</a>
+                </ul><a class="btn btn-primary" role="button" href="{{ route('logout') }}" style="margin-left: 20px;">Log Out</a>
             </div>
         </div>
     </nav>

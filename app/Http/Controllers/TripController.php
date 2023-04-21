@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TripFormRequest;
 use App\Http\Requests\OPTripFormUpdateRequest;
 use App\Models\Route;
+use App\Models\Seat;
 use App\Models\Trip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -60,6 +61,23 @@ class TripController extends Controller
             // 'passenger_status' => $request->passenger_status,
             // 'payment_status' => $request->payment_status,
             // 'supervisor_status' => $request->supervisor_status
+        ]);
+
+        Seat::create([
+            'seat1' => 0,
+            'seat2' => 0,
+            'seat3' => 0,
+            'seat4' => 0,
+            'seat5' => 0,
+            'seat6' => 0,
+            'seat7' => 0,
+            'seat8' => 0,
+            'seat9' => 0,
+            'seat10' => 0,
+            'seat11' => 0,
+            'seat12' => 0,
+            'seat13' => 0,
+            'seat14' => 0,
         ]);
 
         return redirect('/trip/create'); // pass the $routes variable to the view
@@ -128,10 +146,12 @@ class TripController extends Controller
         $trip->supervisor_status == 1
     ) {
         $trip->trip_status = 1;
+        $trip->save();
     } else {
         $trip->trip_status = 0;
+        $trip->save();
     }
-    $trip->save();
+    
 
     return redirect()->route('operator.opview', [
         'van_plate' => $request->input('van_plate')
