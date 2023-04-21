@@ -19,7 +19,6 @@
 </head>
 
 <body>
-    @foreach ($trips as $trip)
     <nav class="navbar navbar-light navbar-expand-md py-3">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"></a><img
                 src="{{ asset('import/assets/img/Logo.png')}}"><button data-bs-toggle="collapse" class="navbar-toggler"
@@ -38,28 +37,70 @@
             </div>
         </div>
     </nav>
+
+    @foreach ($trips as $trip)
+
+    @endforeach
     <div class="row mb-5" style="margin-top: 8px;margin-bottom: 50px;">
         <div class="col-md-8 col-xl-6 text-center mx-auto">
-            <h2 class="fs-2 fw-bold text-center"><strong>Davao City to Kidapawan City</strong><br></h2>
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <ul class="list-group">
-                            @php
-                            $vanPlate = $_GET['van_plate'];
 
-                            // Filter the data based on the van plate number
-                            $vanData = DB::table('trips')->where('van_plate', $vanPlate)->first();
+            @php
+            // Check if the van_plate parameter exists in the query string
+            if (isset($_GET['van_plate'])) {
+                $vanPlate = $_GET['van_plate'];
 
-                            // Display the van data
-                            echo "<li class=\"list-group-item\"><span><strong>Assigned van:&nbsp;</strong></span><span>Toyota HiAce " . $vanData->van_plate . "<br></span></li>";
-                            echo "<li class=\"list-group-item\"><span><strong>Operator:&nbsp;</strong></span><span>Test name " . $vanData->van_plate . "</span></li>";
-                            @endphp
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                // Filter the data based on the van plate number
+                $vanData = DB::table('trips')->where('van_plate', $vanPlate)->first();
+
+                // Loop through the routes and get the matching one
+                $matchingRoute = null;
+                foreach ($routes as $route) {
+                    if ($vanData->route_id == $route->id) {
+                        $matchingRoute = $route;
+                        break;
+                    }
+                }
+
+                if ($matchingRoute != null) {
+                    // Display the route description
+                    echo "<h2 class=\"fs-2 fw-bold text-center\"><strong>Davao City to " . $matchingRoute->descr . "</strong><br></h2>";
+                } else {
+                    // Show an error message if there's no matching route
+                    echo "<h2 class=\"fs-2 fw-bold text-center\"><strong>No matching route found</strong><br></h2>";
+                }
+
+                // Display the van data
+                echo "<div class=\"container\">";
+                echo "<div class=\"row\">";
+                echo "<div class=\"col\">";
+                echo "<ul class=\"list-group\">";
+                echo "<li class=\"list-group-item\"><span><strong>Assigned
+                                     van:&nbsp;</strong></span><span>Toyota HiAce " . $vanData->van_plate .
+                    "<br></span></li>";
+                echo "<li class=\"list-group-item\"><span><strong>Operator:&nbsp;</strong></span><span>Test
+                                     name " . $vanData->van_plate . "</span></li>";
+                echo "</ul>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+            } else {
+                // Show an error message if the van_plate parameter is missing
+                echo "<h2 class=\"fs-2 fw-bold text-center\"><strong>Error:</strong> Missing van_plate parameter in URL.</h2>";
+                echo "<div class=\"container\">";
+                echo "<div class=\"row\">";
+                echo "<div class=\"col\">";
+                echo "<ul class=\"list-group\">";
+                echo "<li class=\"list-group-item text-danger\"><strong>Error:</strong> Missing van_plate parameter in URL.</li>";
+                echo "</ul>";
+                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+            }
+            @endphp
+
         </div>
+    </div>
+
         <div class="text-center" style="width: 100%;height: 100%;"></div>
         <div class="container text-center">
             <div></div>
@@ -117,6 +158,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row mb-5" style="margin-top: 48px;margin-bottom: 50px;">
                 <div class="col-md-8 col-xl-6 text-center mx-auto">
                     <p class="fs-3" style="margin: 0px;"><strong>Trip Ticket Form</strong></p>
@@ -124,45 +166,38 @@
                         <div class="row">
                             <div class="col">
                                 <ul class="list-group">
-                                    <form method="POST" id="trip-form"
-                                        action="{{ route('trip.OPupdate', ['id' => $trip->id]) }}">
+                                    <form method="POST" id="trip-form" action="{{ route('trip.OPupdate', ['id' => $trip->id]) }}">
                                         @csrf
                                         @method('PUT')
-
+                                        <input type="hidden" name="van_plate" value="{{ request()->get('van_plate') }}">
                                         <ul class="list-group">
-                                            <li class="list-group-item">
-                                                <span><strong>Driver Status:&nbsp;</strong></span>
-                                                <div>
-                                                    <input type="checkbox" id="driverstatus" name="driver_status"
-                                                        value="1" {{ $trip->driver_status == 1 ? 'checked' : '' }}>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <span><strong>Passenger Status:&nbsp;</strong></span>
-                                                <div>
-                                                    <input type="checkbox" id="passengerstatus" name="passenger_status"
-                                                        value="1" {{ $trip->passenger_status == 1 ? 'checked' : '' }}>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <span><strong>Payment Collection:&nbsp;</strong></span>
-                                                <div>
-                                                    <input type="checkbox" id="paymentstatus" name="payment_status"
-                                                        value="1" {{ $trip->payment_status == 1 ? 'checked' : '' }}>
-                                                </div>
-                                            </li>
-                                            <li class="list-group-item">
-                                                <span><strong>Supervisor Confirmation:</strong>&nbsp;</span>
-                                                <div>
-                                                    <input type="checkbox" id="supervisorstatus"
-                                                        name="supervisor_status" value="1"
-                                                        {{ $trip->supervisor_status == 1 ? 'checked' : '' }}>
-                                                </div>
-                                            </li>
+                                          <li class="list-group-item">
+                                            <span><strong>Driver Status:&nbsp;</strong></span>
+                                            <div>
+                                              <input type="checkbox" id="driverstatus" name="driver_status" value="1" {{ $trip->driver_status == 1 ? 'checked' : '' }}>
+                                            </div>
+                                          </li>
+                                          <li class="list-group-item">
+                                            <span><strong>Passenger Status:&nbsp;</strong></span>
+                                            <div>
+                                              <input type="checkbox" id="passengerstatus" name="passenger_status" value="1" {{ $trip->passenger_status == 1 ? 'checked' : '' }}>
+                                            </div>
+                                          </li>
+                                          <li class="list-group-item">
+                                            <span><strong>Payment Collection:&nbsp;</strong></span>
+                                            <div>
+                                              <input type="checkbox" id="paymentstatus" name="payment_status" value="1" {{ $trip->payment_status == 1 ? 'checked' : '' }}>
+                                            </div>
+                                          </li>
+                                          <li class="list-group-item">
+                                            <span><strong>Supervisor Confirmation:</strong>&nbsp;</span>
+                                            <div>
+                                              <input type="checkbox" id="supervisorstatus" name="supervisor_status" value="1" {{ $trip->supervisor_status == 1 ? 'checked' : '' }}>
+                                            </div>
+                                          </li>
                                         </ul>
                                         <button class="btn btn-primary" type="submit">Submit</button>
-                                    </form>
-
+                                      </form>
                                 </ul>
                             </div>
                         </div>
@@ -214,7 +249,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <script src="{{ asset('import/assets/js/bold-and-bright.js')}}"></script>
         <script src="{{ asset('import/assets/js/Card-Carousel.js')}}"></script>
-        @endforeach
 </body>
 
 </html>

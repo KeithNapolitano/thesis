@@ -112,29 +112,31 @@ class TripController extends Controller
     }
 
     public function OPupdate(OPTripFormUpdateRequest $request, $id)
-    {
-        $request->validated();
+{
+    $validated = $request->validated();
+    $trip = Trip::findOrFail($id);
+    $trip->driver_status = $request->has('driver_status') ? 1 : 0; // set to 0 if unchecked
+    $trip->passenger_status = $request->has('passenger_status') ? 1 : 0; // set to 0 if unchecked
+    $trip->payment_status = $request->has('payment_status') ? 1 : 0; // set to 0 if unchecked
+    $trip->supervisor_status = $request->has('supervisor_status') ? 1 : 0; // set to 0 if unchecked
+    $trip->save();
 
-        $trip = Trip::findOrFail($id);
-        $trip->driver_status = $request->has('driver_status') ? 1 : 0; // set to 0 if unchecked
-        $trip->passenger_status = $request->has('passenger_status') ? 1 : 0; // set to 0 if unchecked
-        $trip->payment_status = $request->has('payment_status') ? 1 : 0; // set to 0 if unchecked
-        $trip->supervisor_status = $request->has('supervisor_status') ? 1 : 0; // set to 0 if unchecked
-        $trip->save();
-        if($trip->driver_status == 1 && $trip->passenger_status == 1 && $trip->payment_status == 1 && $trip->supervisor_status == 1) {
-            $trip->trip_status = 1;
-            $trip->save();
-        }
-        else if ($trip->driver_status == NULL && $trip->passenger_status == NULL && $trip->payment_status == NULL && $trip->supervisor_status == NULL){
-            $trip->trip_status = 0;
-            $trip->save();
-        }
-        else {
-            $trip->trip_status = 0;
-            $trip->save();
-        }
-        return redirect('/operator/opview')->with('message', 'Trip has been updated.');
+    if(
+        $trip->driver_status == 1 &&
+        $trip->passenger_status == 1 &&
+        $trip->payment_status == 1 &&
+        $trip->supervisor_status == 1
+    ) {
+        $trip->trip_status = 1;
+    } else {
+        $trip->trip_status = 0;
     }
+    $trip->save();
+
+    return redirect()->route('operator.opview', [
+        'van_plate' => $request->input('van_plate')
+    ])->with('message', 'Trip has been updated.');
+}
 
 
 

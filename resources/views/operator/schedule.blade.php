@@ -28,21 +28,28 @@
                     <li class="nav-item"><a class="nav-link active" href="schedule"><strong><span
                                     style="color: rgb(0, 0, 0);">Schedule</span></strong></a></li>
                                     @php
-                                    // Get the most recently opened van plate
-                                    $recentVanPlate = ""; // Replace with your code to get the van plate
-                                    // Sort trips by date and get the most recent one
-                                    $mostRecentTrip = DB::table('trips')->orderBy('dates', 'desc')->first();
-                                    // Get the van plate for the most recent trip
-                                    $mostRecentVanPlate = $mostRecentTrip->van_plate;
-                                @endphp
+// Get the most recently opened van plate
+$recentVanPlate = ""; // Replace with your code to get the van plate
+// Sort trips by date and get the most recent one
+$mostRecentTrip = DB::table('trips')->orderBy('dates', 'desc')->first();
+// Get the van plate for the most recent trip
+$mostRecentVanPlate = $mostRecentTrip->van_plate;
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/operator/opview?van_plate={{ $recentVanPlate ?: $mostRecentVanPlate }}">
-                                        <span style="color: rgb(0, 0, 0);">
-                                            Operator View
-                                        </span>
-                                    </a>
-                                </li>
+$urlParams = [];
+if ($recentVanPlate) {
+    $urlParams['van_plate'] = $recentVanPlate;
+} else if ($mostRecentVanPlate) {
+    $urlParams['van_plate'] = $mostRecentVanPlate;
+}
+@endphp
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ url('/operator/opview', $urlParams) }}">
+        <span style="color: rgb(0, 0, 0);">
+            Operator View
+        </span>
+    </a>
+</li>
 
                     <li class="nav-item"><a class="nav-link" href="qr"><span style="color: rgb(0, 0, 0);">QR
                                 Scanner</span></a></li>
@@ -104,33 +111,37 @@
             $trips = DB::table('trips')->where('dates', $selectedDate)->get();
         @endphp
 
-        @if (count($trips))
-            <div class="card-group">
-                @foreach ($trips as $trip)
-                @foreach ($routes as $route)
-                    <div class="card">
-                        <div class="card-body" style="padding: 16px;">
-                            <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px;"><strong>Toyota HiAce&nbsp;
-                                </strong><br><strong>{{ $trip->van_plate }}</strong><br><span></span></h4>
-                            <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to {{ $route->descr }}</p>
-                            <ul class="list-group" style="padding: 0;padding-bottom: 10px;">
-                                <li class="list-group-item"><span>5 Seats available</span></li>
-                                <li class="list-group-item"><span>4 paid&nbsp;</span></li>
-                                <li class="list-group-item"><span>10 reserved</span></li>
-                                <li class="list-group-item"><span>Driver: {{ $trip->van_plate }}</span></li>
-                            </ul>
-                            <a class="btn btn-primary" role="button" href="/operator/opview?van_plate={{ $trip->van_plate }}">Van View</a>
+@if (count($trips))
+<div class="card-group">
 
-                        </div>
-                    </div>
+    @foreach ($trips as $trip)
+        <div class="card">
+            <div class="card-body" style="padding: 16px;">
+                <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px;"><strong>Toyota HiAce&nbsp;
+                    </strong><br><strong>{{ $trip->van_plate }}</strong><br><span></span></h4>
+                @foreach ($routes as $route)
+                    @if ($trip->route_id == $route->id)
+                        <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to {{ $route->descr }}</p>
+                    @endif
                 @endforeach
-                @endforeach
+                <ul class="list-group" style="padding: 0;padding-bottom: 10px;">
+                    <li class="list-group-item"><span>5 Seats available</span></li>
+                    <li class="list-group-item"><span>4 paid&nbsp;</span></li>
+                    <li class="list-group-item"><span>10 reserved</span></li>
+                    <li class="list-group-item"><span>Driver: {{ $trip->van_plate }}</span></li>
+                </ul>
+                <a class="btn btn-primary" role="button" href="/operator/opview?van_plate={{ $trip->van_plate }}">Van View</a>
+
             </div>
-        @else
-            <div class="container">
-                <p>Select a date first</p>
-            </div>
-        @endif
+        </div>
+    @endforeach
+
+</div>
+@else
+<div class="container">
+    <p>Select a date first</p>
+</div>
+@endif
 
     </div>
 
