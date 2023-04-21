@@ -37,7 +37,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="{{ route('trip.create') }}">Trips</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('trip.account') }}">Account</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -61,6 +61,7 @@
                         </div>
                         <div class="col" style="width: 50%;margin: 0px;margin-left: 2.5px;">
                             <p class="text-start" style="height: 100%;">Income:<br>
+                                {{-- {{ dd($daily) }} --}}
                                 {{ $daily[0]['daily']}}
                                 <br># of Trips:
                                 {{ $dailytrips }}<br></p>

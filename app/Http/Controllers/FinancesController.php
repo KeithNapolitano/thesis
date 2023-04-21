@@ -19,6 +19,9 @@ class FinancesController extends Controller
 
             
             return view('admin.account', [
+                // 'fare'=> Trip::select('orig_fare')->get,
+                // 'daily' => Trip::where('dates', $now)->sum(Trip::raw("orig_fare + extra_fare"))
+                // ->get(),
                 'daily' => Trip::select(Trip::raw("SUM(orig_fare + extra_fare) as daily"))
                     ->where('dates', $now)->get(),
                 'dailytrips' => Trip::where('dates', $now)->count(),

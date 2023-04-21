@@ -37,7 +37,7 @@ class LoginController extends Controller
             return redirect('/operator/schedule')->with('status', 'Welcome to Operator Dashboard');
         }
         else{   //user
-            return redirect('/dashboard')->with('status', 'Welcome to your Dashboard');
+            return redirect('/commuter')->with('status', 'Welcome to your Dashboard');
         }
     }
 
