@@ -38,9 +38,7 @@
         </div>
     </nav>
 
-    @foreach ($trips as $trip)
 
-    @endforeach
     <div class="row mb-5" style="margin-top: 8px;margin-bottom: 50px;">
         <div class="col-md-8 col-xl-6 text-center mx-auto">
 
@@ -166,6 +164,9 @@
                         <div class="row">
                             <div class="col">
                                 <ul class="list-group">
+
+                                    @foreach ($trips as $trip)
+                                    @if (isset($vanData) && $trip->van_plate == $_GET['van_plate'])
                                     <form method="POST" id="trip-form" action="{{ route('trip.OPupdate', ['id' => $trip->id]) }}">
                                         @csrf
                                         @method('PUT')
@@ -198,6 +199,9 @@
                                         </ul>
                                         <button class="btn btn-primary" type="submit">Submit</button>
                                       </form>
+                                      @endif
+                                      @endforeach
+
                                 </ul>
                             </div>
                         </div>
