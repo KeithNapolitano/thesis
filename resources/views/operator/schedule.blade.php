@@ -27,33 +27,36 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="schedule"><strong><span
                                     style="color: rgb(0, 0, 0);">Schedule</span></strong></a></li>
-                                    @php
-// Get the most recently opened van plate
-$recentVanPlate = ""; // Replace with your code to get the van plate
-// Sort trips by date and get the most recent one
-$mostRecentTrip = DB::table('trips')->orderBy('dates', 'desc')->first();
-// Get the van plate for the most recent trip
-$mostRecentVanPlate = $mostRecentTrip->van_plate;
+                    @php
+                    // Get the most recently opened van plate
+                    $recentVanPlate = ""; // Replace with your code to get the van plate
+                    // Sort trips by date and get the most recent one
+                    $mostRecentTrip = DB::table('trips')->orderBy('dates', 'desc')->first();
+                    // Get the van plate for the most recent trip
+                    $mostRecentVanPlate = $mostRecentTrip->van_plate;
 
-$urlParams = [];
-if ($recentVanPlate) {
-    $urlParams['van_plate'] = $recentVanPlate;
-} else if ($mostRecentVanPlate) {
-    $urlParams['van_plate'] = $mostRecentVanPlate;
-}
-@endphp
+                    $urlParams = [];
+                    if ($recentVanPlate) {
+                    $urlParams['van_plate'] = $recentVanPlate;
+                    } else if ($mostRecentVanPlate) {
+                    $urlParams['van_plate'] = $mostRecentVanPlate;
+                    }
 
-<li class="nav-item">
-    <a class="nav-link" href="{{ url('/operator/opview', $urlParams) }}">
-        <span style="color: rgb(0, 0, 0);">
-            Operator View
-        </span>
-    </a>
-</li>
+                    $queryString = http_build_query($urlParams);
+                    @endphp
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/operator/opview') . '?' . $queryString }}">
+                            <span style="color: rgb(0, 0, 0);">
+                                Operator View
+                            </span>
+                        </a>
+                    </li>
 
                     <li class="nav-item"><a class="nav-link" href="qr"><span style="color: rgb(0, 0, 0);">QR
                                 Scanner</span></a></li>
-                </ul><a class="btn btn-primary" role="button" href="{{ route('logout') }}" style="margin-left: 20px;">Log Out</a>
+                </ul><a class="btn btn-primary" role="button" href="{{ route('logout') }}"
+                    style="margin-left: 20px;">Log Out</a>
             </div>
         </div>
     </nav>
@@ -69,79 +72,80 @@ if ($recentVanPlate) {
             </div>
         </div>
         @php
-            $dates = DB::table('trips')->distinct()->pluck('dates');
+        $dates = DB::table('trips')->distinct()->pluck('dates');
         @endphp
         <div class="col-xxl-6 offset-xxl-3">
             <section class="horitzontalScroll">
                 @foreach ($dates as $date)
-                    <!-- Use the selected date as the URL parameter -->
-                    <a href="?date={{ urlencode($date) }}">
-                        <div class="border rounded border-5 horitzontalScrollContent me-3">
-                            <!-- Display the date and month using DateTime object -->
-                            @php
-                                $dateTime = new \DateTime($date);
-                                $month = $dateTime->format('F');
-                                $day = $dateTime->format('d');
-                            @endphp
-                            <div class="row">
-                                <div class="col text-center">
-                                    <p id="bigdate-6" style="font-size: 30px;font-weight: bold;margin: 0px;">
-                                        {{ $day }}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col text-center">
-                                    <h1 class="d-inline-block"
-                                        style="font-family: Montserrat, sans-serif;font-size: 18px;color: #47729d;padding-right: 4px;padding-left: 4px;">
-                                        {{ $month }}
-                                    </h1>
-                                </div>
+                <!-- Use the selected date as the URL parameter -->
+                <a href="?date={{ urlencode($date) }}">
+                    <div class="border rounded border-5 horitzontalScrollContent me-3">
+                        <!-- Display the date and month using DateTime object -->
+                        @php
+                        $dateTime = new \DateTime($date);
+                        $month = $dateTime->format('F');
+                        $day = $dateTime->format('d');
+                        @endphp
+                        <div class="row">
+                            <div class="col text-center">
+                                <p id="bigdate-6" style="font-size: 30px;font-weight: bold;margin: 0px;">
+                                    {{ $day }}
+                                </p>
                             </div>
                         </div>
-                    </a>
+                        <div class="row">
+                            <div class="col text-center">
+                                <h1 class="d-inline-block"
+                                    style="font-family: Montserrat, sans-serif;font-size: 18px;color: #47729d;padding-right: 4px;padding-left: 4px;">
+                                    {{ $month }}
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </a>
                 @endforeach
             </section>
         </div>
 
         @php
-            // Get the selected date from the URL parameter, or default to today
-            $selectedDate = $_GET['date'] ?? date('Y-m-d');
-            // Get all trips for the selected date
-            $trips = DB::table('trips')->where('dates', $selectedDate)->get();
+        // Get the selected date from the URL parameter, or default to today
+        $selectedDate = $_GET['date'] ?? date('Y-m-d');
+        // Get all trips for the selected date
+        $trips = DB::table('trips')->where('dates', $selectedDate)->get();
         @endphp
 
-@if (count($trips))
-<div class="card-group">
+        @if (count($trips))
+        <div class="card-group">
 
-    @foreach ($trips as $trip)
-        <div class="card">
-            <div class="card-body" style="padding: 16px;">
-                <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px;"><strong>Toyota HiAce&nbsp;
-                    </strong><br><strong>{{ $trip->van_plate }}</strong><br><span></span></h4>
-                @foreach ($routes as $route)
+            @foreach ($trips as $trip)
+            <div class="card">
+                <div class="card-body" style="padding: 16px;">
+                    <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px;"><strong>Toyota HiAce&nbsp;
+                        </strong><br><strong>{{ $trip->van_plate }}</strong><br><span></span></h4>
+                    @foreach ($routes as $route)
                     @if ($trip->route_id == $route->id)
-                        <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to {{ $route->descr }}</p>
+                    <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to {{ $route->descr }}</p>
                     @endif
-                @endforeach
-                <ul class="list-group" style="padding: 0;padding-bottom: 10px;">
-                    <li class="list-group-item"><span>5 Seats available</span></li>
-                    <li class="list-group-item"><span>4 paid&nbsp;</span></li>
-                    <li class="list-group-item"><span>10 reserved</span></li>
-                    <li class="list-group-item"><span>Driver: {{ $trip->van_plate }}</span></li>
-                </ul>
-                <a class="btn btn-primary" role="button" href="/operator/opview?van_plate={{ $trip->van_plate }}">Van View</a>
+                    @endforeach
+                    <ul class="list-group" style="padding: 0;padding-bottom: 10px;">
+                        <li class="list-group-item"><span>5 Seats available</span></li>
+                        <li class="list-group-item"><span>4 paid&nbsp;</span></li>
+                        <li class="list-group-item"><span>10 reserved</span></li>
+                        <li class="list-group-item"><span>Driver: {{ $trip->van_plate }}</span></li>
+                    </ul>
+                    <a class="btn btn-primary" role="button"
+                        href="/operator/opview?van_plate={{ $trip->van_plate }}">Van View</a>
 
+                </div>
             </div>
-        </div>
-    @endforeach
+            @endforeach
 
-</div>
-@else
-<div class="container">
-    <p>Select a date first</p>
-</div>
-@endif
+        </div>
+        @else
+        <div class="container">
+            <p>Select a date first</p>
+        </div>
+        @endif
 
     </div>
 
