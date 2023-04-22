@@ -128,9 +128,13 @@
                     @endif
                     @endforeach
                     <ul class="list-group" style="padding: 0;padding-bottom: 10px;">
-                        <li class="list-group-item"><span>5 Seats available</span></li>
-                        <li class="list-group-item"><span>4 paid&nbsp;</span></li>
-                        <li class="list-group-item"><span>10 reserved</span></li>
+                        @foreach ($seats as $seat)
+                        @if ($trip->id == $seat->id)
+                        <li class="list-group-item"><span>Seats available: {{$seat->available}}</span></li>
+                        <li class="list-group-item"><span>Reserved: {{$seat->reserved}}</span></li>
+                        @endif
+                        @endforeach
+
                         <li class="list-group-item"><span>Driver: {{ $trip->van_plate }}</span></li>
                     </ul>
                     <a class="btn btn-primary" role="button"
