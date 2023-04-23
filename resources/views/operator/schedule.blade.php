@@ -117,33 +117,38 @@
         @if (count($trips))
         <div class="card-group">
 
-            @foreach ($trips as $trip)
-            <div class="card">
-                <div class="card-body" style="padding: 16px;">
-                    <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px;"><strong>Toyota HiAce&nbsp;
-                        </strong><br><strong>{{ $trip->van_plate }}</strong><br><span></span></h4>
-                    @foreach ($routes as $route)
-                    @if ($trip->route_id == $route->id)
-                    <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to {{ $route->descr }}</p>
-                    @endif
-                    @endforeach
-                    <ul class="list-group" style="padding: 0;padding-bottom: 10px;">
-                        @foreach ($seats as $seat)
-                        @if ($trip->id == $seat->id)
-                        <li class="list-group-item"><span>Seats available: {{$seat->available}}</span></li>
-                        <li class="list-group-item"><span>Reserved: {{$seat->reserved}}</span></li>
+            <section class="horitzontalScroll">
+                @foreach ($trips as $trip)
+
+                <div class="card" style="min-width: 150px">
+
+                    <div class="card-body" style="padding: 16px; ">
+                        <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px;"><strong>Toyota
+                                HiAce&nbsp;
+                            </strong><br><strong>{{ $trip->van_plate }}</strong><br><span></span></h4>
+                        @foreach ($routes as $route)
+                        @if ($trip->route_id == $route->id)
+                        <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to {{ $route->descr }}</p>
                         @endif
                         @endforeach
+                        <ul class="list-group" style="padding: 0;padding-bottom: 10px;">
+                            @foreach ($seats as $seat)
+                            @if ($trip->id == $seat->id)
+                            <li class="list-group-item"><span>Seats available: {{$seat->available}}</span></li>
+                            <li class="list-group-item"><span>Reserved: {{$seat->reserved}}</span></li>
+                            @endif
+                            @endforeach
 
-                        <li class="list-group-item"><span>Driver: {{ $trip->van_plate }}</span></li>
-                    </ul>
-                    <a class="btn btn-primary" role="button"
-                        href="/operator/opview?van_plate={{ $trip->van_plate }}">Van View</a>
+                            <li class="list-group-item"><span>Driver: {{ $trip->van_plate }}</span></li>
+                        </ul>
+                        <a class="btn btn-primary" role="button"
+                            href="/operator/opview?van_plate={{ $trip->van_plate }}">Van View</a>
+                    </div>
 
                 </div>
-            </div>
-            @endforeach
+                @endforeach
 
+            </section>
         </div>
         @else
         <div class="container">
