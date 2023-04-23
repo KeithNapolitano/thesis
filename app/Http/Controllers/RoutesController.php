@@ -75,23 +75,15 @@ class RoutesController extends Controller
     {
         $routes = Route::all();
         $trips = Trip::all();
-
-        return view('/operator/schedule')->with('routes', $routes)->with('trips', $trips);
+        return view('/operator/opview')->with('routes', $routes)->with('trips', $trips);
     }
-
-
     public function OPSchedshowDestination()
-{
-    $routes = Route::all();
-    $trips = Trip::all();
-    $seats = Seat::all();
-
-    return view('/operator/schedule', [
-        'routes' => $routes,
-        'trips' => $trips,
-        'seats' => $seats
-    ]);
-}
+    {
+        $routes = Route::all();
+        $trips = Trip::all();
+        $seats = Seat::all();
+        return view('/operator/schedule')->with('routes', $routes)->with('trips', $trips)->with('seats', $seats);
+    }
     /**
      * Show the form for editing the specified resource.
      *
