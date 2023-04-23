@@ -49,18 +49,12 @@ class TripController extends Controller
 
         Trip::create([
             'route_id' => $request->route_id,
-            // 'seat_id' => $request->seat_id,
             'dates' => $request->date,
             'van_plate' => $request->van_plate,
             'user_id' => $request->user_id,
             'driver_name' => $request->driver_name,
-            // 'trip_status' => $request->trip_status,
             'orig_fare' => 0,
             'extra_fare' => 0,
-            // 'driver_status' => $request->driver_status,
-            // 'passenger_status' => $request->passenger_status,
-            // 'payment_status' => $request->payment_status,
-            // 'supervisor_status' => $request->supervisor_status
         ]);
 
         Seat::create([

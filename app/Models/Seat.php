@@ -10,6 +10,7 @@ class Seat extends Model
     use HasFactory;
 
     protected $fillable = [
+        'trip_id',
         'seat1',
         'seat2',
         'seat3',
@@ -25,6 +26,8 @@ class Seat extends Model
         'seat13',
         'seat14',
         'seat14',
+        'reserved',
+        'available'
     ];
 
     public function trip(){     //one seat per trip

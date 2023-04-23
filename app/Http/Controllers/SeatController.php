@@ -39,6 +39,7 @@ class SeatController extends Controller
         // $request->validated();
 
         Seat::create([
+            'trip_id' => $request->trip_id,
             'seat1' => $request->seat1,
             'seat2' => $request->seat2,
             'seat3' => $request->seat3,
