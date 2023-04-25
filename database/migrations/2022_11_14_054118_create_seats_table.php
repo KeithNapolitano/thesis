@@ -16,6 +16,7 @@ return new class extends Migration
         if(!Schema::hasTable('seats')){
             Schema::create('seats', function (Blueprint $table) {
                 $table->id();
+                $table->integer('trip_id')->nullable();
                 $table->integer('seat1')->nullable();
                 $table->integer('seat2')->nullable();
                 $table->integer('seat3')->nullable();

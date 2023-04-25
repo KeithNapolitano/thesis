@@ -34,7 +34,7 @@ return new class extends Migration
                 //DELETES TRIPS IF MADELETE ANG USER:onDelete(cascade)
                 //$table->foreign('user_id')->references('id')->on('users');
                 $table->foreign('route_id')->references('id')->on('routes');
-                $table->foreign('seat_id')->references('id')->on('seats');
+                //$table->foreign('seat_id')->references('id')->on('seats');
                 $table->foreign('user_id')->references('id')->on('users');
             });
         }

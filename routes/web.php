@@ -9,6 +9,7 @@ use App\Http\Controllers\TripController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\SeatController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommuterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
