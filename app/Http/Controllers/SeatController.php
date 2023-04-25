@@ -24,10 +24,9 @@ class SeatController extends Controller
      */
     public function create()
     {
-        return view('sched.test1');
+        return view('commuter.test1');
 
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -58,7 +57,7 @@ class SeatController extends Controller
             'seat15' => $request->seat15,
         ]);
 
-        return view('sched.test');
+        return redirect('/commuter');
     }
 
     /**
@@ -71,11 +70,6 @@ class SeatController extends Controller
     {
         //
     }
-
-
-
-
-
 
     /**
      * Show the form for editing the specified resource.

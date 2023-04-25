@@ -23,6 +23,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('import_commuter/assets/css/simplelightbox.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('import_commuter/assets/css/style.css')}}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{asset('import_commuter/assets/css/seat.css')}}">
+ 
     <!-- end of css -->
 </head>
 
@@ -78,8 +80,8 @@
                 </ul>
             </section>
             <section class="body">
-                <form id="date_form">
-                    <fieldset class="main_container">
+                <div id="date_form">
+                    <fieldset class="main_container" active>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>From</label>
@@ -141,7 +143,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="p-t-13">
-                                                        <a href="#" class="btn btn-circle btn-success book_btn" data-bus="1">Book Seats</a>
+                                                    <a class="btn btn-circle book_btn">Book Seats</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -151,41 +153,204 @@
                             </div>
                         </div> 
                         @endforeach
-                        <div id="no-trip">No more trip available on the selected date</div>
+                        <div id="no-trip"></div>
                         <div class="row justify-content-center buttons">
-                            <button type="button " class="btn previous_button">Back</button>
+                            <button type="button" class="btn previous_button">Back</button>
                         </div>
                     </fieldset>
                     <!-- seat map -->
                     <fieldset class="animated fadeIn">
-                        <img class ="vanbck" src="{{asset('import_commuter/assets/images/van_background.png') }}">       
-                        <div id="seats" >
-                            <div class="row no-gutters">
-                                <div class="col-lg-8 col-xl-6 col-sm-8 col-md-7">
-                                    <div id="seat-map">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-xl-6 col-sm-4 col-md-5">
-                                    <div class="booking-details">
-                                        <h2 class="header">Booking Details
-                                            <span class="number_plate badge badge-primary fs-12"></span></h2>
-                                        <h3> Selected Seats <span id="counter">0</span>:</h3>
-                                        <ul id="selected-seats"></ul>
-                                        <p>Total: ₱ <b><span id="total">0</span></b></p>
-                                        <br>
-                                    </div>
+                    <div class="main-container">
+                        <div class="radio-buttons">
+                            <form action ="{{ route('commuter.processRoutes') }}" method="POST" enctype="multipart/form-data" id="booking-form">
+                            @csrf
                             
+                            <div class = "row1">
+                                <label class="custom-radio">
+                                <input type="checkbox" name="seats[]" value="1" >      
+                                <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                    <h3>1</h3>
+                                    </div>
+                                </span>
+                                </label>
+                            </div>
+                            
+                            <div class ="row2-container">
+                                <div class = "row2">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="2" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>2</h3>
+                                    </div>
+                                    </span>
+                                </label>
+                                </div>
+
+                                <div class = "row2">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="3" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>3</h3>
+                                    </div>
+                                    </span>
+                                </label>
+                                </div>
+
+                                <div class = "row2">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="4" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>4</h3>
+                                    </div>
+                                    </span>
+                                </label>
                                 </div>
                             </div>
-                        </div> 
-                        <div class="row justify-content-center buttons ">
-                            <button type="button " class="btn previous_button">Back</button>
-                            <button type="button " class="btn next_button btn-booked">Continue</button>
+
+                            <div class = "row3-container">
+                                <div class = "row3">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="5" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>5</h3>
+                                    </div>
+                                    </span>
+                                </label>
+                                </div>
+
+                                <div class = "row3">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="6" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>6</h3>
+                                    </div>
+                                    </span>
+                                </label>
+                                </div>
+
+                                <div class = "row3">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="7" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>7</h3>
+                                    </div>
+                                    </span>
+                                </label>
+                                </div>
+                            </div>
+
+                            <div class = "row4-container">
+                                <div class = "row4">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="8" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>8</h3>
+                                    </div>
+                                    </span>
+                                </label>
+                                </div>
+
+                                <div class = "row4">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="9" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>9</h3>
+                                    </div>
+                                    </span>
+                                </label>
+                                </div>
+
+                                <div class = "row4">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="10" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>10</h3>
+                                    </div>
+                                    </span>
+                                </label>
+                                </div>
+                            </div>
+
+                            <div class = "row5-container">
+                                <div class = "row5">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="11" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>11</h3>
+                                    </div>
+                                    </span>
+                                </label>
+                                </div>
+
+                                <div class = "row5">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="12" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>12</h3>
+                                    </div>
+                                    </span>
+                                </label>
+                                </div>
+
+                                <div class = "row5">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="13" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>13</h3>
+                                    </div>
+                                    </span>
+                                </label>
+                                </div>
+
+                                <div class = "row5">
+                                <label class="custom-radio">
+                                    <input type="checkbox" name="seats[]" value="14" >   
+                                    <span class="radio-btn">
+                                    <div class="hobbies-icon">
+                                        <h3>14</h3>
+                                    </div>
+                                    </span>
+                                </label>
+                                </div>
+                            </div>
+
+                            <div class="row no-gutters">
+                                <div class="col-lg-8 col-xl-6 col-sm-8 col-md-7">
+                                <div id="seat-map">
+                                </div>
+                                </div>
+                                <div class="col-lg-4 col-xl-6 col-sm-4 col-md-5">
+                                <div class="booking-details">
+                                    <h2 class="header">Booking Details
+                                    <span class="number_plate badge badge-primary fs-12"></span></h2>
+                                    <h3> Selected Seats <span id="counter">0</span>:</h3>
+                                    <ul id="selected-seats"></ul>
+                                    <p>Total: <b><span id="total">0</span> PhP</b></p>
+                                    <br>
+                                </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-circle book_btn1 book_btn"> Select Seat </button>
+                            </form>
+                        </div>
                         </div>
                     </fieldset>
                     <!-- END SEAT MAP -->
                     <!-- PERSONAL INFO -->
-                    <fieldset class="main_container">
+                    <fieldset class="main_container" >
                         <div class="form-row">
                             <div class="form-group col-md-6" >
                                 <label for="name">Full Name</label>
@@ -225,7 +390,6 @@
                                 </h6>
                             </div>
                         </div>
-
                         <div class="row justify-content-center buttons">
                             <button type="button " class="btn previous_button">Back</button>
                             <button type="button " class="btn next_button">Finish</button>
@@ -249,7 +413,7 @@
                         </div>
                     </fieldset>
                     <!-- END TICKET -->
-                </form>
+                </div>
             </section>
         </div>
     </main>
@@ -265,8 +429,8 @@
   <script type="text/javascript " src="{{asset('import_commuter/assets/js/jquery.seat-charts.js ') }}"></script>
   <script type="text/javascript" src="{{asset('import_commuter/assets/js/simple-lightbox.min.js') }}"></script>
   <script type="text/javascript" src="{{asset('import_commuter/assets/plugins/lobibox/js/lobibox.min.js') }}"></script>
-  <script type="text/javascript" src = "{{asset('import_commuter/assets/js/val.js') }}"></script>
-  <script type="text/javascript" src = "{{asset('import_commuter/assets/js/script.js') }}"></script> 
+  <script type="text/javascript" src = "{{asset('import_commuter/assets/js/val.js') }}"></script> 
+  <!-- <script type="text/javascript" src = "{{asset('import_commuter/assets/js/script.js') }}"></script> -->
   <script>
   function filterTrips() {
     var routeId = document.getElementById("route-select").value;
@@ -292,8 +456,98 @@
     } 
   </script>
  <!-- ----------------------------------------------------------------------------------------------------------------------- -->
- 
   <!--end of js-->
+  <script>
+  
+  let economy_price = {{ $trip->route->fare }};
+  let firstSeatLabel = 1;
+  var details = [];
+  
+  var $cart = $('#selected-seats'),
+      $counter = $('#counter'),
+      $total = $('#total');
+  
+  // Update seat structure to use checkbox buttons
+  var sc = $('input[type="checkbox"]').on('change', function() {
+      let $this = $(this);
+      let $label = $this.closest('.custom-radio');
+      let seatId = $this.val();
+      let seatPrice = economy_price;
+      let seatLabel = $label.find('h3').text();
+  
+      if ($this.is(':checked')) {
+          if ($label.hasClass('selected')) {
+              // Seat is already selected, uncheck and disable the radio button
+              $this.prop('checked', false);
+              $this.prop('disabled', true);
+          } else {
+              $label.addClass('selected');
+              $label.find('.radio-btn').addClass('animated rubberBand');
+  
+              // Add selected seat to cart
+              $('<li class="p-b-4">Seat # ' + seatId + ': \xa0 <b>₱  ' + seatPrice + '\xa0\xa0\xa0\xa0\xa0\xa0' +
+                  '</b> <a href="javascript:void(0);"' +
+                  ' class="cancel-cart-item btn btn-danger btn-sm"><i class="fa fa-trash"></i> Cancel </a></li>')
+                  .attr('id', 'cart-item-' + seatId)
+                  .data('seatId', seatId)
+                  .appendTo($cart);
+  
+              $counter.text(sc.filter(':checked').length);
+              $total.text(recalculateTotal(sc));
+  
+              details.push({
+                  ['seatNo']: seatLabel,
+                  ['price']: seatPrice
+              });
+          }
+  
+          return 'selected';
+      } else {
+          $label.removeClass('selected');
+          $label.find('.radio-btn').removeClass('animated rubberBand');
+  
+          // Remove deselected seat from cart
+          $('#cart-item-' + seatId).remove();
+  
+          // Update counter and total
+          $counter.text(sc.filter(':checked').length);
+          $total.text(recalculateTotal(sc));
+  
+          // Remove deselected seat from details array
+          var filtered = details.filter(function(item) {
+              return item.seatNo != seatLabel;
+          });
+          details = filtered;
+  
+          // Enable the radio button for deselected seat
+          $this.prop('disabled', false);
+  
+          return 'available';
+      }
+  });
+  
+  let recalculateTotal = sc => {
+      var total = parseFloat('0');
+  
+      // Iterate through selected seats and calculate total price
+      sc.filter(':checked').each(function() {
+          total += economy_price;
+      });
+  
+      return '₱ ' + total;
+  }
+  
+  // Handle cancel item click
+  $('#selected-seats').on('click', '.cancel-cart-item', function() {
+      let $item = $(this).parents('li:first');
+      let seatId = $item.data('seatId');
+  
+      $('#cart-item-' + seatId).removeClass('animated rubberBand');
+      sc.filter('[value="' + seatId + '"]').prop('checked', false).prop('disabled', false).change();
+  });
+  
+  </script>
+  
 </head>
 
 </html>

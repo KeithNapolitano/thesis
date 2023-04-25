@@ -4,7 +4,13 @@ $('select').niceSelect();
 var current_fs, next_fs, previous_fs, busId=0,seatsArray = []; //fieldsets
 var left, opacity, scale; //fieldset properties which we will animate
 var animating; //flag to prevent quick multi-click glitches
+let currentFieldset = 0;
+const fieldsets = document.querySelectorAll('fieldset');
+const nextButton = document.querySelector('.next_button');
+const prevButton = document.querySelector('.previous_button');
 
+// Show the first fieldset
+fieldsets[currentFieldset].classList.add('active');
 
 $(".next_button").on('click', function(event) {
 
@@ -17,16 +23,7 @@ $(".next_button").on('click', function(event) {
     if ($("fieldset").index(next_fs) == 1) {
         $('span.from').text($('select.from').val());
         $('span.to').text($('input.to').val());
-        $.ajax({
-            method: 'GET', 
-            url: 'https://examinationcomplaint.theschemaqhigh.co.ke/HCI/api/book/?bus_id=1&booked_seats',
-            success: function (data) {
-                $('span.seats-left').text(51 - data.length);
-            },
-            error: function (data) {
-                console.log(data)
-            }
-        });
+        
         var from = document.getElementById("route-select");
         var date = document.getElementById("date");
         if (from.value == "" || date.value == "") {
@@ -35,7 +32,6 @@ $(".next_button").on('click', function(event) {
                 showClass: 'fadeInDown',
                 hideClass: 'fadeUpDown',
                 iconSource: 'fontAwesome',
-                // img: 'images/logo-96.png',
                 title: "SELECT DATE AND ROUTE ",
                 continueDelayOnInactiveTab: true,
                 size: 'mini',
@@ -46,13 +42,13 @@ $(".next_button").on('click', function(event) {
     }
 
     if ($("fieldset").index(current_fs) == 2) {
-        if ($('ul#selected-seats li').length == 0) {
+        if ($('ul#selected-seats li').length == 100) {
             animating = false;
             Lobibox.notify('error', {
                 showClass: 'fadeInDown',
                 hideClass: 'fadeUpDown',
                 iconSource: 'fontAwesome',
-                // img: 'images/logo-96.png',
+                
                 title: "No Seat Selected!",
                 continueDelayOnInactiveTab: true,
                 size: 'mini',
@@ -66,60 +62,33 @@ $(".next_button").on('click', function(event) {
                 seatsArray.push(this.settings.label)
             });
         }
-    } else if ($("fieldset").index(current_fs) == 3) {
-        animating = false;
+    } 
+
+    else if ($("fieldset").index(current_fs) == 3) {
+        
         if (!verifyInfoForm()) {
 
         } else {
             goNext(next_fs, current_fs)
             $('span.show-email').text($('input[name="email"]').val());
         }
-    } else {
+    } 
+    
+    else {
         goNext(next_fs, current_fs)
-        if ($("fieldset").index(next_fs) == 5) {
-            $data = {
-                'busId' : busId,
-                'seats' : seatsArray.toString(),
-                'personalInfo' : $('form').serializeArray()
-            }
-            $data = JSON.stringify($data)
-            console.log($data);
-            $.ajax({
-                method: 'POST',
-                url: 'api/book.php',
-                data: $data,
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data)
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
-        }
+    
     }
-
+    
 });
 
-
-$(".book_btn").click(function() {
-    busId = Number($(this).data('bus')); 
-    let busName = $(this).parents('.bus-details').children('.bus-name').text();
-    $('span.number_plate').text($(this).parents('.bus-details').children('.bus-name').text())
+$(".book_btn").on('click', function(event) {
     if (animating) return false;
     animating = true;
 
     current_fs = $(this).parents('fieldset');
     next_fs = current_fs.next();
 
-    if ($("fieldset").index(next_fs) == 2) {
-        booked_seats(busId);
-        setInterval( booked_seats(busId),3000);
-    }
-
-    //de-activate current step on progressbar
-    goNext(next_fs, current_fs)
-
+    goNext(next_fs, current_fs);
 });
 
 $(".previous_button").click(function() {
@@ -244,11 +213,6 @@ function verifyInfoForm() {
     });
 }
 
-
-$('#date_form').on('submit', (event) => {
-    event.preventDefault();
-})
-
 $('ul#progressbar').on('click', 'li', function(event) {
     let i = $('#progressbar li').index(this)
     let j = $('#progressbar').find('li.active').length - 1
@@ -271,11 +235,3 @@ $('ul#progressbar').on('click', 'li', function(event) {
     }else if (i < j) $("fieldset").eq(j).find('.previous_button').trigger('click')
 
 });
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('service-worker.js')
-            .then(function() {
-                console.log("Service Worker Registered,");
-            });
-    });
-}

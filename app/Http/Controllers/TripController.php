@@ -47,8 +47,9 @@ class TripController extends Controller
     {
         $request->validated();
 
-        Trip::create([
+        $trip = Trip::create([
             'route_id' => $request->route_id,
+            'seat_id' => $request->seat_id,
             'dates' => $request->date,
             'van_plate' => $request->van_plate,
             'user_id' => $request->user_id,
@@ -57,23 +58,25 @@ class TripController extends Controller
             'extra_fare' => 0,
         ]);
 
-        Seat::create([
-            'seat1' => 0,
-            'seat2' => 0,
-            'seat3' => 0,
-            'seat4' => 0,
-            'seat5' => 0,
-            'seat6' => 0,
-            'seat7' => 0,
-            'seat8' => 0,
-            'seat9' => 0,
-            'seat10' => 0,
-            'seat11' => 0,
-            'seat12' => 0,
-            'seat13' => 0,
-            'seat14' => 0,
-        ]);
+        $trip_id = $trip->id;
 
+        Seat::Create([
+                'trip_id' => $trip_id, // add the trip_id field to the array
+                'seat1' => $request->has('seat1') ? 1 : 0,
+                'seat2' => $request->has('seat2') ? 1 : 0,
+                'seat3' => $request->has('seat3') ? 1 : 0,
+                'seat4' => $request->has('seat4') ? 1 : 0,
+                'seat5' => $request->has('seat5') ? 1 : 0,
+                'seat6' => $request->has('seat6') ? 1 : 0,
+                'seat7' => $request->has('seat7') ? 1 : 0,
+                'seat8' => $request->has('seat8') ? 1 : 0,
+                'seat9' => $request->has('seat9') ? 1 : 0,
+                'seat10' => $request->has('seat10') ? 1 : 0,
+                'seat11' => $request->has('seat11') ? 1 : 0,
+                'seat12' => $request->has('seat12') ? 1 : 0,
+                'seat13' => $request->has('seat13') ? 1 : 0,
+                'seat14' => $request->has('seat14') ? 1 : 0,
+        ]);
         return redirect('/trip/create'); // pass the $routes variable to the view
     }
     /**
