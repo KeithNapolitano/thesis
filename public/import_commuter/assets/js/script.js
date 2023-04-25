@@ -111,15 +111,21 @@ $('#selected-seats').on('click', '.cancel-cart-item', function() {
 });
 
 let booked_seats = function(bus_id) {
-    $.ajax({
-        method: 'GET',
-        url: 'api/book.php?bus_id='+$.trim(bus_id)+'&booked_seats',
-        success: function (data) {
-            sc.find('unavailable').status('available');
-            data.forEach((element => sc.get([sc.seatIds[element-1]]).status('unavailable')))
-        },
-        error: function (data) {
-            console.log(data)
-        }
-    });
+   
 };
+
+function bookSeats() {
+    $.ajax({
+      type: "POST",
+      url: "https://yourserver.com/bookseats",
+      data: JSON.stringify(details),
+      contentType: "application/json",
+      success: function(response) {
+        console.log("Seats booked successfully");
+        console.log(response);
+      },
+      error: function(xhr, status, error) {
+        console.error("Error booking seats: ", error);
+      }
+    });
+  }
