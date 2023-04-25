@@ -23,6 +23,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes');
+Route::post('/commuter', '\App\Http\Controllers\CommuterController@processRoutes')->name('commuter.processRoutes');
+
+//Route::post('/commuter', [CommuterController::class, 'processRoutes'])->name('commuter.processRoutes');
+//Route::post('/commuter/{trip_id}', '\App\Http\Controllers\CommuterController@getRoutes');
+
+Route::get('/explore', function () {
+    return view('commuter.explore');
+});
+
+Route::get('/commuter-register', function () {
+    return view('commuter.commuter-register');
+});
+
+Route::get('/about', function () {
+    return view('commuter.about');
+});
+
+Route::get('/help', function () {
+    return view('commuter.help');
+});
+
+Route::get('commuter/details', function () {
+    return view('commuter.details');
+});
+
+Route::post('/commuter/details', [CommuterController::class, 'processRoutes']);
+
 Route::get('/', function () {
     return view('welcome');
 });
