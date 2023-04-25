@@ -28,6 +28,7 @@ class SeatController extends Controller
 
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -69,6 +70,11 @@ class SeatController extends Controller
     {
         //
     }
+
+
+
+
+
 
     /**
      * Show the form for editing the specified resource.

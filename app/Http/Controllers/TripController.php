@@ -168,7 +168,6 @@ class TripController extends Controller
         }
 
 
-
         return redirect()->route('operator.opview', [
             'van_plate' => $request->input('van_plate')
         ])->with('message', 'Trip has been updated.');
