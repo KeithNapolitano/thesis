@@ -22,21 +22,20 @@ class CommuterController extends Controller
      public function getRoutes(Request $request)
     {
     $routes = Route::all(); // Assuming you have a Route model and a "routes" table in your database
-    $trips = Trip::all();
-    // $trips = Trip::all(); // Retrieve the trips
+
+    $trips = Trip::all(); // Retrieve the trips
 
     // Retrieve the trip_id from the request or your model
-    //$trip_id = $request->input('trip_id', $trips->first()->id);
+    $trip_id = $request->input('trip_id', $trips->first()->id);
 
-    return view('commuter.commuter', compact('routes', 'trips'));
+    return view('commuter.commuter', compact('routes', 'trips','trip_id'));
     }
 
-        
     public function processRoutes(Request $request)
 {
     $trip_id = $request->input('trip_id');
-    $selected_seat_id = $request->input('seat_id');
-
+    $selected_seat_id = $request->input('seat_id'); 
+    
     if (!$request->has('seats')) {
         // handle error: no seat selected
         return;
@@ -46,14 +45,14 @@ class CommuterController extends Controller
     foreach ($request->input('seats') as $seat) {
         $seat_column = 'seat'.$seat;
         
-        // check if the trip_id is equal to the selected seat_id
-        if ($trip_id == $selected_seat_id) {
             // update the value of the selected seat to 1 in the database
-            DB::table('seats')->update([$seat_column => 1]);
-        }
+            DB::table('seats')
+            ->where('trip_id', $trip_id)
+            ->update([$seat_column => 1]);            
+        
     }
     
-    return redirect('/commuter');
+    return redirect('/book');
 }
 
 }
