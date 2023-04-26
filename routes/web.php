@@ -27,12 +27,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes');
 Route::post('/commuter', '\App\Http\Controllers\CommuterController@processRoutes')->name('commuter.processRoutes');
 
+
 Route::get('/explore', function () {
     return view('commuter.explore');
 });
 
-Route::get('/commuter-register', function () {
-    return view('commuter.commuter-register');
+Route::get('/book', function () {
+    return view('commuter.book');
 });
 
 Route::get('/about', function () {

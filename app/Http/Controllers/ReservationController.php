@@ -15,7 +15,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return 'Mama mo';
+       
     }
 
     /**
@@ -49,9 +49,12 @@ class ReservationController extends Controller
             'image_path' => $this->storeImage($request)//image lang pangalan ani sa frontend kay mao nakabutang sa formrequest
         ]);
 
+        
         //PAADD ASA MAGREDIRECT
         //return redirect('');
     }
+
+    
 
     /**
      * Display the specified resource.
