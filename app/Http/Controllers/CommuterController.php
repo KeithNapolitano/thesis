@@ -22,7 +22,8 @@ class CommuterController extends Controller
      public function getRoutes(Request $request)
     {
     $routes = Route::all(); // Assuming you have a Route model and a "routes" table in your database
-    $trips = Trip::all(); // Retrieve the trips
+    $trips = Trip::all();
+    // $trips = Trip::all(); // Retrieve the trips
 
     // Retrieve the trip_id from the request or your model
     //$trip_id = $request->input('trip_id', $trips->first()->id);
