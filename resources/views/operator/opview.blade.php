@@ -112,6 +112,7 @@
                 <div style="width: auto;height: auto;"><img class="img-fluid d-inline-flex"
                         src="{{ asset('import/assets/img/commuter_011.jpg')}}"
                         style="width: auto;max-width: 70%;min-width: 350px;')}}"></div>
+
             </div>
             <div class="col-md-8 col-xl-6 text-center mx-auto" style="height: 203.562px;width: 359px;">
                 <h2 class="fs-6 fw-bold text-start"><strong>Legend:</strong><br></h2>
@@ -144,16 +145,14 @@
                         <div class="col">
                             <ul class="list-group">
                                 <li class="list-group-item"><span><strong>Seat
-                                            assigned:&nbsp;</strong></span><span>Front Seat</span></li>
+                                            assigned:&nbsp;</strong></span><span>Seat x</span></li>
                                 <li class="list-group-item"><span><strong>Name:</strong>&nbsp;</span><span>Doggo
                                         Awawaw<br></span></li>
                                 <li class="list-group-item"><span><strong>Payment
-                                            status:&nbsp;</strong></span><span>Online, Fully paid<br></span></li>
+                                            Reference Code:&nbsp;</strong></span><span>ASD123ZXC<br></span></li>
                                 <li class="list-group-item"><span><strong>Total
                                             amount:&nbsp;</strong></span><span>Php
                                         500.00<br></span></li>
-                                <li class="list-group-item"><span><strong>Extra
-                                            luggage?</strong>&nbsp;</span><span>None<br></span></li>
                             </ul>
                         </div>
                     </div>
