@@ -150,8 +150,8 @@
                                         Awawaw<br></span></li>
                                 <li class="list-group-item"><span><strong>Payment
                                             Reference Code:&nbsp;</strong></span><span>ASD123ZXC<br></span></li>
-                                <li class="list-group-item"><span><strong>Total
-                                            amount:&nbsp;</strong></span><span>Php
+                                <li class="list-group-item"><span><strong>
+                                            Amount Paid:&nbsp;</strong></span><span>Php
                                         500.00<br></span></li>
                             </ul>
                         </div>
