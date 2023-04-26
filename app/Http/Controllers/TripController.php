@@ -158,7 +158,6 @@ class TripController extends Controller
             $fare = $route->fare;
             $origFare = $filledSeatsCount * $fare;
             $trip->orig_fare = $origFare;
-
             $trip->trip_status = 1;
             $trip->save();
         } else {
