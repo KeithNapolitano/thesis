@@ -35,10 +35,10 @@ Route::get('/logout', function(){
 Route::prefix('operator')->group(function () {
     Route::get('/opview', [RoutesController::class, 'OPshowDestination'])->name('operator.opview');
     Route::put('/{id}', [TripController::class, 'OPupdate'])->name('trip.OPupdate');
-    Route::get('/qr', function () {return view('operator.qr');})->name('operator.qr');
+    Route::get('/qr', [RoutesController::class, 'OPQRshowDestination'])->name('operator.qr');
+    Route::post('/qr/update', [TripController::class, 'QRupdate'])->name('trip.OPQRupdate');
     Route::get('/schedule', [RoutesController::class, 'OPSchedshowDestination'])->name('operator.schedule');
 });
-
 
 
 Route::get('/home', HomeController::class);

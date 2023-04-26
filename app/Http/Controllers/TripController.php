@@ -7,6 +7,7 @@ use App\Http\Requests\OPTripFormUpdateRequest;
 use App\Models\Route;
 use App\Models\Seat;
 use App\Models\Trip;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -128,7 +129,23 @@ class TripController extends Controller
 
         return redirect('/trip/create')->with('message', 'Trip has been updated.');
     }
+    public function QRupdate(Request $request)
+    {
+        $output = $request->input('output');
 
+        // Check if the output value exists in the 'id' column of the reservations table
+        $reservation = Reservation::where('id', '=', $output)->first();
+
+        if ($reservation) {
+            // Update the reservation status to "Present"
+            $reservation->present = 1;
+            $reservation->save();
+            return redirect()->route('operator.qr')->with('message', 'Reservation updated successfully.');
+        } else {
+            // If the ID does not exist in the reservations table, return an error message.
+            return redirect()->route('operator.qr')->with('error', 'Invalid reservation ID.');
+        }
+    }
     public function OPupdate(OPTripFormUpdateRequest $request, $id)
     {
         $validated = $request->validated();
@@ -150,7 +167,7 @@ class TripController extends Controller
             $seats = Seat::where('id', $id)->firstOrFail();
             $filledSeatsCount = 0;
             for ($i = 1; $i <= 14; $i++) {
-                if ($seats->{'seat'.$i} == 1) {
+                if ($seats->{'seat' . $i} == 1) {
                     $filledSeatsCount++;
                 }
             }
