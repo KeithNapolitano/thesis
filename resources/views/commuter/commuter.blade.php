@@ -459,6 +459,7 @@
   <!--end of js-->
   <script>
   
+  
   let economy_price = {{ $trip->route->fare }};
   let firstSeatLabel = 1;
   var details = [];
