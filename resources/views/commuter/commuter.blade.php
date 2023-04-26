@@ -164,7 +164,7 @@
                         <div class="radio-buttons">
                             <form action ="{{ route('commuter.processRoutes') }}" method="POST" enctype="multipart/form-data" id="booking-form">
                             @csrf
-                            
+                            <input type="hidden" name="trip_id" value="{{ $trip_id }}">
                             <div class = "row1">
                                 <label class="custom-radio">
                                 <input type="checkbox" name="seats[]" value="1" >      
@@ -437,7 +437,7 @@
     var tripElements = document.querySelectorAll("#results .bus-details");
     var selectedDate = document.getElementById("date").value;
     var noTripElement = document.getElementById("no-trip");
-
+    
     var tripFound = false;
     tripElements.forEach(function (element) {
     var tripDate = element.getAttribute("data-date");
