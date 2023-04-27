@@ -35,7 +35,6 @@ body {
     background-color: white;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    background-attachment: fixed;
     background-origin: padding-box;
     background-clip: border-box;
     background-size: cover;
@@ -186,17 +185,46 @@ main #progressbar {
     overflow: hidden;
     padding-inline-start: 0px !important;
     margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 main #progressbar li {
     list-style-type: none;
     color: #99a2a8;
     font-size: 9px;
-    width: calc(87%/6);
-    float: left;
+    width: calc(100%/6 - 20px);
     position: relative;
     font: 500 12px/1 "Roboto", sans-serif;
-    margin-left: 20px;
+    margin: 0 10px;
+    text-align: center;
+}
+
+main #progressbar li:before {
+    content: "\f073";
+    font: normal normal normal 20px/30px FontAwesome;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    display: block;
+    background: #eaf0f4;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+}
+
+main #progressbar li:not(:first-child):after {
+    content: "";
+    width: 100%;
+    height: 10px;
+    background: #eaf0f4;
+    position: absolute;
+    left: -50%;
+    top: 21px;
+    z-index: -1;
+}
+
+main #progressbar li:last-child:after {
+    width: 100%;
 }
 
 main #progressbar li:nth-child(2):before {
@@ -219,48 +247,22 @@ main #progressbar li:nth-child(6):before {
     content: "\f145";
 }
 
-main #progressbar li:before {
-    content: "\f073";
-    font: normal normal normal 20px/30px FontAwesome;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
-    display: block;
-    background: #eaf0f4;
-    border-radius: 50%;
-    margin: 0 auto 10px auto;
-}
-
-main #progressbar li:not(:nth-child(1)):after {
-    content: "";
+main #progressbar li:nth-child(5):after {
     width: 100%;
-    height: 10px;
-    background: #eaf0f4;
-    position: absolute;
-    left: -50%;
-    top: 21px;
-    z-index: -1;
 }
 
 .text-red {
     color: red;
 }
 
-main #progressbar li:last-child:after {
-    width: 100%;
-}
-
-/* color sa word sa baba sa progress bar */
 main #progressbar li.active {
     color: #2483F7;
 }
 
-/*color sa circle*/
 main #progressbar li.active:before,
 main #progressbar li.active:after {
     background: #2483F7;
     color: white;
-    size: 10px;
 }
 
 section.body {
@@ -269,6 +271,7 @@ section.body {
     /*max-height: 1290px;*/
     overflow-x: hidden;
 }
+
 
 /*form*/
 fieldset {
@@ -308,7 +311,7 @@ input {
 .nice-select.form-control {
     position: relative;
     z-index: 1;
-    width: 450px; 
+    width: 100%; /* Set width to 100% to make it responsive */
     height: 39px;
     font-size: 1.2em !important;
 }
@@ -371,14 +374,6 @@ div.buttons {
     color: #fff !important;
 }
 
-.vanbck{
-    margin-left: -20px;
-    height: 550px;
-    width: 415px;
-    position: absolute;
-    z-index: -1;
-}
-
 /*search options*/
 .bus-name {
     font-family: kanit_medium;
@@ -395,6 +390,14 @@ div.buttons {
 .bus-description div span {
     color: #003300;
     font-size: 16px;
+}
+
+.vanbck{
+    margin-left: -20px;
+    height: 550px;
+    width: 415px;
+    position: absolute;
+    z-index: -1;
 }
 
 .reminder{
@@ -435,8 +438,9 @@ div.buttons {
 
 .rte{
     margin-left: 82px;
-    font-size: 10px;
+    font-size: 20px;
 }
+
 
 .btn-circle {
     border-radius: 25px !important;
@@ -753,3 +757,4 @@ fieldset.p-info h6 span.note{
         margin-right: -70px;
     }
 }
+
