@@ -53,7 +53,7 @@
                                 <li class="list-group-item">
                                     <span><strong>Passenger Status:</strong></span>
                                     <span id="output" style="margin-left: 9px;">Pending</span>
-                                    <input type="text" name="output" value="">
+                                    <input type="text" name="output" value="" type="hidden">
                                 </li>
                             </ul>
                             <button class="btn btn-primary" type="submit">Submit</button>
@@ -65,9 +65,9 @@
                 <div id="reader" width="600px">
                     <script>
                         function onScanSuccess(decodedText, decodedResult) {
-                            // handle the scanned code as you like, for example:
                             console.log(`Code matched = ${decodedText}`, decodedResult);
                             document.getElementById("output").innerHTML = decodedText;
+                            document.getElementsByName("output")[0].value = decodedText;
                             document.getElementById('trip-form').action = "{{ route('trip.OPupdate', ['id' => ':id']) }}".replace(':id', decodedText);
                         }
 
