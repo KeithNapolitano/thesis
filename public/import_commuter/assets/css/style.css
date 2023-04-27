@@ -185,7 +185,7 @@ main #progressbar {
     margin-bottom: 10px;
     overflow: hidden;
     padding-inline-start: 0px !important;
-    margin-top: 50px;
+    margin-top: 5px;
 }
 
 main #progressbar li {
@@ -271,6 +271,13 @@ section.body {
 }
 
 /*form*/
+fieldset {
+    display: none;
+}
+
+fieldset.active {
+    display: block;
+}
 
 form>fieldset:not(:first-of-type) {
     display: none;
@@ -281,6 +288,7 @@ form>fieldset:not(:first-of-type) {
     border: 3px solid #808cf8;
     background: #fafcff;
     border-radius: 10px;
+    margin-top: 50px;
 }
 
 #date_form {
@@ -298,7 +306,7 @@ input {
 
 /* 'TO' TEXTS  (DESTINATION) */
 .nice-select.form-control {
-    position: fixed;
+    position: relative;
     z-index: 1;
     width: 450px; 
     height: 39px;

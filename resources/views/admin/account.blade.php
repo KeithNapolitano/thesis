@@ -37,7 +37,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="{{ route('trip.create') }}">Trips</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('trip.account') }}">Account</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -47,7 +47,7 @@
             <section class="text-center d-inline" style="width: 381px;height: 102px;margin: 23px;">
                 <div class="text-center">
                     <header class="text-center">
-                        <p class="text-center" style="text-align: center;font-size: 35px;margin-bottom: 0px;">Hello, [TERMINAL'S NAME]</p>
+                        <p class="text-center" style="text-align: center;font-size: 35px;margin-bottom: 0px;">Hello, {{ auth()->user()->name }}</p>
                     </header>
                 </div>
             </section>
@@ -61,6 +61,7 @@
                         </div>
                         <div class="col" style="width: 50%;margin: 0px;margin-left: 2.5px;">
                             <p class="text-start" style="height: 100%;">Income:<br>
+                                {{-- {{ dd($daily) }} --}}
                                 {{ $daily[0]['daily']}}
                                 <br># of Trips:
                                 {{ $dailytrips }}<br></p>
@@ -71,7 +72,7 @@
                     <div class="card-body d-flex float-start justify-content-center align-content-center" style="border: 3px solid rgb(12,37,126);border-radius: 15px;box-shadow: -3px 3px;width: 100%;">
                         <div class="col text-start" style="width: 50%;margin: 0px;">
                             <header>
-                                <h1 class="text-start align-items-center align-content-center align-self-center my-auto" style="font-size: 20px;margin-right: 2.5px;height: 100%;width: 100%;">WEEKLY&nbsp;REPORT</h1>
+                                <h1 class="text-start align-items-center align-content-center align-self-center my-auto" style="font-size: 20px;margin-right: 2.5px;height: 100%;width: 100%;">WEEKLY REPORT</h1>
                             </header>
                         </div>
                         <div class="col" style="width: 50%;margin: 0px;margin-left: 2.5px;">

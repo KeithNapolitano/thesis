@@ -57,13 +57,9 @@
             <section class="text-center d-inline" style="width: 381px;height: 102px;margin: 23px;">
                 <div class="text-center">
                     <header class="text-center">
-                        <p class="text-center"
-                            style="text-align: center;font-size: 35px;margin-bottom: 0px;font-family: 'Fira Sans Condensed', sans-serif;">
-                            @foreach ($users as $user)
-                                @if ($user->userlvl==3)
-                                    <b>siGO ka sa {{ $user->name }}</b></p>
-                                @endif
-                            @endforeach
+                        <p class="text-center" style="text-align: center;font-size: 35px;margin-bottom: 0px;font-family: 'Fira Sans Condensed', sans-serif;">
+                            <b>siGO ka sa {{ auth()->user()->name }}</b>
+                        </p>
                     </header>
                 </div>
             </section>
@@ -143,13 +139,9 @@
             <section class="text-center d-inline" style="width: 381px;height: 102px;margin: 23px;">
                 <div class="text-center">
                     <header class="text-center">
-                        <p class="text-center"
-                            style="text-align: center;font-size: 35px;margin-bottom: 0px;font-family: 'Fira Sans Condensed', sans-serif;">
-                            @foreach ($users as $user)
-                                @if ($user->userlvl==3)
-                                    <b>siGO ka sa {{ $user->name }}</b></p>
-                                @endif
-                            @endforeach
+                        <p class="text-center" style="text-align: center;font-size: 35px;margin-bottom: 0px;font-family: 'Fira Sans Condensed', sans-serif;">
+                            <b>Trips for {{ auth()->user()->name }}</b>
+                        </p>
                     </header>
                 </div>
             </section>

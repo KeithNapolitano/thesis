@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\TripController;
 use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\SeatController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommuterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +24,32 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes');
+Route::post('/commuter', '\App\Http\Controllers\CommuterController@processRoutes')->name('commuter.processRoutes');
+
+
+Route::get('/explore', function () {
+    return view('commuter.explore');
+});
+
+Route::get('/book', function () {
+    return view('commuter.book');
+});
+
+Route::get('/about', function () {
+    return view('commuter.about');
+});
+
+Route::get('/help', function () {
+    return view('commuter.help');
+});
+
+Route::get('commuter/details', function () {
+    return view('commuter.details');
+});
+
+Route::post('/commuter/details', [CommuterController::class, 'processRoutes']);
 
 Route::get('/', function () {
     return view('welcome');

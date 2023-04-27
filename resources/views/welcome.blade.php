@@ -29,7 +29,7 @@
                     <li class="nav-item"></li>
                     <li class="nav-item"></li>
                     <li class="nav-item"></li>
-                </ul><a class="btn btn-secondary shadow" role="button" href="login.html"><span style="color: rgb(0, 0, 0);">Log In</span></a>
+                </ul><a class="btn btn-secondary shadow" role="button" href="{{ route('login') }}"><span style="color: rgb(0, 0, 0);">Log In</span></a>
             </div>
         </div>
     </nav>

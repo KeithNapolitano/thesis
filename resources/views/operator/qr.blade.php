@@ -26,13 +26,10 @@
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="schedule"><span
-                                style="font-weight: normal !important; color: rgb(0, 0, 0);">Schedule</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="opview"><span style="color: rgb(0, 0, 0);">Operator
-                                View</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="qr"><strong><span style="color: rgb(0, 0, 0);">QR
-                                    Scanner</span></strong></a></li>
-                </ul><a class="btn btn-primary" role="button" href="index" style="margin-left: 20px;">Log Out</a>
+                    <li class="nav-item"><a class="nav-link active" href="schedule"><span style="font-weight: normal !important; color: rgb(0, 0, 0);">Schedule</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="opview"><span style="color: rgb(0, 0, 0);">Operator View</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="qr"><strong><span style="color: rgb(0, 0, 0);">QR Scanner</span></strong></a></li>
+                </ul><a class="btn btn-primary" role="button" href="{{ route('logout') }}" style="margin-left: 20px;">Log Out</a>
             </div>
         </div>
     </nav>

@@ -32,7 +32,17 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if(Auth::user()->userlvl == 3){     //admin
+            return redirect('/trip/create')->with('status', 'Welcome to Admin Dashboard');
+        }
+        else if(Auth::user()->userlvl == 2){   //ope
+            return redirect('/operator/schedule')->with('status', 'Welcome to Operator Dashboard');
+        }
+        else{   //user
+            return redirect('/commuter')->with('status', 'Welcome to your Dashboard');
+        }
+
+        // return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**
