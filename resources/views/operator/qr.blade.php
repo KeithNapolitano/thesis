@@ -45,7 +45,6 @@
                     <h2 class="fw-bold">Scan the QR Code Here</h2>
                     <p class="my-3">Make sure the entirety of the QR code is visible within the bounds of the camera.
                         The status will be updated below.</p>
-                    @foreach ($trips as $trip)
                     <form method="POST" id="trip-form" action="{{ route('trip.OPupdate', ['id' => $trip->id]) }}">
                         @csrf
                         @method('PUT')
@@ -62,7 +61,6 @@
                         </ul>
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </form>
-                    @endforeach
                 </div>
             </div>
             <div class="col-md-6 mb-4">
