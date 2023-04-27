@@ -45,7 +45,7 @@
                     <h2 class="fw-bold">Scan the QR Code Here</h2>
                     <p class="my-3">Make sure the entirety of the QR code is visible within the bounds of the camera.
                         The status will be updated below.</p>
-                    <form method="POST" id="trip-form" action="{{ route('trip.OPupdate', ['id' => $trip->id]) }}">
+                    <form method="POST" id="trip-form" action="">
                         @csrf
                         @method('PUT')
                         <div class="my-2 me-2">
