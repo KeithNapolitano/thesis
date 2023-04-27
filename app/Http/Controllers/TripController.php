@@ -129,7 +129,7 @@ class TripController extends Controller
 
         return redirect('/trip/create')->with('message', 'Trip has been updated.');
     }
-    public function QRupdate(Request $request)
+    public function QRupdate(Request $request, $id)
     {
         $output = $request->input('output');
 
