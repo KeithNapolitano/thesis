@@ -9,6 +9,7 @@ use App\Models\Route;
 use App\Models\Trip;
 use App\Models\User;
 use App\Models\Seat;
+use App\Models\Reservation;
 
 class RoutesController extends Controller
 {
@@ -83,6 +84,14 @@ class RoutesController extends Controller
         $trips = Trip::all();
         $seats = Seat::all();
         return view('/operator/schedule')->with('routes', $routes)->with('trips', $trips)->with('seats', $seats);
+    }
+    public function OPQRshowDestination()
+    {
+        $routes = Route::all();
+        $trips = Trip::all();
+        $seats = Seat::all();
+        $reservation = Reservation::all();
+        return view('/operator/qr')->with('routes', $routes)->with('trips', $trips)->with('seats', $seats)->with('reservation', $reservation);
     }
     /**
      * Show the form for editing the specified resource.
