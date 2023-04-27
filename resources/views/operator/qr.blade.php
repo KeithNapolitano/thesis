@@ -26,35 +26,43 @@
                     class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-2">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="schedule"><span style="font-weight: normal !important; color: rgb(0, 0, 0);">Schedule</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="opview"><span style="color: rgb(0, 0, 0);">Operator View</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="qr"><strong><span style="color: rgb(0, 0, 0);">QR Scanner</span></strong></a></li>
-                </ul><a class="btn btn-primary" role="button" href="{{ route('logout') }}" style="margin-left: 20px;">Log Out</a>
+                    <li class="nav-item"><a class="nav-link active" href="schedule"><span
+                                style="font-weight: normal !important; color: rgb(0, 0, 0);">Schedule</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="opview"><span style="color: rgb(0, 0, 0);">Operator
+                                View</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="qr"><strong><span style="color: rgb(0, 0, 0);">QR
+                                    Scanner</span></strong></a></li>
+                </ul><a class="btn btn-primary" role="button" href="{{ route('logout') }}"
+                    style="margin-left: 20px;">Log Out</a>
             </div>
         </div>
     </nav>
     <div class="container py-4 py-xl-5">
         <div class="row py-5">
-            <div class="col-md-6 text-center text-md-start d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-md-start align-items-md-center justify-content-xl-end mb-4">
+            <div
+                class="col-md-6 text-center text-md-start d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-md-start align-items-md-center justify-content-xl-end mb-4">
                 <div style="max-width: 450px;">
                     <h2 class="fw-bold">Scan the QR Code Here</h2>
                     <p class="my-3">Make sure the entirety of the QR code is visible within the bounds of the camera.
                         The status will be updated below.</p>
-                        <form class="d-flex justify-content-center flex-wrap justify-content-md-start flex-lg-nowrap" method="POST" action="{{ route('trip.OPQRupdate') }}">
-                            @csrf
-                            <div class="my-2 me-2">
-                                <!-- add any additional form fields here -->
-                            </div>
-                            <div class="my-2"></div>
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <span><strong>Passenger Status:</strong></span>
-                                    <span id="output" style="margin-left: 9px;">Pending</span>
-                                    <input type="text" name="output" value="">
-                                </li>
-                            </ul>
-                            <button class="btn btn-primary" type="submit">Submit</button>
-                        </form>
+                    @foreach ($trips as $trip)
+                    <form method="POST" id="trip-form" action="{{ route('trip.OPupdate', ['id' => $trip->id]) }}">
+                        @csrf
+                        @method('PUT')
+                        <div class="my-2 me-2">
+                            <!-- add any additional form fields here -->
+                        </div>
+                        <div class="my-2"></div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span><strong>Reservation status:</strong></span>
+                                <span id="output" style="margin-left: 9px;">Pending</span>
+                                <input type="hidden" name="present" value="">
+                            </li>
+                        </ul>
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </form>
+                    @endforeach
                 </div>
             </div>
             <div class="col-md-6 mb-4">
@@ -62,11 +70,11 @@
                 <div id="reader" width="600px">
                     <script>
                         function onScanSuccess(decodedText, decodedResult) {
-                            // handle the scanned code as you like, for example:
                             console.log(`Code matched = ${decodedText}`, decodedResult);
-                            document.getElementById("output").innerHTML = decodedText;
-                            document.getElementById('trip-form').action = "{{ route('trip.OPupdate', ['id' => ':id']) }}".replace(':id', decodedText);
+                            document.getElementById("output").innerHTML = "Commuter has reserved! Updated database";
+                            document.getElementsByName("present")[0].value = decodedText; // Update input value
                         }
+
 
                         function onScanFailure(error) {
                             // handle scan failure, usually better to ignore and keep scanning.
