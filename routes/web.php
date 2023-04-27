@@ -64,7 +64,6 @@ Route::prefix('operator')->group(function () {
     Route::get('/opview', [RoutesController::class, 'OPshowDestination'])->name('operator.opview');
     Route::put('/{id}', [TripController::class, 'OPupdate'])->name('trip.OPupdate');
     Route::get('/qr', [RoutesController::class, 'OPQRshowDestination'])->name('operator.qr');
-    Route::post('/qr/update', [TripController::class, 'QRupdate'])->name('trip.OPQRupdate');
     Route::get('/schedule', [RoutesController::class, 'OPSchedshowDestination'])->name('operator.schedule');
 });
 
