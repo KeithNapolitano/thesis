@@ -11,6 +11,7 @@ use App\Http\Controllers\RoutesController;
 use App\Http\Controllers\SeatController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommuterController;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes');
 Route::post('/commuter', '\App\Http\Controllers\CommuterController@processRoutes')->name('commuter.processRoutes');
 
-
 Route::get('/explore', function () {
     return view('commuter.explore');
 });
@@ -36,6 +36,7 @@ Route::get('/explore', function () {
 Route::get('/book', function () {
     return view('commuter.book');
 });
+Route::post('/book', [ReservationController::class, 'store'])->name('storeReservation');
 
 Route::get('/about', function () {
     return view('commuter.about');
@@ -66,8 +67,6 @@ Route::prefix('operator')->group(function () {
     Route::get('/qr', function () {return view('operator.qr');})->name('operator.qr');
     Route::get('/schedule', [RoutesController::class, 'OPSchedshowDestination'])->name('operator.schedule');
 });
-
-
 
 Route::get('/home', HomeController::class);
 Route::get('/seat/create', [SeatController::class, 'create']);

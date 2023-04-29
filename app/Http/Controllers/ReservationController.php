@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ReservationFormRequest;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 
@@ -34,28 +33,38 @@ class ReservationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ReservationFormRequest $request)
+
+     public function store(Request $request)
     {
-        $request->validated();  //need formrequest
+    $validatedData = $request->validate([
+        'ref_num' => 'required|max:255',
+    ]);
 
-        Reservation::create([
-            'user_id' => $request->user_id,
-            'trip_id' => $request->trip_id,
-            'tickets' => $request->tickets,
-            'payment_id' => $request->payment_id,
-            //'present' => $request->present,  NOT NEEDED BC OPE WILL JUST EDIT THIS
-            'seat' => $request->seat,
-            'ref_num' => $request->ref_num,
-            'image_path' => $this->storeImage($request)//image lang pangalan ani sa frontend kay mao nakabutang sa formrequest
-        ]);
+    Reservation::create([
+        'ref_num' => $validatedData['ref_num'],
+    ]);
 
-        
-        //PAADD ASA MAGREDIRECT
-        //return redirect('');
+    return redirect('/book');
     }
 
-    
+    // public function store(ReservationFormRequest $request)
+    // {
+    //     $request->validated();  //need formrequest
 
+    //     Reservation::create([
+    //         'user_id' => $request->user_id,
+    //         'trip_id' => $request->trip_id,
+    //         'tickets' => $request->tickets,
+    //         'payment_id' => $request->payment_id,
+    //         'present' => 0, 
+    //         'seat' => $request->seat,
+    //         'ref_num' => $request->ref_num,
+    //         // 'image_path' => $this->storeImage($request)//image lang pangalan ani sa frontend kay mao nakabutang sa formrequest
+    //     ]);
+
+    //     //PAADD ASA MAGREDIRECT
+    //     return redirect('/book');
+    // }
     /**
      * Display the specified resource.
      *

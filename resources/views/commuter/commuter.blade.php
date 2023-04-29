@@ -117,34 +117,37 @@
                                             <div class="row">
                                                 <div class="col-md-3 bus-image">
                                                     <img src="{{asset('import_commuter/assets/images/van.jpg') }}" alt="bus" height="130" width="130">
-                                                </div>
+                                                </div> 
                                                 <div class="col-md-8 bus-details" data-route-id="{{ $trip->route->id }}" data-date="{{ $trip->dates }}">
                                                     <h5 class="card-title bus-name">{{$trip->van_plate}}</h5>
-                                                    <div class="row card-text m-b-10 bus-description">
-                                                        <div class="col-md-6 fs-14">
-                                                            <i class="fa fa-users" style="font-size: 13px;"></i> No. of Passengers (Real time): <span class="psngr" style="font-size: 15px;"> 13 </span>
-                                                        </div>
-                                                        <div class="col-md-6 fs-14">
-                                                            <i class="fa fa-id-card-o"></i> Driver:
-                                                            <span class="drive" style="font-size: 15px;">{{$trip->driver_name}}</span> 
-                                                        </div>
-                                                        <div class="col-md-6 fs-14">
-                                                            <i class="material-icons" style="font-size: 13px;">event_seat</i> Availability:
-                                                            <span class="avail" style="font-size: 13.5px;">2 seat/s left </span>
-                                                        </div>
-                                                        <div class="col-md-6 fs-14">
-                                                            <i class="fa fa-road"></i> Route:
-                                                            <span class="rte" style="font-size: 12px;"><span class="to" style="font-size: 15px;"></span> - {{$trip->route->descr}} </span>
-       
-                                                        </div>
-                                                        <div class="col-md-6 fs-14">
-                                                            <i class="fa fa-money"></i> Fare:
-                                                            <span class="fare" style="font-size: 14px;">{{ $trip->route->fare }}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="p-t-13">
-                                                    <a class="btn btn-circle book_btn">Book Seats</a>
-                                                    </div>
+                                                    @foreach ($seats as $seat)
+                                                        @if ($seat->trip_id == $trip->id)
+                                                            <div class="row card-text m-b-10 bus-description">
+                                                                <div class="col-md-6 fs-14">
+                                                                    <i class="fa fa-users" style="font-size: 13px;"></i> No. of Passengers (Real time): <span class="psngr" style="font-size: 15px;"> {{$seat->reserved}} </span>
+                                                                </div>
+                                                                <div class="col-md-6 fs-14">
+                                                                    <i class="fa fa-id-card-o"></i> Driver:
+                                                                    <span class="drive" style="font-size: 15px;">{{$trip->driver_name}}</span> 
+                                                                </div>
+                                                                <div class="col-md-6 fs-14">
+                                                                    <i class="material-icons" style="font-size: 13px;">event_seat</i> Availability:
+                                                                    <span class="avail" style="font-size: 13.5px;"> {{$seat->available}} seats left</span>
+                                                                </div>
+                                                                <div class="col-md-6 fs-14">
+                                                                    <i class="fa fa-road"></i> Route:
+                                                                    <span class="rte" style="font-size: 13px;"><span class="to" style="font-size: 15px;"></span> - {{$trip->route->descr}} </span>
+                                                                </div>
+                                                                <div class="col-md-6 fs-14">
+                                                                    <i class="fa fa-money"></i> Fare:
+                                                                    <span class="fare" style="font-size: 14px;">{{ $trip->route->fare }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="p-t-13">
+                                                            <a class="btn btn-circle book_btn" onclick="setTripId({{ $trip->id }})">Book Seats</a>
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </div>
@@ -152,19 +155,21 @@
                                 </div>
                             </div>
                         </div> 
-                        @endforeach
-                        <div id="no-trip"></div>
-                        <div class="row justify-content-center buttons">
-                            <button type="button" class="btn previous_button">Back</button>
-                        </div>
+                    @endforeach
+                    <div id="no-trip"></div>
+                    <div class="row justify-content-center buttons">
+                        <button type="button" class="btn previous_button">Back</button>
+                    </div>
                     </fieldset>
+
                     <!-- seat map -->
                     <fieldset class="animated fadeIn">
                     <div class="main-container">
                         <div class="radio-buttons">
                             <form action ="{{ route('commuter.processRoutes') }}" method="POST" enctype="multipart/form-data" id="booking-form">
                             @csrf
-                            <input type="hidden" name="trip_id" value="{{ $trip_id }}">
+                            <input type="hidden" name="trip_id" id="trip_id" value="">
+
                             <div class = "row1">
                                 <label class="custom-radio">
                                 <input type="checkbox" name="seats[]" value="1" >      
@@ -343,8 +348,8 @@
                                 </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-circle book_btn1 book_btn"> Select Seat </button>
-                            </form>
+                                <button type="submit" class="btn btn-circle book_btn1 book_btn"> Select Seat </button>
+                                </form>
                         </div>
                         </div>
                     </fieldset>
@@ -548,7 +553,13 @@
   });
   
   </script>
-  
+
+<script>
+    function setTripId(tripId) {
+        document.getElementById("trip_id").value = tripId;
+    }
+</script>
+
 </head>
 
 </html>

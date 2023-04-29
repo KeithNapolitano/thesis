@@ -35,7 +35,7 @@ return new class extends Migration
                 $table->integer('available')->default(14);
                 $table->timestamps();
 
-                $table->foreign('trip_id')->references('id')->on('trips');
+                //$table->foreign('trip_id')->references('id')->on('trips');
             });
         }
     }
