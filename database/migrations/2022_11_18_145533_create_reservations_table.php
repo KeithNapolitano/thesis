@@ -16,19 +16,19 @@ return new class extends Migration
         if(!Schema::hasTable('reservations')){
             Schema::create('reservations', function (Blueprint $table) {
                 $table->id();
-                $table->unsignedBigInteger('user_id'); //FOR COMMUTERS
-                $table->unsignedBigInteger('trip_id');
-                $table->integer('tickets');
-                $table->unsignedBigInteger('payment_id');
+                $table->unsignedBigInteger('user_id')->nullable(); //FOR COMMUTERS
+                //$table->unsignedBigInteger('trip_id');
+                $table->integer('tickets')->nullable();
+                $table->unsignedBigInteger('payment_id')->nullable();
                 $table->boolean('present')->nullable();
                 $table->string('seat')->nullable();
                 $table->string('ref_num');
-                $table->string('image_path');
+                $table->string('image_path')->nullable();
                 $table->timestamps();
 
-                $table->foreign('trip_id')->references('id')->on('trips');
-                $table->foreign('user_id')->references('id')->on('users');
-                $table->foreign('payment_id')->references('id')->on('payments');
+                //$table->foreign('trip_id')->references('id')->on('trips');
+                //$table->foreign('user_id')->references('id')->on('users');
+                //$table->foreign('payment_id')->references('id')->on('payments');
             });
         }
     }
