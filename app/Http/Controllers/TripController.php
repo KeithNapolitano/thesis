@@ -7,6 +7,7 @@ use App\Http\Requests\OPTripFormUpdateRequest;
 use App\Models\Route;
 use App\Models\Seat;
 use App\Models\Trip;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -147,7 +148,7 @@ class TripController extends Controller
             $seats = Seat::where('id', $id)->firstOrFail();
             $filledSeatsCount = 0;
             for ($i = 1; $i <= 14; $i++) {
-                if ($seats->{'seat'.$i} == 1) {
+                if ($seats->{'seat' . $i} == 1) {
                     $filledSeatsCount++;
                 }
             }

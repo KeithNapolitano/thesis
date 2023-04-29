@@ -26,31 +26,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes');
-Route::post('/commuter', '\App\Http\Controllers\CommuterController@processRoutes')->name('commuter.processRoutes');
-
-Route::get('/explore', function () {
-    return view('commuter.explore');
+//FOR COMMUTER
+Route::middleware('auth')->group(function(){
+    Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes');
+    Route::post('/commuter', '\App\Http\Controllers\CommuterController@processRoutes')->name('commuter.processRoutes');
+    Route::get('/explore', function () {return view('commuter.explore');});
+    Route::get('/book', function () {return view('commuter.book');});
+    Route::post('/book', [ReservationController::class, 'store'])->name('storeReservation');
+    Route::get('/about', function () { return view('commuter.about');});
+    Route::get('/help', function () {return view('commuter.help');});
+    Route::get('commuter/details', function () {return view('commuter.details');});
+    Route::post('/commuter/details', [CommuterController::class, 'processRoutes']);
 });
-
-Route::get('/book', function () {
-    return view('commuter.book');
-});
-Route::post('/book', [ReservationController::class, 'store'])->name('storeReservation');
-
-Route::get('/about', function () {
-    return view('commuter.about');
-});
-
-Route::get('/help', function () {
-    return view('commuter.help');
-});
-
-Route::get('commuter/details', function () {
-    return view('commuter.details');
-});
-
-Route::post('/commuter/details', [CommuterController::class, 'processRoutes']);
 
 Route::get('/', function () {
     return view('welcome');
@@ -61,10 +48,11 @@ Route::get('/logout', function(){
     return redirect('/login');
 });
 
+//FOR OPERATOR
 Route::prefix('operator')->group(function () {
     Route::get('/opview', [RoutesController::class, 'OPshowDestination'])->name('operator.opview');
     Route::put('/{id}', [TripController::class, 'OPupdate'])->name('trip.OPupdate');
-    Route::get('/qr', function () {return view('operator.qr');})->name('operator.qr');
+    Route::get('/qr', [RoutesController::class, 'OPQRshowDestination'])->name('operator.qr');
     Route::get('/schedule', [RoutesController::class, 'OPSchedshowDestination'])->name('operator.schedule');
 });
 
