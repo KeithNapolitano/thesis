@@ -26,8 +26,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 //FOR COMMUTER
-Route::middleware('auth')->group(function(){
-    Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes');
+Route::middleware('auth', 'isUser')->group(function(){
+    Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes')->name('commuter.main');
     Route::post('/commuter', '\App\Http\Controllers\CommuterController@processRoutes')->name('commuter.processRoutes');
     Route::get('/explore', function () {return view('commuter.explore');});
     Route::get('/book', function () {return view('commuter.book');});
@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function(){
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('sigo');
 
 Route::get('/logout', function(){
     Auth::logout();
@@ -47,7 +47,7 @@ Route::get('/logout', function(){
 });
 
 //FOR OPERATOR
-Route::prefix('operator')->group(function () {
+Route::prefix('operator')->middleware(['auth', 'isOperator'])->group(function () {
     Route::get('/opview', [RoutesController::class, 'OPshowDestination'])->name('operator.opview');
     Route::put('/{id}', [TripController::class, 'OPupdate'])->name('trip.OPupdate');
     Route::get('/qr', [RoutesController::class, 'OPQRshowDestination'])->name('operator.qr');
@@ -64,6 +64,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/landing', function () {
+    return view('landing');
+})->middleware(['auth', 'verified'])->name('landing');
+// })->name('landing');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -71,13 +76,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-//update and destory only. edit===update(popup)
-// Route::prefix('/superadmin')->middleware('auth')->group(function () {
-//     // Route::get('/edit', [UserController::class, 'edit'])->name('user.edit');
-//     Route::patch('/', [UserController::class, 'update'])->name('user.update');
-//     Route::delete('/', [UserController::class, 'destroy'])->name('user.destroy');
-// });
 
 Route::prefix('/trip')->middleware(['auth', 'isAdmin'])->group(function (){
     Route::get('/', [TripController::class, 'index'])->name('trip.index');
