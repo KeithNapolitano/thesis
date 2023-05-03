@@ -102,6 +102,9 @@
     transform: scale(0.98);
     }
     
+    #ref_num {
+    width: 300px;
+}
     </style>
     <!-- end of css -->
 </head>
@@ -142,16 +145,21 @@
             </div>
         </div>
     </nav>
+    
+    <form method="POST" action="{{ route('storeReservation') }}">
+  @csrf
 
-    <div class="container1">
-	
-		<div class="qrCodeBx">
-			<img src="{{asset('import_commuter/assets/images/qr.png') }}" id="qrCode">
-		</div>
-		<button id="qrGenerator2">Confirm Booking</button>
-        <button id="qrGenerator">Generate QR</button>
-	</div>
+  <div class="container1">
+    <div class="qrCodeBx">
+      <img src="{{ asset('import_commuter/assets/images/qr.png') }}" id="qrCode">
+    </div>
+    <input type="text" placeholder="Enter Gcash reference number" name="ref_num" id="ref_num">
+    <button type="submit" id="qrGenerator2">Confirm Booking</button>
+    <button type="button" id="qrGenerator">Generate QR</button>
+  </div>
+</form>
 
+    
 </body>
 
 <script>
