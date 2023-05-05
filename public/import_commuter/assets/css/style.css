@@ -63,14 +63,47 @@ ul {
     z-index: 1000;
 }
 
-/*navbar item list*/
-.a-list {
-    align-items: center;
-    margin-top: -9px;
-    padding-left: 90px;
-    font-size: 17.5px;
+.dropdown-toggle::after {
+    display: none;
 }
 
+.user-avatar {
+    display: flex;
+    align-items: center;
+    margin-left: 40px;
+  }
+  
+  .user-avatar span:first-child {
+    display: inline-block;
+    width: 35px; /* updated size */
+    height: 35px; /* updated size */
+    font-size: 16px; /* updated font size */
+    font-weight: 600;
+    text-align: center;
+    line-height: 40px; /* updated line-height */
+    border-radius: 50%;
+    background-color: blue;
+    margin-right: 8px;
+    display: flex; /* added */
+    align-items: center; /* added */
+    justify-content: center; /* added */
+  }
+  
+.user-avatar span:last-child {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/*navbar item list*/
+.a-list {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    padding-left: 150px;
+  }
+  
 /*siGO logo*/
 .nav-img {
     height: 85px;
@@ -120,6 +153,7 @@ ul.navbar-nav {
     font-weight: bold;
     text-align: right;
     padding-right: 15px;
+
 }
 
 /*sign up*/
@@ -240,15 +274,7 @@ main #progressbar li:nth-child(4):before {
 }
 
 main #progressbar li:nth-child(5):before {
-    content: "\f155";
-}
-
-main #progressbar li:nth-child(6):before {
     content: "\f145";
-}
-
-main #progressbar li:nth-child(5):after {
-    width: 100%;
 }
 
 .text-red {
@@ -272,6 +298,10 @@ section.body {
     overflow-x: hidden;
 }
 
+/*color of booked seats*/
+.booked + .radio-btn {
+    background-color: gray;
+}
 
 /*form*/
 fieldset {
@@ -374,6 +404,37 @@ div.buttons {
     color: #fff !important;
 }
 
+/*progressbar and adjust it when the screen is resized*/
+.stepper {
+    text-align: center; /* center the progress bar */
+  }
+  
+  #progressbar {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #progressbar li {
+    flex: 1;
+    text-align: center;
+    position: relative;
+  }
+  
+  @media screen and (max-width: 768px) {
+    /* adjust styling for smaller screens */
+    #progressbar li {
+      font-size: 12px;
+    }
+  }
+  
+.dropdown {
+    margin-left:130px ;
+    margin-top: -10px;
+    text-transform: capitalize;
+}
 /*search options*/
 .bus-name {
     font-family: kanit_medium;
@@ -438,9 +499,8 @@ div.buttons {
 
 .rte{
     margin-left: 82px;
-    font-size: 20px;
+    font-size: 30px;
 }
-
 
 .btn-circle {
     border-radius: 25px !important;
@@ -514,103 +574,6 @@ div.seatCharts-cell {
     left: 53%;
 }
 
-div.seatCharts-seat {
-    color: #FFFFFF;
-    cursor: pointer;
-}
-
-div.seatCharts-row {
-    height: 10px;
-}
-
-div.seatCharts-seat.available {
-    background-color: #969696;
-}
-
-div.seatCharts-seat.available.first-class {
-    background-color: #2483F7;
-}
-
-div.seatCharts-seat.available.first-class.seater_35 {
-    width: 60px;
-}
-
-div.seatCharts-seat.focused {
-    background-color: #76B474;
-}
-
-div.seatCharts-seat.selected {
-    background-color: #307701;
-}
-
-div.seatCharts-seat.selected.seater_35,
-div.seatCharts-seat.focused.seater_35 {
-    width: 60px !important;
-}
-
-div.seatCharts-seat.unavailable {
-    background-color: #980303;
-}
-
-div.seatCharts-container {
-    min-width: 200px;
-    padding: 20px;
-    padding-left: 5px;
-    float: left;
-    margin-top: 280px;
-}
-
-div.seatCharts-legend {
-    padding-left: 0px;
-    position: absolute;
-    bottom: 2px;
-}
-
-ul.seatCharts-legendList {
-    padding-left: 0px;
-}
-
-span.seatCharts-legendDescription {
-    margin-left: 5px;
-    line-height: 24px;
-}
-
-li.seatCharts-legendItem>div.seatCharts-seat.seater_35 {
-    width: 37px !important;
-}
-
-
-#checkout-button {
-    display: block;
-    margin: 10px 0;
-    font-size: 14px;
-}
-
-#seat-map{
-    margin-top:200px;
-    margin-left: 45px;
-}
-
-#selected-seats {
-    max-height: 200px;
-    overflow-y: scroll;
-    overflow-wrap: break-word;
-    width: auto;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-}
-
-#selected-seats li {
-    list-style-type: none;
-    border-bottom: 1px dotted #adadad;
-    font-family: Consolas, "courier new";
-    display: inline-block;
-    padding-inline-start: 0px;
-    padding-left: 0px;
-    padding-right: 20px;
-    word-break: break-word;
-
-}
-
 .booking-details {
     float: left;
     text-align: left;
@@ -635,25 +598,6 @@ li.seatCharts-legendItem>div.seatCharts-seat.seater_35 {
     font-family: Monospace;
 }
 
-/*payment*/
-fieldset.p-info h6{
-    font-size: 19px;
-    line-height: 29px;
-    font-weight: bold;
-    font-weight: 550;
-    letter-spacing: -0.2px;
-    font-family: 'josefin','Helvetica Neue', Helvetica, Arial, sans-serif;
-    margin-top: 0;
-}
-fieldset.p-info h6 b,
-fieldset.p-info h6 span.show-email{
-    color: #1E0A3C;
-    font-weight: 600;
-}
-fieldset.p-info h6 span.note{
-    color: #e60000;
-    font-weight: 600;
-}
 
 @media (max-width:576px) {
     div.seatCharts-container {
@@ -674,10 +618,6 @@ fieldset.p-info h6 span.note{
         width: 100%;
     }
 }
-
-
-/*media queries*/
-
 
 /*small screen*/
 
@@ -758,3 +698,9 @@ fieldset.p-info h6 span.note{
     }
 }
 
+.bus-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+}

@@ -17,8 +17,8 @@ return new class extends Migration
             Schema::create('reservations', function (Blueprint $table) {
                 $table->id();
                 $table->unsignedBigInteger('user_id')->nullable(); //FOR COMMUTERS
-                //$table->unsignedBigInteger('trip_id');
-                $table->integer('tickets')->nullable();
+                $table->unsignedBigInteger('trip_id')->nullable();
+                //$table->integer('tickets')->nullable();
                 $table->unsignedBigInteger('payment_id')->nullable();
                 $table->boolean('present')->nullable();
                 $table->string('seat')->nullable();

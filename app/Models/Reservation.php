@@ -10,7 +10,7 @@ class Reservation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id','trip_id', 'tickets', 'payment_id', 'present',
+        'user_id','trip_id', 'payment_id', 'present',
         'seat', 'ref_num', 'image_path'
     ];
 
@@ -26,4 +26,7 @@ class Reservation extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function seat() {
+        return $this->belongsTo(Seat::class);
+    }
 }
