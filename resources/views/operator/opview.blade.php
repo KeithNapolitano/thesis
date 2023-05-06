@@ -113,13 +113,6 @@
                 <div style="width: auto;height: auto;">
                     <table id="matrix">
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
                             <td>Front seat</td>
                             <td></td>
                             <td></td>
