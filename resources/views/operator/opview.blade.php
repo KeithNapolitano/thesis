@@ -111,21 +111,21 @@
         <div class="row mb-5" style="margin-top: 16px;">
             <div class="col">
                 <div style="width: auto;height: auto;">
-                    <table id="matrix">
+                    <table id="matrix" >
                         <tr>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><button id="open">11</button></td>
+                            <td><button id="open">14</button></td>
                         </tr>
 
                         <tr>
                             <td><button id="open">1</button></td>
-                            <td><button id="open">2</button></td>
-                            <td><button id="open">5</button></td>
-                            <td><button id="open">8</button></td>
-                            <td><button id="open">12</button></td>
+                            <td><button id="open">4</button></td>
+                            <td><button id="open">7</button></td>
+                            <td><button id="open">10</button></td>
+                            <td><button id="open">13</button></td>
                         </tr>
 
                         <tr>
@@ -133,14 +133,14 @@
                             <td><button id="open">3</button></td>
                             <td><button id="open">6</button></td>
                             <td><button id="open">9</button></td>
-                            <td><button id="open">13</button></td>
+                            <td><button id="open">12</button></td>
                         </tr>
                         <tr>
                             <td><button class="bg-secondary">Driver Seat</button></td>
-                            <td><button id="selected">4</button></td>
-                            <td><button id="reserved">7</button></td>
-                            <td><button id="open">10</button></td>
-                            <td><button id="open">14</button></td>
+                            <td><button id="selected">2</button></td>
+                            <td><button id="reserved">5</button></td>
+                            <td><button id="open">8</button></td>
+                            <td><button id="open">11</button></td>
                         </tr>
                     </table>
                 </div>
