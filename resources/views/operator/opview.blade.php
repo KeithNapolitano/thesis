@@ -111,9 +111,16 @@
         <div class="row mb-5" style="margin-top: 16px;">
             <div class="col">
                 <div style="width: auto;height: auto;">
-                    <table id="matrix" >
+                    <table id="matrix">
                         <tr>
                             <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Front seat</td>
                             <td></td>
                             <td></td>
                             <td></td>

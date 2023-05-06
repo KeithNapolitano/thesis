@@ -162,8 +162,6 @@ body {
   }
 
   #matrix button {
-    height: auto;
-    width: auto;
     min-width: 100px;
     min-height: 45px;
     border: none;
