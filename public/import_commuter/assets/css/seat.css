@@ -14,7 +14,8 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: -200px;
+  margin-top: -250px;
+  margin-left: 150px; /* adjust the value as needed */
 }
 
 .main-container h2 {
@@ -95,7 +96,7 @@ body {
 }
 
 .row1{
-  margin-top: 300px;
+  margin-top: 350px;
   margin-left: -500px;
 }
 
@@ -133,13 +134,17 @@ body {
 
 .booking-details {
   margin-left: 200px;
-  margin-top: -430px;
+  margin-top: -550px;
 }
 
 .book_btn1 {
-  margin-left: 500px;
-  margin-top: -200px;
+  margin-left: 2000px;
+  margin-top: 500px;
 }
 
+.no-gutters {
+  margin-top: 50px;
+  margin-left: -100px;
+}
 
 

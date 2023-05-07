@@ -42,26 +42,13 @@ $(".next_button").on('click', function(event) {
     }
 
     if ($("fieldset").index(current_fs) == 2) {
-        if ($('ul#selected-seats li').length == 100) {
-            animating = false;
-            Lobibox.notify('error', {
-                showClass: 'fadeInDown',
-                hideClass: 'fadeUpDown',
-                iconSource: 'fontAwesome',
-                
-                title: "No Seat Selected!",
-                continueDelayOnInactiveTab: true,
-                size: 'mini',
-                msg: 'Please select at least one seat from the selected van.'
-            });
-
-        } else {
-            goNext(next_fs, current_fs)
-            seatsArray.splice(0,seatsArray.length);
-            sc.find('selected').each(function() {
-                seatsArray.push(this.settings.label)
-            });
-        }
+        
+        goNext(next_fs, current_fs)
+        seatsArray.splice(0,seatsArray.length);
+        sc.find('selected').each(function() {
+            seatsArray.push(this.settings.label)
+        });
+        
     } 
 
     else if ($("fieldset").index(current_fs) == 3) {

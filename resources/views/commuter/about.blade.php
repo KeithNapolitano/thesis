@@ -24,42 +24,62 @@
     <!-- end of css -->
 </head>
     <body>
-	
-        <nav class="navbar navbar-expand-lg navbar-dark static-top">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <h1>           
-                    <img src="{{asset('import_commuter/assets/images/main logo.png') }}" class="nav-img" alt="logo">
-                    </h1>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
+    <nav class="navbar navbar-expand-lg navbar-dark static-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url('/') }}">
+                <h1>           
+                    <img src="{{ asset('import_commuter/assets/images/main logo.png') }}" class="nav-img" alt="logo">
+                </h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="a-list">
-                        <a class="nav-link" href="/commuter">Book</a>
+                        <a class="nav-link" href="{{ url('/commuter') }}">Book</a>
                     </li>
                     <li class="a-list">
-                        <a class="nav-link" href="/explore">Explore</a>
+                        <a class="nav-link" href="{{ url('/explore') }}">Explore</a>
                     </li>
                     <li class="a-list">
-                        <a class="nav-link" href="/about">About</a>
+                        <a class="nav-link" href="{{ url('/about') }}">About</a>
                     </li>
                     <li class="a-list">
-                        <a class="nav-link" href="/help">Help & Support</a>
+                        <a class="nav-link" href="{{ url('/help') }}">Support</a>
                     </li>
-                    <li class="nav-item1">
-                        <button class="btn btn-outline-warning my-2 my-sm-0 ml-3" type="submit">Login</button>
+                    @auth
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: flex; align-items: center;">
+                        <div class="user-avatar">
+                            <span>{{ auth()->user()->name[0] }}</span>
+                        </div>
+                    </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-item disabled"> Hello, {{ auth()->user()->name }}</div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
                     </li>
-                    <li class="nav-item2">
-                        <button class="btn btn-outline-warning my-2 my-sm-0 ml-2" type="submit">Sign Up</button>
-                    </li>
- 
+
+                    @else
+                        <li class="nav-item1">
+                            <a class="btn btn-outline-warning my-2 my-sm-0 ml-3" href="{{ route('login') }}">Login</a>
+                        </li>
+                        <li class="nav-item2">
+                            <a class="btn btn-outline-warning my-2 my-sm-0 ml-2" href="{{ route('register') }}">Sign Up</a>
+                        </li>
+                    @endauth
                 </ul>
-                </div>
             </div>
-        </nav>
+        </div>
+    </nav>
         
         <div class="management">
             <div class="talent-management">
@@ -88,4 +108,5 @@
         </div>
 
     </body>
+
 </html>
