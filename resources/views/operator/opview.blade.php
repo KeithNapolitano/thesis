@@ -33,7 +33,8 @@
                                     style="color: rgb(0, 0, 0);">View</span></strong></a></li>
                     <li class="nav-item"><a class="nav-link" href="qr"><span style="color: rgb(0, 0, 0);">QR
                                 Scanner</span></a></li>
-                </ul><a class="btn btn-primary" role="button" href="{{ route('logout') }}" style="margin-left: 20px;">Log Out</a>
+                </ul><a class="btn btn-primary" role="button" href="{{ route('logout') }}"
+                    style="margin-left: 20px;">Log Out</a>
             </div>
         </div>
     </nav>
@@ -109,9 +110,43 @@
         <div></div>
         <div class="row mb-5" style="margin-top: 16px;">
             <div class="col">
-                <div style="width: auto;height: auto;"><img class="img-fluid d-inline-flex"
-                        src="{{ asset('import/assets/img/commuter_011.jpg')}}"
-                        style="width: auto;max-width: 70%;min-width: 350px;')}}"></div>
+                <div style="width: auto;height: auto;">
+                    <table id="matrix">
+                        @foreach ($seats as $seat)
+                        <tr>
+                            <td>Front seat</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><button class="{{ $seat->seat14 == 1 ? 'reserved' : 'open' }}">14</button></td>
+
+                        </tr>
+
+                        <tr>
+                            <td><button class="{{ $seat->seat1 == 1 ? 'reserved' : 'open' }}">1</button></td>
+                            <td><button class="{{ $seat->seat4 == 1 ? 'reserved' : 'open' }}">4</button></td>
+                            <td><button class="{{ $seat->seat7 == 1 ? 'reserved' : 'open' }}">7</button></td>
+                            <td><button class="{{ $seat->seat10 == 1 ? 'reserved' : 'open' }}">10</button></td>
+                            <td><button class="{{ $seat->seat13 == 1 ? 'reserved' : 'open' }}">13</button></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td><button class="{{ $seat->seat3 == 1 ? 'reserved' : 'open' }}">3</button></td>
+                            <td><button class="{{ $seat->seat6 == 1 ? 'reserved' : 'open' }}">6</button></td>
+                            <td><button class="{{ $seat->seat9 == 1 ? 'reserved' : 'open' }}">9</button></td>
+                            <td><button class="{{ $seat->seat12 == 1 ? 'reserved' : 'open' }}">12</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="bg-secondary">Driver Seat</button></td>
+                            <td><button class="{{ $seat->seat2 == 1 ? 'reserved' : 'open' }}">2</button></td>
+                            <td><button class="{{ $seat->seat5 == 1 ? 'reserved' : 'open' }}">5</button></td>
+                            <td><button class="{{ $seat->seat8 == 1 ? 'reserved' : 'open' }}">8</button></td>
+                            <td><button class="{{ $seat->seat11 == 1 ? 'reserved' : 'open' }}">11</button></td>
+                        </tr>
+                        @endforeach
+                    </table>
+                </div>
 
             </div>
             <div class="col-md-8 col-xl-6 text-center mx-auto" style="height: 203.562px;width: 359px;">
@@ -127,8 +162,6 @@
                                 <li class="list-group-item bg-primary"><span><strong>Reserved Seat</strong></span>
                                 </li>
                                 <li class="list-group-item bg-warning"><span><strong>Selected Seat</strong></span>
-                                </li>
-                                <li class="list-group-item bg-secondary"><span><strong>Driver's Seat</strong></span>
                                 </li>
                             </ul>
                         </div>
@@ -217,6 +250,8 @@
             </div>
         </div>
     </div>
+
+
 
 
     <footer class="bg-primary-gradient">
