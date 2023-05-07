@@ -169,23 +169,23 @@ body {
     font-weight: bold;
   }
 
-  #open {
+  .open {
     background-color: #00b779;
   }
 
 
-  #selected {
+  .selected {
     background-color: #ffc107;
   }
 
-  #selected:hover {
+  .selected:hover {
     background-color: #ffa000;
   }
 
-  #reserved {
+  .reserved {
     background-color: #3763f4;
   }
 
-  #reserved:hover {
+  .reserved:hover {
     background-color: #3703f4;
   }

@@ -112,36 +112,39 @@
             <div class="col">
                 <div style="width: auto;height: auto;">
                     <table id="matrix">
+                        @foreach ($seats as $seat)
                         <tr>
                             <td>Front seat</td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><button id="open">14</button></td>
+                            <td><button class="{{ $seat->seat14 == 1 ? 'reserved' : 'open' }}">14</button></td>
+
                         </tr>
 
                         <tr>
-                            <td><button id="open">1</button></td>
-                            <td><button id="open">4</button></td>
-                            <td><button id="open">7</button></td>
-                            <td><button id="open">10</button></td>
-                            <td><button id="open">13</button></td>
+                            <td><button class="{{ $seat->seat1 == 1 ? 'reserved' : 'open' }}">1</button></td>
+                            <td><button class="{{ $seat->seat4 == 1 ? 'reserved' : 'open' }}">4</button></td>
+                            <td><button class="{{ $seat->seat7 == 1 ? 'reserved' : 'open' }}">7</button></td>
+                            <td><button class="{{ $seat->seat10 == 1 ? 'reserved' : 'open' }}">10</button></td>
+                            <td><button class="{{ $seat->seat13 == 1 ? 'reserved' : 'open' }}">13</button></td>
                         </tr>
 
                         <tr>
                             <td></td>
-                            <td><button id="open">3</button></td>
-                            <td><button id="open">6</button></td>
-                            <td><button id="open">9</button></td>
-                            <td><button id="open">12</button></td>
+                            <td><button class="{{ $seat->seat3 == 1 ? 'reserved' : 'open' }}">3</button></td>
+                            <td><button class="{{ $seat->seat6 == 1 ? 'reserved' : 'open' }}">6</button></td>
+                            <td><button class="{{ $seat->seat9 == 1 ? 'reserved' : 'open' }}">9</button></td>
+                            <td><button class="{{ $seat->seat12 == 1 ? 'reserved' : 'open' }}">12</button></td>
                         </tr>
                         <tr>
                             <td><button class="bg-secondary">Driver Seat</button></td>
-                            <td><button id="selected">2</button></td>
-                            <td><button id="reserved">5</button></td>
-                            <td><button id="open">8</button></td>
-                            <td><button id="open">11</button></td>
+                            <td><button class="{{ $seat->seat2 == 1 ? 'reserved' : 'open' }}">2</button></td>
+                            <td><button class="{{ $seat->seat5 == 1 ? 'reserved' : 'open' }}">5</button></td>
+                            <td><button class="{{ $seat->seat8 == 1 ? 'reserved' : 'open' }}">8</button></td>
+                            <td><button class="{{ $seat->seat11 == 1 ? 'reserved' : 'open' }}">11</button></td>
                         </tr>
+                        @endforeach
                     </table>
                 </div>
 
