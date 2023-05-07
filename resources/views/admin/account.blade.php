@@ -52,65 +52,203 @@
                 </div>
             </section>
             <div class="card-group text-center" style="height: 100%;">
-                <div class="card" style="border-style: none;margin: 10px;background: rgba(255,255,255,0);">
-                    <div class="card-body d-flex float-start justify-content-center align-content-center" style="border: 3px solid rgb(12,37,126);border-radius: 15px;box-shadow: -3px 3px;width: 100%;">
-                        <div class="col text-start" style="width: 50%;margin: 0px;">
-                            <header>
-                                <h1 class="text-start align-items-center align-content-center align-self-center my-auto" style="font-size: 20px;margin-right: 2.5px;height: 100%;width: 100%;">TODAY'S<br>REPORT</h1>
-                            </header>
-                        </div>
-                        <div class="col" style="width: 50%;margin: 0px;margin-left: 2.5px;">
-                            <p class="text-start" style="height: 100%;">Income:<br>
-                                {{-- {{ dd($daily) }} --}}
-                                {{ $daily[0]['daily']}}
-                                <br># of Trips:
-                                {{ $dailytrips }}<br></p>
+                <div class="card border-dark mb-3 bg-transparent" style="max-width: 100%; border-style: solid; border-width: 2px;">
+                    <div class="card-header bg-transparent border-0">
+                        <h4 class="card-title mb-0" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold;">Daily Report</h4>
+                    </div>
+                    <div class="card-body text-dark" style="font-family: Arial, Helvetica, sans-serif;">
+                        <h5 class="card-title" style="font-weight: bold;">Total Trips: {{ $dailytrips }}</h5>
+                        <p class="card-text" style="font-size: 1.2rem;">Total Income: {{ $daily[0]['daily']}}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#dailyModal" style="font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+                <div class="card border-dark mb-3 bg-transparent" style="max-width: 100%; border-style: solid; border-width: 2px;">
+                    <div class="card-header bg-transparent border-0">
+                        <h4 class="card-title mb-0" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold;">Weekly Report</h4>
+                    </div>
+                    <div class="card-body text-dark" style="font-family: Arial, Helvetica, sans-serif;">
+                        <h5 class="card-title" style="font-weight: bold;">Total Trips: {{ $weeklytrips }}</h5>
+                        <p class="card-text" style="font-size: 1.2rem;">Total Income: {{ $weekly[0]['weekly'] }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#weeklyModal" style="font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+                <div class="card border-dark mb-3 bg-transparent" style="max-width: 100%; border-style: solid; border-width: 2px;">
+                    <div class="card-header bg-transparent border-0">
+                        <h4 class="card-title mb-0" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold;">Monthly Report</h4>
+                    </div>
+                    <div class="card-body text-dark" style="font-family: Arial, Helvetica, sans-serif;">
+                        <h5 class="card-title" style="font-weight: bold;">Total Trips: {{ $monthlytrips }}</h5>
+                        <p class="card-text" style="font-size: 1.2rem;">Total Income: {{ $monthly[0]['monthly'] }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#monthlyModal" style="font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+                <div class="card border-dark mb-3 bg-transparent" style="max-width: 100%; border-style: solid; border-width: 2px;">
+                    <div class="card-header bg-transparent border-0">
+                        <h4 class="card-title mb-0" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: bold;">Yearly Report</h4>
+                    </div>
+                    <div class="card-body text-dark" style="font-family: Arial, Helvetica, sans-serif;">
+                        <h5 class="card-title" style="font-weight: bold;">Total Trips: {{ $yearlytrips }}</h5>
+                        <p class="card-text" style="font-size: 1.2rem;">Total Income: {{ $yearly[0]['yearly'] }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#yearlyModal" style="font-family: Arial, Helvetica, sans-serif; font-weight: bold;">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+                <div class="modal fade" id="dailyModal" tabindex="-1" role="dialog" aria-labelledby="dailyModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="dailyModalLabel">Daily Details</h5>
+                                <h5 class="modal-title" id="dailyModalLabel">Date: {{ now()->format('l, F j, Y') }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Trip ID</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Driver</th>
+                                            <th scope="col">Destination</th>
+                                            <th scope="col">Income</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($trips as $trip)
+                                            @foreach ($routes as $route)
+                                            <tr>
+                                                @if($trip->dates == now()->format('Y-m-d'))
+                                                    <th scope="row">{{ $trip->id }}</th>
+                                                    <th scope="row">{{ $trip->dates }}</th>
+                                                    <th scope="row">{{ $trip->driver_name }}</th>
+                                                    <th scope="row">{{ $trip->route->descr }}</th>
+                                                    <td>{{ $trip->orig_fare }}</td>
+                                                @endif
+                                            </tr>
+                                            @endforeach
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card" style="border-style: none;margin: 10px;background: rgba(255,255,255,0);">
-                    <div class="card-body d-flex float-start justify-content-center align-content-center" style="border: 3px solid rgb(12,37,126);border-radius: 15px;box-shadow: -3px 3px;width: 100%;">
-                        <div class="col text-start" style="width: 50%;margin: 0px;">
-                            <header>
-                                <h1 class="text-start align-items-center align-content-center align-self-center my-auto" style="font-size: 20px;margin-right: 2.5px;height: 100%;width: 100%;">WEEKLY REPORT</h1>
-                            </header>
-                        </div>
-                        <div class="col" style="width: 50%;margin: 0px;margin-left: 2.5px;">
-                            <p class="text-start" style="height: 100%;">Income:<br>
-                                {{ $weekly[0]['weekly'] }}
-                                <br># of Trips:
-                                {{ $weeklytrips }}
-                                <br></p>
+                <div class="modal fade" id="weeklyModal" tabindex="-1" role="dialog" aria-labelledby="weeklyModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="weeklyModalLabel">Weekly Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Week Number</th>
+                                            <th scope="col">Week's Income</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($weekly as $weekNumber => $weeklyIncome)
+                                            <tr>
+                                                <td>{{ $weekNumber+1 }}</td>
+                                                <td>{{ $weeklyIncome['weekly'] }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card" style="border-style: none;margin: 10px;background: rgba(255,255,255,0);">
-                    <div class="card-body d-flex float-start justify-content-center align-content-center" style="border: 3px solid rgb(12,37,126);border-radius: 15px;box-shadow: -3px 3px;width: 100%;">
-                        <div class="col text-start" style="width: 50%;margin: 0px;">
-                            <header>
-                                <h1 class="text-start align-items-center align-content-center align-self-center my-auto" style="font-size: 20px;margin-right: 2.5px;height: 100%;width: 100%;">MONTHLY<br>REPORT</h1>
-                            </header>
-                        </div>
-                        <div class="col" style="width: 50%;margin: 0px;margin-left: 2.5px;">
-                            <p class="text-start" style="height: 100%;">Income:<br>
-                                {{ $monthly[0]['monthly'] }}
-                                <br># of Trips:
-                                {{ $monthlytrips }}<br></p>
+                <div class="modal fade" id="monthlyModal" tabindex="-1" role="dialog" aria-labelledby="monthlyModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="monthlyModalLabel">Monthly Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Month</th>
+                                            <th scope="col">Month's Income</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($monthlyIncomes as $month => $income)
+                                            <tr>
+                                                <th scope="row">{{ $month }}</th>
+                                                <td>{{ $income }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card text-xl-center text-xxl-center" style="border-style: none;margin: 10px;background: rgba(255,255,255,0);">
-                    <div class="card-body d-flex float-start justify-content-center align-content-center" style="border: 3px solid rgb(12,37,126);border-radius: 15px;box-shadow: -3px 3px;width: 100%;">
-                        <div class="col text-start" style="width: 50%;margin: 0px;">
-                            <header>
-                                <h1 class="text-start align-items-center align-content-center align-self-center my-auto" style="font-size: 20px;margin-right: 2.5px;height: 100%;width: 100%;">YEARLY REPORT</h1>
-                            </header>
-                        </div>
-                        <div class="col" style="width: 50%;margin: 0px;margin-left: 2.5px;">
-                            <p class="text-start" style="height: 100%;">Income:<br>
-                                {{ $yearly[0]['yearly'] }}
-                                <br># of Trips:
-                                {{ $yearlytrips }}<br></p>
+                <div class="modal fade" id="yearlyModal" tabindex="-1" role="dialog" aria-labelledby="yearlyModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="yearlyModalLabel">Yearly Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Year</th>
+                                            <th scope="col">Year's Income</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($yearlyIncomes as $year => $trips)
+                                            <tr>
+                                                <th scope="row">{{ $year }}</th>
+                                                <td>{{ $yearlyIncomes[$year] }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -143,6 +281,15 @@
     <script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>
