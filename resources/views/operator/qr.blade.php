@@ -28,9 +28,10 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="schedule"><span
                                 style="font-weight: normal !important; color: rgb(0, 0, 0);">Schedule</span></a></li>
-                    <li>@if (request()->has('url'))
+                    <li>
+                        @if (request()->has('url'))
                         <a class="nav-link" href="{{ request('url') }}">
-                            <span style="color: rgb(0, 0, 0);">Go Back</span>
+                            <span style="color: rgb(0, 0, 0);">Operator view</span>
                         </a>
                     @else
                         <!-- Add fallback link here if the 'url' query parameter is not present -->
