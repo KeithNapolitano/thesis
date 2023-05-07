@@ -28,9 +28,8 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="schedule"><span
                                 style="font-weight: normal !important; color: rgb(0, 0, 0);">Schedule</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="opview"><strong><span
-                                    style="color: rgb(0, 0, 0);">Operator </span><span
-                                    style="color: rgb(0, 0, 0);">View</span></strong></a></li>
+                    <li class="nav-item"><strong><span class="nav-link" style="color: rgb(0, 0, 0);">Operator
+                                View</span></strong></li>
                     <li class="nav-item"><a class="nav-link" href="qr"><span style="color: rgb(0, 0, 0);">QR
                                 Scanner</span></a></li>
                 </ul><a class="btn btn-primary" role="button" href="{{ route('logout') }}"
@@ -92,10 +91,10 @@
         echo "<div class=\"col\">";
         echo "<ul class=\"list-group\">";
         echo "<li class=\"list-group-item\"><span><strong>Assigned
-                                        van:&nbsp;</strong></span><span>Toyota HiAce " .
+                                        van plate:&nbsp;</strong></span><span> " .
             $vanData->van_plate .
             '<br></span></li>';
-        echo "<li class=\"list-group-item\"><span><strong>Operator:&nbsp;</strong></span><span>" . $vanData->van_plate . '</span></li>';
+        echo "<li class=\"list-group-item\"><span><strong>Operator:&nbsp;</strong></span><span>" . $vanData->driver_name . '</span></li>';
         echo "<li class=\"list-group-item\"><span><strong>Schedule:&nbsp;</strong>
                                 </span><span>" .
             $vanData->dates .
@@ -138,51 +137,51 @@
                 <div style="width: auto;height: auto;">
                     <table id="matrix">
 
-                                    <tr>
-                                        <td>Front seat</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><button class="{{ $seat->seat14 == 1 ? 'reserved' : 'open' }}">14</button>
-                                        </td>
+                        <tr>
+                            <td>Front seat</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><button class="{{ $seat->seat14 == 1 ? 'reserved' : 'open' }}">14</button>
+                            </td>
 
-                                    </tr>
+                        </tr>
 
-                                    <tr>
-                                        <td><button class="{{ $seat->seat1 == 1 ? 'reserved' : 'open' }}">1</button>
-                                        </td>
-                                        <td><button class="{{ $seat->seat4 == 1 ? 'reserved' : 'open' }}">4</button>
-                                        </td>
-                                        <td><button class="{{ $seat->seat7 == 1 ? 'reserved' : 'open' }}">7</button>
-                                        </td>
-                                        <td><button class="{{ $seat->seat10 == 1 ? 'reserved' : 'open' }}">10</button>
-                                        </td>
-                                        <td><button class="{{ $seat->seat13 == 1 ? 'reserved' : 'open' }}">13</button>
-                                        </td>
-                                    </tr>
+                        <tr>
+                            <td><button class="{{ $seat->seat1 == 1 ? 'reserved' : 'open' }}">1</button>
+                            </td>
+                            <td><button class="{{ $seat->seat4 == 1 ? 'reserved' : 'open' }}">4</button>
+                            </td>
+                            <td><button class="{{ $seat->seat7 == 1 ? 'reserved' : 'open' }}">7</button>
+                            </td>
+                            <td><button class="{{ $seat->seat10 == 1 ? 'reserved' : 'open' }}">10</button>
+                            </td>
+                            <td><button class="{{ $seat->seat13 == 1 ? 'reserved' : 'open' }}">13</button>
+                            </td>
+                        </tr>
 
-                                    <tr>
-                                        <td></td>
-                                        <td><button class="{{ $seat->seat3 == 1 ? 'reserved' : 'open' }}">3</button>
-                                        </td>
-                                        <td><button class="{{ $seat->seat6 == 1 ? 'reserved' : 'open' }}">6</button>
-                                        </td>
-                                        <td><button class="{{ $seat->seat9 == 1 ? 'reserved' : 'open' }}">9</button>
-                                        </td>
-                                        <td><button class="{{ $seat->seat12 == 1 ? 'reserved' : 'open' }}">12</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><button class="bg-secondary">Driver Seat</button></td>
-                                        <td><button class="{{ $seat->seat2 == 1 ? 'reserved' : 'open' }}">2</button>
-                                        </td>
-                                        <td><button class="{{ $seat->seat5 == 1 ? 'reserved' : 'open' }}">5</button>
-                                        </td>
-                                        <td><button class="{{ $seat->seat8 == 1 ? 'reserved' : 'open' }}">8</button>
-                                        </td>
-                                        <td><button class="{{ $seat->seat11 == 1 ? 'reserved' : 'open' }}">11</button>
-                                        </td>
-                                    </tr>
+                        <tr>
+                            <td></td>
+                            <td><button class="{{ $seat->seat3 == 1 ? 'reserved' : 'open' }}">3</button>
+                            </td>
+                            <td><button class="{{ $seat->seat6 == 1 ? 'reserved' : 'open' }}">6</button>
+                            </td>
+                            <td><button class="{{ $seat->seat9 == 1 ? 'reserved' : 'open' }}">9</button>
+                            </td>
+                            <td><button class="{{ $seat->seat12 == 1 ? 'reserved' : 'open' }}">12</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button class="bg-secondary">Driver Seat</button></td>
+                            <td><button class="{{ $seat->seat2 == 1 ? 'reserved' : 'open' }}">2</button>
+                            </td>
+                            <td><button class="{{ $seat->seat5 == 1 ? 'reserved' : 'open' }}">5</button>
+                            </td>
+                            <td><button class="{{ $seat->seat8 == 1 ? 'reserved' : 'open' }}">8</button>
+                            </td>
+                            <td><button class="{{ $seat->seat11 == 1 ? 'reserved' : 'open' }}">11</button>
+                            </td>
+                        </tr>
                     </table>
                 </div>
 
@@ -240,48 +239,46 @@
                         <div class="col">
                             <ul class="list-group">
 
-                                        <form method="POST" id="trip-form"
-                                            action="{{ route('trip.OPupdate', ['id' => $trip->id]) }}">
-                                            @csrf
-                                            @method('PUT')
-                                            <input type="hidden" name="van_plate"
-                                                value="{{ request()->get('van_plate') }}">
-                                            <ul class="list-group">
-                                                <li class="list-group-item">
-                                                    <span><strong>Driver Status:&nbsp;</strong></span>
-                                                    <div>
-                                                        <input type="checkbox" id="driverstatus" name="driver_status"
-                                                            value="1"
-                                                            {{ $trip->driver_status == 1 ? 'checked' : '' }}>
-                                                    </div>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <span><strong>Passenger Status:&nbsp;</strong></span>
-                                                    <div>
-                                                        <input type="checkbox" id="passengerstatus"
-                                                            name="passenger_status" value="1"
-                                                            {{ $trip->passenger_status == 1 ? 'checked' : '' }}>
-                                                    </div>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <span><strong>Payment Collection:&nbsp;</strong></span>
-                                                    <div>
-                                                        <input type="checkbox" id="paymentstatus"
-                                                            name="payment_status" value="1"
-                                                            {{ $trip->payment_status == 1 ? 'checked' : '' }}>
-                                                    </div>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <span><strong>Supervisor Confirmation:</strong>&nbsp;</span>
-                                                    <div>
-                                                        <input type="checkbox" id="supervisorstatus"
-                                                            name="supervisor_status" value="1"
-                                                            {{ $trip->supervisor_status == 1 ? 'checked' : '' }}>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                            <button class="btn btn-primary" type="submit">Submit</button>
-                                        </form>
+                                <form method="POST" id="trip-form"
+                                    action="{{ route('trip.OPupdate', ['id' => $trip->id]) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="van_plate"
+                                        value="{{ request()->get('van_plate') }}">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <span><strong>Driver Status:&nbsp;</strong></span>
+                                            <div>
+                                                <input type="checkbox" id="driverstatus" name="driver_status"
+                                                    value="1" {{ $trip->driver_status == 1 ? 'checked' : '' }}>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <span><strong>Passenger Status:&nbsp;</strong></span>
+                                            <div>
+                                                <input type="checkbox" id="passengerstatus" name="passenger_status"
+                                                    value="1"
+                                                    {{ $trip->passenger_status == 1 ? 'checked' : '' }}>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <span><strong>Payment Collection:&nbsp;</strong></span>
+                                            <div>
+                                                <input type="checkbox" id="paymentstatus" name="payment_status"
+                                                    value="1" {{ $trip->payment_status == 1 ? 'checked' : '' }}>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <span><strong>Supervisor Confirmation:</strong>&nbsp;</span>
+                                            <div>
+                                                <input type="checkbox" id="supervisorstatus" name="supervisor_status"
+                                                    value="1"
+                                                    {{ $trip->supervisor_status == 1 ? 'checked' : '' }}>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </form>
                             </ul>
                         </div>
                     </div>
