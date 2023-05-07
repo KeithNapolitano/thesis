@@ -187,7 +187,25 @@
                         </tr>
                     </table>
                 </div>
+                <script>
+                    $(document).ready(function() {
+                        // Add click event listener to all buttons with class "reserved"
+                        $('button.reserved').click(function() {
+                            // Allow click if button has class "reserved"
+                            $(this).toggleClass('reserved');
+                            $(this).toggleClass('open');
 
+                            // Refresh the page
+                            location.reload();
+                        });
+
+                        // Add click event listener to all buttons without class "reserved"
+                        $('button:not(.reserved)').click(function() {
+                            // Prevent click if button does not have class "reserved"
+                            alert('This seat is not available!');
+                        });
+                    });
+                </script>
             </div>
             <div class="col-md-8 col-xl-6 text-center mx-auto" style="height: 203.562px;width: 359px;">
                 <h2 class="fs-6 fw-bold text-start"><strong>Legend:</strong><br></h2>
