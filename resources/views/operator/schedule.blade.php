@@ -118,7 +118,7 @@
                                         @endif
                                     @endforeach
 
-                                    <li class="list-group-item"><span>Driver: {{ $trip->van_plate }}</span></li>
+                                    <li class="list-group-item"><span>Driver: {{ $trip->driver_name }}</span></li>
                                 </ul>
                                 <a class="btn btn-primary" role="button"
                                     href="/operator/opview?van_plate={{ $trip->van_plate }}&id={{ $trip->id }}">Van
