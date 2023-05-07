@@ -7,9 +7,12 @@ use App\Models\Route;
 use App\Models\Trip;
 use Illuminate\Http\Request;
 use App\Models\Seat;
+use App\Models\Reservation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use function GuzzleHttp\Promise\all;
+
 
 class CommuterController extends Controller
 {
@@ -31,10 +34,8 @@ public function getRoutes(Request $request)
     return view('commuter.commuter', compact('routes', 'trips', 'seats', 'trip_id'));
 }
 
-
 public function processRoutes(Request $request)
 {
-    //dd($request->all());
     $trip_id = $request->input('trip_id');
     $selected_seats = $request->input('seats');
 
@@ -42,6 +43,19 @@ public function processRoutes(Request $request)
         // handle error: no seat selected
         return;
     }
+
+    // convert the selected seats array to comma-separated string
+    $seats = implode(',', $selected_seats);
+
+    $ref_num = Str::random(8);
+
+    // create a new reservation record in the 'reservations' table
+    Reservation::create([
+        'trip_id' => $trip_id,
+        'seat' => $seats,
+        'user_id' => Auth::id(), // populate user_id with the ID of the logged-in user
+        'ref_num' => $ref_num,
+    ]);
 
     // loop through each selected seat and update the database
     foreach ($selected_seats as $seat) {
@@ -55,6 +69,5 @@ public function processRoutes(Request $request)
 
     return redirect('/book');
 }
-
 
 }

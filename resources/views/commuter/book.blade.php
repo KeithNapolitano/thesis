@@ -147,26 +147,25 @@
     </nav>
     
     <form method="POST" action="{{ route('storeReservation') }}">
-  @csrf
-
-  <div class="container1">
-    <div class="qrCodeBx">
-      <img src="{{ asset('import_commuter/assets/images/qr.png') }}" id="qrCode">
+    @csrf
+    <div class="container1">
+        <div class="qrCodeBx">
+            <img src="{{ asset('import_commuter/assets/images/qr.png') }}" id="qrCode">
+        </div>
+        <!-- <button type="submit" id="qrGenerator2">Confirm Booking</button> -->
+        <button type="button" id="qrGenerator">Generate QR</button>
+        <button type="button" id="downloadQR">Download QR</button>
     </div>
-    <input type="text" placeholder="Enter Gcash reference number" name="ref_num" id="ref_num">
-    <button type="submit" id="qrGenerator2">Confirm Booking</button>
-    <button type="button" id="qrGenerator">Generate QR</button>
-  </div>
-</form>
+    </form>
 
-    
 </body>
 
-<script>
+<script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
 
+<script>
 const qrCode = document.querySelector('#qrCode');
 const qrGenerator = document.querySelector('#qrGenerator');
-
+const downloadQR = document.querySelector('#downloadQR');
 const baseURL = "https://api.qrserver.com/v1/create-qr-code/"
 const data = "reservation_id : "; // set a fixed URL or a specific message as the QR code data
 
@@ -175,8 +174,16 @@ qrGenerator.addEventListener('click',()=>{
     qrCode.src = `${baseURL}?/size=${size}&data=${data}`
 })
 
-</script>
+downloadQR.addEventListener('click', () => {
+    const qrCodeURL = qrCode.src;
+    fetch(qrCodeURL)
+        .then(response => response.blob())
+        .then(blob => {
+            saveAs(blob, 'qr_code.png');
+        });
+});
 
+</script>
 
 
 </html>

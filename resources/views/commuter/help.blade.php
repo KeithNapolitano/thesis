@@ -1,6 +1,5 @@
-<html>
+<!DOCTYPE html>
 
-<head>
 <head>
     <!-- //for-mobile-apps -->
     <title>siGO</title>
@@ -22,128 +21,69 @@
     <link rel="stylesheet" type="text/css" href="{{asset('import_commuter/assets/plugins/lobibox/css/lobibox.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('import_commuter/assets/css/simplelightbox.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('import_commuter/assets/css/style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('import_commuter/assets/css/help.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('import_commuter/assets/css/explore.css')}}">
     <!-- end of css -->
 </head>
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue -static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-	 <script
-      src="https://kit.fontawesome.com/64d58efce2.js"
-      crossorigin="anonymous"></script>
+
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark static-top">
+<nav class="navbar navbar-expand-lg navbar-dark static-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{ url('/') }}">
                 <h1>           
-                    <img src="{{asset('import_commuter/assets/images/main logo.png') }}" class="nav-img1" alt="logo">
+                    <img src="{{ asset('import_commuter/assets/images/main logo.png') }}" class="nav-img" alt="logo">
                 </h1>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                    <li class="a-list1">
-                        <a class="nav-link" href="/commuter">Book</a>
+                <ul class="navbar-nav ml-auto">
+                    <li class="a-list">
+                        <a class="nav-link" href="{{ url('/commuter') }}">Book</a>
                     </li>
-                    <li class="a-list1">
-                        <a class="nav-link" href="/explore">Explore</a>
+                    <li class="a-list">
+                        <a class="nav-link" href="{{ url('/explore') }}">Explore</a>
                     </li>
-                    <li class="a-list1">
-                        <a class="nav-link" href="/about">About</a>
+                    <li class="a-list">
+                        <a class="nav-link" href="{{ url('/about') }}">About</a>
                     </li>
-                    <li class="a-list1">
-                        <a class="nav-link" href="/help">Help & Support</a>
+                    <li class="a-list">
+                        <a class="nav-link" href="{{ url('/help') }}">Support</a>
                     </li>
-                    <li class="nav-item1">
-                        <button class="btn btn-outline-warning my-2 my-sm-0 ml-3" type="submit">Login</button>
+                    @auth
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: flex; align-items: center;">
+                        <div class="user-avatar">
+                            <span>{{ auth()->user()->name[0] }}</span>
+                        </div>
+                    </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-item disabled"> Hello, {{ auth()->user()->name }}</div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
                     </li>
-                    <li class="nav-item2">
-                        <button class="btn btn-outline-warning my-2 my-sm-0 ml-2" type="submit">Sign Up</button>
-                    </li>
- 
+
+                    @else
+                        <li class="nav-item1">
+                            <a class="btn btn-outline-warning my-2 my-sm-0 ml-3" href="{{ route('login') }}">Login</a>
+                        </li>
+                        <li class="nav-item2">
+                            <a class="btn btn-outline-warning my-2 my-sm-0 ml-2" href="{{ route('register') }}">Sign Up</a>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>
     </nav>
-
-    <div class="cntr">
-       <!-- <span class="big-circle"></span> -->
-        <img src="{{asset('import_commuter/assets/images/shape.png') }}" class="square" alt="" />
-        <div class="form">
-          <div class="contact-info">
-            <h3 class="title">Let's get in touch</h3>
-            <p class="text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-              dolorum adipisci recusandae praesentium dicta!
-            </p>
-  
-            <div class="info">
-              <div class="information">
-                <img src="{{asset('import_commuter/assets/images/location.png') }}" class="icon" alt="" />
-                <p>92 Cherry Drive Uniondale, NY 11553</p>
-              </div>
-              <div class="information">
-                <img src="{{asset('import_commuter/assets/images/email.png') }}" class="icon" alt="" />
-                <p>lorem@ipsum.com</p>
-              </div>
-              <div class="information">
-                <img src="{{asset('import_commuter/assets/images/phone.png') }}" class="icon" alt="" />
-                <p>123-456-789</p>
-              </div>
-            </div>
-  
-            <div class="social-media">
-              <p>Connect with us :</p>
-              <div class="social-icons">
-                <a href="#">
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#">
-                  <i class="fab fa-twitter"></i>
-                </a>
-                <a href="#">
-                  <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#">
-                  <i class="fab fa-linkedin-in"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-  
-          <div class="contact-form">
-            <span class="circle one"></span>
-            <span class="circle two"></span>
-  
-            <form action="index.html" autocomplete="off">
-              <h3 class="title">Contact us</h3>
-              <div class="input-container">
-                <input type="text" name="name" class="input" />
-                <label for="">Username</label>
-                <span>Username</span>
-              </div>
-              <div class="input-container">
-                <input type="email" name="email" class="input" />
-                <label for="">Email</label>
-                <span>Email</span>
-              </div>
-              <div class="input-container">
-                <input type="tel" name="phone" class="input" />
-                <label for="">Phone</label>
-                <span>Phone</span>
-              </div>
-              <div class="input-container textarea">
-                <textarea name="message" class="input"></textarea>
-                <label for="">Message</label>
-                <span>Message</span>
-              </div>
-              <input type="submit" value="Send" class="btn2" />
-            </form>
-          </div>
-        </div>
-    </div>
-
 </body>
-</head>
+
 
 </html>

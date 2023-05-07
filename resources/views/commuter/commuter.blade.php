@@ -31,9 +31,9 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark static-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{ url('/') }}">
                 <h1>           
-                    <img src="{{asset('import_commuter/assets/images/main logo.png') }}" class="nav-img" alt="logo">
+                    <img src="{{ asset('import_commuter/assets/images/main logo.png') }}" class="nav-img" alt="logo">
                 </h1>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,28 +42,50 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="a-list">
-                        <a class="nav-link" href="/commuter">Book</a>
+                        <a class="nav-link" href="{{ url('/commuter') }}">Book</a>
                     </li>
                     <li class="a-list">
-                        <a class="nav-link" href="/explore">Explore</a>
+                        <a class="nav-link" href="{{ url('/explore') }}">Explore</a>
                     </li>
                     <li class="a-list">
-                        <a class="nav-link" href="/about">About</a>
+                        <a class="nav-link" href="{{ url('/about') }}">About</a>
                     </li>
                     <li class="a-list">
-                        <a class="nav-link" href="/help">Help & Support</a>
+                        <a class="nav-link" href="{{ url('/help') }}">Support</a>
                     </li>
-                    <li class="nav-item1">
-                        <button class="btn btn-outline-warning my-2 my-sm-0 ml-3" type="submit">Login</button>
+                    @auth
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: flex; align-items: center;">
+                        <div class="user-avatar">
+                            <span>{{ auth()->user()->name[0] }}</span>
+                        </div>
+                    </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-item disabled"> Hello, {{ auth()->user()->name }}</div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
                     </li>
-                    <li class="nav-item2">
-                        <button class="btn btn-outline-warning my-2 my-sm-0 ml-2" type="submit">Sign Up</button>
-                    </li>
- 
+
+                    @else
+                        <li class="nav-item1">
+                            <a class="btn btn-outline-warning my-2 my-sm-0 ml-3" href="{{ route('login') }}">Login</a>
+                        </li>
+                        <li class="nav-item2">
+                            <a class="btn btn-outline-warning my-2 my-sm-0 ml-2" href="{{ route('register') }}">Sign Up</a>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>
     </nav>
+
     <!-- </navbar -->
     <!-- main content -->
     <main class="col-md-12">
@@ -74,8 +96,7 @@
                     <li class="active">Destination and Schedule</li>
                     <li>Available Trips</li>
                     <li>Book Seat</li>
-                    <li>Details</li>
-                    <li>Payment</li>
+                    <li>Download QR</li>
                     <li>Ticket</li>
                 </ul>
             </section>
@@ -116,7 +137,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-3 bus-image">
-                                                    <img src="{{asset('import_commuter/assets/images/van.jpg') }}" alt="bus" height="130" width="130">
+                                                    <img src="{{asset('import_commuter/assets/images/van.jpg') }}" alt="bus" height="180" width="200">
                                                 </div> 
                                                 <div class="col-md-8 bus-details" data-route-id="{{ $trip->route->id }}" data-date="{{ $trip->dates }}">
                                                     <h5 class="card-title bus-name">{{$trip->van_plate}}</h5>
@@ -136,7 +157,7 @@
                                                                 </div>
                                                                 <div class="col-md-6 fs-14">
                                                                     <i class="fa fa-road"></i> Route:
-                                                                    <span class="rte" style="font-size: 13px;"><span class="to" style="font-size: 15px;"></span> - {{$trip->route->descr}} </span>
+                                                                    <span class="rte" style="font-size: 15px;"><span class="to" style="font-size: 15px;"></span> - {{$trip->route->descr}} </span>
                                                                 </div>
                                                                 <div class="col-md-6 fs-14">
                                                                     <i class="fa fa-money"></i> Fare:
@@ -165,14 +186,14 @@
                     <!-- seat map -->
                     <fieldset class="animated fadeIn">
                     <div class="main-container">
-                        <div class="radio-buttons">
+                        <div class="radio-buttons" >
                             <form action ="{{ route('commuter.processRoutes') }}" method="POST" enctype="multipart/form-data" id="booking-form">
                             @csrf
                             <input type="hidden" name="trip_id" id="trip_id" value="">
-
+                            
                             <div class = "row1">
                                 <label class="custom-radio">
-                                <input type="checkbox" name="seats[]" value="1" >      
+                                <input type="checkbox" name="seats[]" value="1" @if($seats[0]->seat1 == 1) disabled class="booked" @endif>       
                                 <span class="radio-btn">
                                     <div class="hobbies-icon">
                                     <h3>1</h3>
@@ -184,7 +205,7 @@
                             <div class ="row2-container">
                                 <div class = "row2">
                                 <label class="custom-radio">
-                                    <input type="checkbox" name="seats[]" value="2" >   
+                                <input type="checkbox" name="seats[]" value="2" @if($seats[0]->seat2 == 1) disabled class="booked" @endif>   
                                     <span class="radio-btn">
                                     <div class="hobbies-icon">
                                         <h3>2</h3>
@@ -331,93 +352,28 @@
                                 </label>
                                 </div>
                             </div>
-
+                            <img src="{{asset('import_commuter/assets/images/van_background.png') }}" height="500" width="380" style="margin-top: -450px; margin-left: -710px;" >
                             <div class="row no-gutters">
                                 <div class="col-lg-8 col-xl-6 col-sm-8 col-md-7">
-                                <div id="seat-map">
-                                </div>
+                                    <div id="seat-map">
+                                    </div>
                                 </div>
                                 <div class="col-lg-4 col-xl-6 col-sm-4 col-md-5">
-                                <div class="booking-details">
-                                    <h2 class="header">Booking Details
-                                    <span class="number_plate badge badge-primary fs-12"></span></h2>
-                                    <h3> Selected Seats <span id="counter">0</span>:</h3>
-                                    <ul id="selected-seats"></ul>
-                                    <p>Total: <b><span id="total">0</span> PhP</b></p>
-                                    <br>
-                                </div>
+                                    <div class="booking-details">
+                                        <h2 class="header">Booking Details
+                                        <span class="number_plate badge badge-primary fs-12"></span></h2>
+                                        <h3 class ="seatselect"> Selected Seats <span id="counter">0</span>:</h3>
+                                        <ul id="selected-seats"></ul>
+                                        <p>Total: <b><span id="total">0</span> PhP</b></p>
+                                        <button type="submit" class="book_btn1 btn btn-circle book_btn"> Select Seat </button>
+                                    </div>
                                 </div>
                             </div>
-                                <button type="submit" class="btn btn-circle book_btn1 book_btn"> Select Seat </button>
-                                </form>
+                                
+                            </form>
                         </div>
                         </div>
                     </fieldset>
-                    <!-- END SEAT MAP -->
-                    <!-- PERSONAL INFO -->
-                    <fieldset class="main_container" >
-                        <div class="form-row">
-                            <div class="form-group col-md-6" >
-                                <label for="name">Full Name</label>
-                                <input type="text" class="form-control" style = "width: 400px; " name="name" placeholder="John Doe" onkeyup="verifyInfoForm()" id="name">
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6" style = "margin-top: -88px; margin-left: 460px;">
-                                    <label for="phone">Mobile No.</label>
-                                    <input type="text" class="form-control" id="phone" name="phone" id="phone" placeholder="0912345678" onkeyup="verifyInfoForm()">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="email">Email</label>
-                                    <input type="text" class="form-control" style = "width: 400px;" id="email" name="email" placeholder="john@doe.com" onkeyup="verifyInfoForm()">
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6" style = "margin-top: -88px; margin-left: 460px;">
-                                <label for="id">ID No.</label>
-                                <input type="text" class="form-control" id="id" name="id" placeholder="G11-11-004061">
-                            </div>
-                            <div class="reminder">
-                                <p class="reminder">Note: The ID number you entered must be the same to the one that you will present in the terminal.</p>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center buttons">
-                            <button type="button " class="btn previous_button">Back</button>
-                            <button type="button " class="btn next_button">Continue</button>
-                        </div>
-                    </fieldset>
-                    <!-- END PERSONAL INFO -->
-                    <!-- PAYMENT -->
-                    <fieldset class="animated fadeIn p-info">
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-10">
-                                <h6>
-                                    Please send your money to <b>Chester Tadle</b>
-                                    <span class="note">Note: If you havent made a deposit, your reservation will be cancelled.</span>
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center buttons">
-                            <button type="button " class="btn previous_button">Back</button>
-                            <button type="button " class="btn next_button">Finish</button>
-                        </div>
-                    </fieldset>
-                    <!-- END PAYMENT -->
-                    <!-- TICKET -->
-                    <fieldset class="animated fadeIn p-info">
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-3" style="margin: auto;left: 0;top: 0;">
-                                <img src="{{asset('import_commuter/assets/images/booked.png') }}" alt="Success" class="img-fluid p-b-10">
-                            </div>
-                            <div class="col-md-8">
-                                <h6>
-                                    An confirmation receipt has been sent to your email address (<span class="show-email"></span>). Don't forget to look in your spam folder.  <!--<i class="fa fa-heart text-danger"></i>.--><br><br>    
-                                </h6>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center buttons">
-                            <button type="button " class="btn previous_button">Back</button>
-                        </div>
-                    </fieldset>
-                    <!-- END TICKET -->
                 </div>
             </section>
         </div>
@@ -463,7 +419,6 @@
  <!-- ----------------------------------------------------------------------------------------------------------------------- -->
   <!--end of js-->
   <script>
-  
   
   let economy_price = {{ $trip->route->fare }};
   let firstSeatLabel = 1;

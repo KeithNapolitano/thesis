@@ -35,18 +35,21 @@ class ReservationController extends Controller
      */
 
      public function store(Request $request)
-    {
-    $validatedData = $request->validate([
-        'ref_num' => 'required|max:255',
-    ]);
-
-    Reservation::create([
-        'ref_num' => $validatedData['ref_num'],
-    ]);
-
-    return redirect('/book');
-    }
-
+     {
+        //  $validatedData = $request->validate([
+        //      'ref_num' => 'required|max:255',
+        //  ]);
+     
+        //  $reservation = new Reservation([
+        //      'ref_num' => $validatedData['ref_num'],
+        //  ]);
+     
+        //  $reservation->user_id = auth()->user()->id; // set the user ID to the authenticated user's ID
+        //  $reservation->save(); // save the reservation to the database
+     
+        //  return redirect('/book');
+     }
+     
     // public function store(ReservationFormRequest $request)
     // {
     //     $request->validated();  //need formrequest
