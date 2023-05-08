@@ -33,4 +33,7 @@ class Seat extends Model
     public function trip(){     //one seat per trip
         return $this->hasOne(Trip::class);
     }
+    public function reservation() {
+        return $this->belongsTo(Reservation::class);
+    }
 }

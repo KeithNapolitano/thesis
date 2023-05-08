@@ -56,9 +56,10 @@
                     @auth
                     <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: flex; align-items: center;">
-                        <div class="user-avatar">
-                            <span>{{ auth()->user()->name[0] }}</span>
-                        </div>
+                    <div class="user-avatar">
+                        <span>{{ auth()->user()->name[0] }}</span>
+                        <span class="ml-2">{{ auth()->user()->name }}</span>
+                    </div>
                     </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <div class="dropdown-item disabled"> Hello, {{ auth()->user()->name }}</div>
@@ -96,8 +97,8 @@
                     <li class="active">Destination and Schedule</li>
                     <li>Available Trips</li>
                     <li>Book Seat</li>
-                    <li>Download QR</li>
-                    <li>Ticket</li>
+                    <!-- <li>Download QR</li>
+                    <li>Ticket</li> -->
                 </ul>
             </section>
             <section class="body">
@@ -190,10 +191,9 @@
                             <form action ="{{ route('commuter.processRoutes') }}" method="POST" enctype="multipart/form-data" id="booking-form">
                             @csrf
                             <input type="hidden" name="trip_id" id="trip_id" value="">
-                            
                             <div class = "row1">
                                 <label class="custom-radio">
-                                <input type="checkbox" name="seats[]" value="1" @if($seats[0]->seat1 == 1) disabled class="booked" @endif>       
+                                <input type="checkbox" name="seats[]" value="1" >       
                                 <span class="radio-btn">
                                     <div class="hobbies-icon">
                                     <h3>1</h3>
@@ -205,7 +205,7 @@
                             <div class ="row2-container">
                                 <div class = "row2">
                                 <label class="custom-radio">
-                                <input type="checkbox" name="seats[]" value="2" @if($seats[0]->seat2 == 1) disabled class="booked" @endif>   
+                                <input type="checkbox" name="seats[]" value="2">   
                                     <span class="radio-btn">
                                     <div class="hobbies-icon">
                                         <h3>2</h3>
@@ -369,10 +369,10 @@
                                     </div>
                                 </div>
                             </div>
-                                
                             </form>
                         </div>
                         </div>
+      
                     </fieldset>
                 </div>
             </section>
@@ -512,6 +512,7 @@
 <script>
     function setTripId(tripId) {
         document.getElementById("trip_id").value = tripId;
+        
     }
 </script>
 

@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes');
     Route::post('/commuter', '\App\Http\Controllers\CommuterController@processRoutes')->name('commuter.processRoutes');
     Route::get('/explore', function () {return view('commuter.explore');});
-    Route::get('/book', function () {return view('commuter.book');});
+    Route::get('/book', '\App\Http\Controllers\ReservationController@getReservations');
     Route::post('/book', [ReservationController::class, 'store'])->name('storeReservation');
     Route::get('/about', function () { return view('commuter.about');});
     Route::get('/help', function () {return view('commuter.help');});

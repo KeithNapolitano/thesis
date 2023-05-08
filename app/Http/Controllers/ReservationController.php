@@ -34,20 +34,11 @@ class ReservationController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function store(Request $request)
+     public function getReservations(Request $request)
      {
-        //  $validatedData = $request->validate([
-        //      'ref_num' => 'required|max:255',
-        //  ]);
-     
-        //  $reservation = new Reservation([
-        //      'ref_num' => $validatedData['ref_num'],
-        //  ]);
-     
-        //  $reservation->user_id = auth()->user()->id; // set the user ID to the authenticated user's ID
-        //  $reservation->save(); // save the reservation to the database
-     
-        //  return redirect('/book');
+         $reservations = Reservation::all();
+
+         return view('commuter.book', ['reservations' => $reservations]);
      }
      
     // public function store(ReservationFormRequest $request)
