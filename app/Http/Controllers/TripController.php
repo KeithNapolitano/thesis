@@ -163,6 +163,7 @@ class TripController extends Controller
             ->with('message', 'Trip has been updated.');
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
