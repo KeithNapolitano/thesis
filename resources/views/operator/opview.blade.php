@@ -30,8 +30,11 @@
                                 style="font-weight: normal !important; color: rgb(0, 0, 0);">Schedule</span></a></li>
                     <li class="nav-item"><strong><span class="nav-link" style="color: rgb(0, 0, 0);">Operator
                                 View</span></strong></li>
-                    <li class="nav-item"><a class="nav-link" href="qr"><span style="color: rgb(0, 0, 0);">QR
-                                Scanner</span></a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qr?url={{ urlencode(Request::fullUrl()) }}">
+                            <span style="color: rgb(0, 0, 0);">QR Scanner</span>
+                        </a>
+                    </li>
                 </ul><a class="btn btn-primary" role="button" href="{{ route('logout') }}"
                     style="margin-left: 20px;">Log Out</a>
             </div>
@@ -79,7 +82,7 @@
 
                         if ($matchingRoute != null) {
                             // Display the route description
-                            echo "<h2 class=\"fs-2 fw-bold text-center\"><strong>Davao City to " . $matchingRoute->descr . '</strong><br></h2>';
+                            echo "<h2 class=\"fs-2 fw-bold text-center\"><strong>Davao City to " . $route->descr . '</strong><br></h2>';
                         } else {
                             // Show an error message if there's no matching route
             echo "<h2 class=\"fs-2 fw-bold text-center\"><strong>No matching route found</strong><br></h2>";
@@ -184,7 +187,25 @@
                         </tr>
                     </table>
                 </div>
+                <script>
+                    $(document).ready(function() {
+                        // Add click event listener to all buttons with class "reserved"
+                        $('button.reserved').click(function() {
+                            // Allow click if button has class "reserved"
+                            $(this).toggleClass('reserved');
+                            $(this).toggleClass('open');
 
+                            // Refresh the page
+                            location.reload();
+                        });
+
+                        // Add click event listener to all buttons without class "reserved"
+                        $('button:not(.reserved)').click(function() {
+                            // Prevent click if button does not have class "reserved"
+                            alert('This seat is not available!');
+                        });
+                    });
+                </script>
             </div>
             <div class="col-md-8 col-xl-6 text-center mx-auto" style="height: 203.562px;width: 359px;">
                 <h2 class="fs-6 fw-bold text-start"><strong>Legend:</strong><br></h2>
