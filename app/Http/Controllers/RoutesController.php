@@ -9,6 +9,7 @@ use App\Models\Route;
 use App\Models\Trip;
 use App\Models\User;
 use App\Models\Seat;
+use Illuminate\Support\Facades\DB;
 use App\Models\Reservation;
 
 class RoutesController extends Controller
@@ -76,7 +77,10 @@ class RoutesController extends Controller
     {
         $routes = Route::all();
         $trips = Trip::all();
-        return view('/operator/opview')->with('routes', $routes)->with('trips', $trips);
+        $users = User::all();
+        $seats = Seat::all();
+        $reservation = Reservation::all();
+        return view('/operator/opview')->with('reservation', $reservation)->with('routes', $routes)->with('trips', $trips)->with('users', $users)->with('seats', $seats);
     }
     public function OPSchedshowDestination()
     {

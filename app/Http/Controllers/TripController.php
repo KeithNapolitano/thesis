@@ -62,21 +62,21 @@ class TripController extends Controller
         $trip_id = $trip->id;
 
         Seat::Create([
-                'trip_id' => $trip_id, // add the trip_id field to the array
-                'seat1' => $request->has('seat1') ? 1 : 0,
-                'seat2' => $request->has('seat2') ? 1 : 0,
-                'seat3' => $request->has('seat3') ? 1 : 0,
-                'seat4' => $request->has('seat4') ? 1 : 0,
-                'seat5' => $request->has('seat5') ? 1 : 0,
-                'seat6' => $request->has('seat6') ? 1 : 0,
-                'seat7' => $request->has('seat7') ? 1 : 0,
-                'seat8' => $request->has('seat8') ? 1 : 0,
-                'seat9' => $request->has('seat9') ? 1 : 0,
-                'seat10' => $request->has('seat10') ? 1 : 0,
-                'seat11' => $request->has('seat11') ? 1 : 0,
-                'seat12' => $request->has('seat12') ? 1 : 0,
-                'seat13' => $request->has('seat13') ? 1 : 0,
-                'seat14' => $request->has('seat14') ? 1 : 0,
+            'trip_id' => $trip_id, // add the trip_id field to the array
+            'seat1' => $request->has('seat1') ? 1 : 0,
+            'seat2' => $request->has('seat2') ? 1 : 0,
+            'seat3' => $request->has('seat3') ? 1 : 0,
+            'seat4' => $request->has('seat4') ? 1 : 0,
+            'seat5' => $request->has('seat5') ? 1 : 0,
+            'seat6' => $request->has('seat6') ? 1 : 0,
+            'seat7' => $request->has('seat7') ? 1 : 0,
+            'seat8' => $request->has('seat8') ? 1 : 0,
+            'seat9' => $request->has('seat9') ? 1 : 0,
+            'seat10' => $request->has('seat10') ? 1 : 0,
+            'seat11' => $request->has('seat11') ? 1 : 0,
+            'seat12' => $request->has('seat12') ? 1 : 0,
+            'seat13' => $request->has('seat13') ? 1 : 0,
+            'seat14' => $request->has('seat14') ? 1 : 0,
         ]);
         return redirect('/trip/create'); // pass the $routes variable to the view
     }
@@ -92,7 +92,6 @@ class TripController extends Controller
         return view('admin.account');
     }
 
-
     public function account()
     {
         return view('admin.account');
@@ -106,7 +105,7 @@ class TripController extends Controller
     public function edit($id)
     {
         return view('admin.edit', [
-            'trip' => Trip::where('id', $id)->first()
+            'trip' => Trip::where('id', $id)->first(),
         ]);
     }
 
@@ -139,12 +138,7 @@ class TripController extends Controller
         $trip->supervisor_status = $request->has('supervisor_status') ? 1 : 0;
 
         // Calculate orig_fare if trip status is 1
-        if (
-            $trip->driver_status == 1 &&
-            $trip->passenger_status == 1 &&
-            $trip->payment_status == 1 &&
-            $trip->supervisor_status == 1
-        ) {
+        if ($trip->driver_status == 1 && $trip->passenger_status == 1 && $trip->payment_status == 1 && $trip->supervisor_status == 1) {
             $seats = Seat::where('id', $id)->firstOrFail();
             $filledSeatsCount = 0;
             for ($i = 1; $i <= 14; $i++) {
@@ -164,14 +158,10 @@ class TripController extends Controller
             $trip->save();
         }
 
-
-        return redirect()->route('operator.opview', [
-            'van_plate' => $request->input('van_plate')
-        ])->with('message', 'Trip has been updated.');
+        return redirect()
+            ->route('operator.opview', ['van_plate' => $request->input('van_plate'), 'id' => $id])
+            ->with('message', 'Trip has been updated.');
     }
-
-
-
     /**
      * Remove the specified resource from storage.
      *
@@ -195,9 +185,7 @@ class TripController extends Controller
             'supervisor_status' => 'required',
         ]);
 
-        Trip::where('id', $id)->update($request->except([
-            '_token', '_method'
-        ]));
+        Trip::where('id', $id)->update($request->except(['_token', '_method']));
 
         return redirect(route('admin.superadmin'));
     }

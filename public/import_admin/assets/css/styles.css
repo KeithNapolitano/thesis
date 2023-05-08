@@ -1,3 +1,8 @@
 .form-custom {
     background-color: transparent;
 }
+
+.card {
+    margin-right: 10px;
+    /* Add a 10px gap between cards */
+}

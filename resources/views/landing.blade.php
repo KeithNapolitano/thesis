@@ -21,7 +21,7 @@
 
 <body style="/*background: url(&quot;design.jpg&quot;);*/background-position: 0 -60px;">
     <nav class="navbar navbar-light navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
-        <div class="container"><a class="navbar-brand d-flex align-items-center" href="{{ route ('sigo') }}">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="{{ route ('landing') }}">
             <img src="{{ asset('import/assets/img/Logo.png')}}"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav mx-auto">
@@ -30,14 +30,11 @@
                     <li class="nav-item"></li>
                     <li class="nav-item"></li>
                     <li class="nav-item"></li>
-                </ul>
-                {{-- <a class="btn btn-secondary shadow" role="button" href="{{ route('login') }}"><span style="color: rgb(0, 0, 0);">Log In</span></a> --}}
-                <a class="btn btn-primary" type="button" href="{{ route ('login') }}">Log in</a>
-                <a class="btn btn-info" type="button" href="{{ route('register') }}">Register</a>
+                </ul><a class="btn btn-secondary shadow" role="button" href="{{ route('logout') }}"><span style="color: rgb(0, 0, 0);">Log Out</span></a>
             </div>
         </div>
     </nav>
-    <header class="bg-primary-gradient pt-5">
+    {{-- <header class="bg-primary-gradient pt-5">
         <div class="container pt-4 pt-xl-5">
             <div class="row pt-5">
                 <div class="col-md-8 col-xl-6 text-center text-md-start mx-auto">
@@ -48,46 +45,46 @@
                 </div>
             </div>
         </div>
-        <div class="container text-center">
-            <img data-aos="fade-up" data-aos-duration="750" data-aos-delay="50" src="{{ asset ("import/assets/img/products/sebastian-herrmann-2P4TbzhfvsI-unsplash.jpg") }}"  style="width: auto;height: 230px;">
-            <img data-aos="fade-up" data-aos-duration="750" data-aos-delay="200" src="{{ asset ("import/assets/img/products/john-lorenz-tajonera-_1no1d6Es7g-unsplash.jpg") }}" style="width: auto;height: 230px;">
-            <img data-aos="fade-up" data-aos-duration="750" data-aos-delay="350" src="{{ asset ("import/assets/img/products/eryka-rose-raton-BguhzvYdesM-unsplash.jpg") }}" style="width: auto;height: 230px;"></div>
+        <div class="container text-center"><img data-aos="fade-up" data-aos-duration="750" data-aos-delay="50" src="assets/img/products/sebastian-herrmann-2P4TbzhfvsI-unsplash.jpg" style="width: auto;height: 230px;"><img data-aos="fade-up" data-aos-duration="750" data-aos-delay="200" src="assets/img/products/john-lorenz-tajonera-_1no1d6Es7g-unsplash.jpg" style="width: auto;height: 230px;"><img data-aos="fade-up" data-aos-duration="750" data-aos-delay="350" src="assets/img/products/eryka-rose-raton-BguhzvYdesM-unsplash.jpg" style="width: auto;height: 230px;"></div>
     </header>
     <div class="container">
         <p class="text-center mb-4" style="font-size: 1.6rem;padding: 0;margin: 61px 0px 0px 0px;">Partnered with all&nbsp;major van companies found in <strong>all 4 van terminals</strong> within Davao City</p>
     </div>
-    <section></section>
-    {{-- <section>
+    <section></section> --}}
+    <section>
         <div class="container py-5">
-            <h1 class="fw-bold text-center">Access the full siGÓ suite here</h1>
+            <h1 class="fw-bold text-center">Access siGÓ based on your role</h1>
             <div class="mx-auto" style="max-width: 900px;">
                 <div class="row row-cols-1 row-cols-md-2 d-flex justify-content-center">
                     <div class="col mb-4">
                         <div class="card bg-primary-light">
                             <div class="card-body text-center px-4 py-5 px-md-5" data-aos="fade-up" data-aos-once="true" style="padding-top: 48px;">
                                 <p class="fw-bold text-primary card-text mb-2"></p>
-                                <h5 class="fw-bold card-title mb-3">Are you a commuter looking to book your van trips?</h5><button class="btn btn-primary btn-sm" type="button">siGÓ Commuter&nbsp;</button>
+                                <h5 class="fw-bold card-title mb-3">Are you a commuter looking to book your van trips?</h5>
+                                    <a class="btn btn-primary" type="button" href="{{ route ("commuter.main") }}">I am a Commuter&nbsp;</a>
                             </div>
                         </div>
                     </div>
                     <div class="col mb-4">
                         <div class="card bg-secondary-light">
                             <div class="card-body text-center px-4 py-5 px-md-5" data-aos="fade-up" data-aos-once="true">
-                                <h5 class="fw-bold card-title mb-3">Want to simplify the van boarding process?</h5><a class="btn btn-secondary" role="button" href="index.html"><span style="color: rgb(0, 0, 0);">siGÓ Operator</span></a>
+                                <h5 class="fw-bold card-title mb-3">Want to simplify the van boarding process?</h5>
+                                    <a class="btn btn-secondary" type="button" href="{{ route ('operator.schedule') }}"><span style="color: rgb(0, 0, 0);">I am an Operator</span></a>
                             </div>
                         </div>
                     </div>
                     <div class="col mb-4">
                         <div class="card bg-info-light">
                             <div class="card-body text-center px-4 py-5 px-md-5" data-aos="fade-up" data-aos-once="true">
-                                <h5 class="fw-bold card-title mb-3">Are you an admin looking to organize your van fleet?</h5><button class="btn btn-info btn-sm" type="button"><span style="color: rgb(0, 0, 0);">siGÓ Administrator</span></button>
+                                <h5 class="fw-bold card-title mb-3">Are you an admin looking to organize your van fleet?</h5>
+                                    <a class="btn btn-info" type="button" href="{{ route ("trip.create") }}"><span style="color: rgb(0, 0, 0);">I am an Administrator</span></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section> --}}
+    </section>
     <footer class="bg-primary-gradient">
         <div class="container py-4 py-lg-5">
             <div class="row justify-content-center">

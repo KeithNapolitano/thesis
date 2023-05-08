@@ -14,7 +14,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-       
+
     }
 
     /**
@@ -40,7 +40,7 @@ class ReservationController extends Controller
 
          return view('commuter.book', ['reservations' => $reservations]);
      }
-     
+
     // public function store(ReservationFormRequest $request)
     // {
     //     $request->validated();  //need formrequest
@@ -50,7 +50,7 @@ class ReservationController extends Controller
     //         'trip_id' => $request->trip_id,
     //         'tickets' => $request->tickets,
     //         'payment_id' => $request->payment_id,
-    //         'present' => 0, 
+    //         'present' => 0,
     //         'seat' => $request->seat,
     //         'ref_num' => $request->ref_num,
     //         // 'image_path' => $this->storeImage($request)//image lang pangalan ani sa frontend kay mao nakabutang sa formrequest
@@ -69,6 +69,9 @@ class ReservationController extends Controller
     {
         //
     }
+
+
+
 
     /**
      * Show the form for editing the specified resource.
