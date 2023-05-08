@@ -14,7 +14,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-       
+
     }
 
     /**
@@ -39,17 +39,17 @@ class ReservationController extends Controller
         //  $validatedData = $request->validate([
         //      'ref_num' => 'required|max:255',
         //  ]);
-     
+
         //  $reservation = new Reservation([
         //      'ref_num' => $validatedData['ref_num'],
         //  ]);
-     
+
         //  $reservation->user_id = auth()->user()->id; // set the user ID to the authenticated user's ID
         //  $reservation->save(); // save the reservation to the database
-     
+
         //  return redirect('/book');
      }
-     
+
     // public function store(ReservationFormRequest $request)
     // {
     //     $request->validated();  //need formrequest
@@ -59,7 +59,7 @@ class ReservationController extends Controller
     //         'trip_id' => $request->trip_id,
     //         'tickets' => $request->tickets,
     //         'payment_id' => $request->payment_id,
-    //         'present' => 0, 
+    //         'present' => 0,
     //         'seat' => $request->seat,
     //         'ref_num' => $request->ref_num,
     //         // 'image_path' => $this->storeImage($request)//image lang pangalan ani sa frontend kay mao nakabutang sa formrequest
@@ -78,6 +78,9 @@ class ReservationController extends Controller
     {
         //
     }
+
+
+
 
     /**
      * Show the form for editing the specified resource.

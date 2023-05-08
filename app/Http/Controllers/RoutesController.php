@@ -79,7 +79,8 @@ class RoutesController extends Controller
         $trips = Trip::all();
         $users = User::all();
         $seats = Seat::all();
-        return view('/operator/opview')->with('routes', $routes)->with('trips', $trips)->with('users', $users)->with('seats', $seats);
+        $reservation = Reservation::all();
+        return view('/operator/opview')->with('reservation', $reservation)->with('routes', $routes)->with('trips', $trips)->with('users', $users)->with('seats', $seats);
     }
     public function OPSchedshowDestination()
     {
