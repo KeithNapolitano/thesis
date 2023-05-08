@@ -56,6 +56,7 @@ Route::prefix('operator')->middleware(['auth', 'isOperator'])->group(function ()
     Route::get('/schedule', [RoutesController::class, 'OPSchedshowDestination'])->name('operator.schedule');
 });
 
+
 Route::get('/home', HomeController::class);
 Route::get('/seat/create', [SeatController::class, 'create']);
 Route::post('/seat', [SeatController::class, 'store'])->name('seat.store');

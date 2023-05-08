@@ -145,49 +145,100 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><button id="seat-14" class="{{ $seat->seat14 == 1 ? 'reserved' : 'open' }}">14</button>
+                            <td><button id="seat-14"
+                                    class="{{ $seat->seat14 == 1 ? 'reserved' : 'open' }}"onclick="handleSeatClick(this)">14</button>
                             </td>
                         </tr>
 
                         <tr>
-                            <td><button id="seat-1" class="{{ $seat->seat1 == 1 ? 'reserved' : 'open' }}">1</button>
+                            <td><button id="seat-1" class="{{ $seat->seat1 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">1</button>
                             </td>
-                            <td><button id="seat-4" class="{{ $seat->seat4 == 1 ? 'reserved' : 'open' }}">4</button>
+                            <td><button id="seat-4" class="{{ $seat->seat4 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">4</button>
                             </td>
-                            <td><button id="seat-7" class="{{ $seat->seat7 == 1 ? 'reserved' : 'open' }}">7</button>
+                            <td><button id="seat-7" class="{{ $seat->seat7 == 1 ? 'reserved' : 'open' }} "
+                                    onclick="handleSeatClick(this)">7</button>
                             </td>
-                            <td><button id="seat-10"  class="{{ $seat->seat10 == 1 ? 'reserved' : 'open' }}">10</button>
+                            <td><button id="seat-10" class="{{ $seat->seat10 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">10</button>
                             </td>
-                            <td><button id="seat-13" class="{{ $seat->seat13 == 1 ? 'reserved' : 'open' }}">13</button>
+                            <td><button id="seat-13" class="{{ $seat->seat13 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">13</button>
                             </td>
                         </tr>
 
                         <tr>
                             <td></td>
-                            <td><button id="seat-3" class="{{ $seat->seat3 == 1 ? 'reserved' : 'open' }}">3</button>
+                            <td><button id="seat-3" class="{{ $seat->seat3 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">3</button>
                             </td>
-                            <td><button id="seat-6" class="{{ $seat->seat6 == 1 ? 'reserved' : 'open' }}">6</button>
+                            <td><button id="seat-6" class="{{ $seat->seat6 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">6</button>
                             </td>
-                            <td><button id="seat-9" class="{{ $seat->seat9 == 1 ? 'reserved' : 'open' }}">9</button>
+                            <td><button id="seat-9" class="{{ $seat->seat9 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">9</button>
                             </td>
-                            <td><button id="seat-12" class="{{ $seat->seat12 == 1 ? 'reserved' : 'open' }}">12</button>
+                            <td><button id="seat-12" class="{{ $seat->seat12 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">12</button>
                             </td>
                         </tr>
 
                         <tr>
                             <td><button class="bg-secondary">Driver Seat</button></td>
-                            <td><button id="seat-2" class="{{ $seat->seat2 == 1 ? 'reserved' : 'open' }}">2</button>
+                            <td><button id="seat-2" class="{{ $seat->seat2 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">2</button>
                             </td>
-                            <td><button id="seat-5" class="{{ $seat->seat5 == 1 ? 'reserved' : 'open' }}">5</button>
+                            <td><button id="seat-5" class="{{ $seat->seat5 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">5</button>
                             </td>
-                            <td><button id="seat-8" class="{{ $seat->seat8 == 1 ? 'reserved' : 'open' }}">8</button>
+                            <td><button id="seat-8" class="{{ $seat->seat8 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">8</button>
                             </td>
-                            <td><button id="seat-11" class="{{ $seat->seat11 == 1 ? 'reserved' : 'open' }}">11</button>
+                            <td><button id="seat-11" class="{{ $seat->seat11 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">11</button>
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
+            <script>
+                let selectedButton = null; // no button is initially selected
+                const seatStatus = { // keep track of which seats are reserved
+                    "seat1": {{ $seat->seat1 }},
+                    "seat2": {{ $seat->seat2 }},
+                    "seat3": {{ $seat->seat3 }},
+                    "seat4": {{ $seat->seat4 }},
+                    "seat5": {{ $seat->seat5 }},
+                    "seat6": {{ $seat->seat6 }},
+                    "seat7": {{ $seat->seat7 }},
+                    "seat8": {{ $seat->seat8 }},
+                    "seat9": {{ $seat->seat9 }},
+                    "seat10": {{ $seat->seat10 }},
+                    "seat11": {{ $seat->seat11 }},
+                    "seat12": {{ $seat->seat12 }},
+                    "seat13": {{ $seat->seat13 }},
+                    "seat14": {{ $seat->seat14 }}
+                };
+
+                function handleSeatClick(button) {
+                    const seatId = button.id.split("-")[1]; // extract the seat number from the button id
+
+                    if (seatStatus["seat" + seatId]) { // check if the seat is reserved
+                        if (selectedButton !== null) {
+                            // change color of previously clicked button back to reserved
+                            selectedButton.className = "reserved";
+                        }
+
+                        // change color of current button to selected
+                        button.className = "selected";
+
+                        // update selected button
+                        selectedButton = button;
+                    }
+                }
+            </script>
+
             <div class="col-md-8 col-xl-6 text-center mx-auto" style="height: 203.562px;width: 359px;">
                 <h2 class="fs-6 fw-bold text-start"><strong>Legend:</strong><br></h2>
                 <div class="container" style="padding-right: 76px;width: 307px;height: 173.375px;padding-left: 76px;">

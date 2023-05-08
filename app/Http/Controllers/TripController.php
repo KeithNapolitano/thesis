@@ -162,8 +162,6 @@ class TripController extends Controller
             ->route('operator.opview', ['van_plate' => $request->input('van_plate'), 'id' => $id])
             ->with('message', 'Trip has been updated.');
     }
-
-
     /**
      * Remove the specified resource from storage.
      *
