@@ -83,6 +83,20 @@
     margin-top: 5px;
     }
 
+    .container1 #downloadQR
+    {
+    width: 100%;
+    height: 50px;
+    background: #008cff;
+    border-radius: 50px;
+    color: #fff;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 5px;
+    }
+
     .container1 #qrGenerator2
     {
     width: 100%;
@@ -110,54 +124,74 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark static-top">
+<nav class="navbar navbar-expand-lg navbar-dark static-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{ url('/') }}">
                 <h1>           
-                    <img src="{{asset('import_commuter/assets/images/main logo.png') }}" class="nav-img" alt="logo">
+                    <img src="{{ asset('import_commuter/assets/images/main logo.png') }}" class="nav-img" alt="logo">
                 </h1>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto">
                     <li class="a-list">
-                        <a class="nav-link" href="/commuter">Book</a>
-                    </li>
-                    <li class="a-list">
-                        <a class="nav-link" href="/explore">Explore</a>
+                        <a class="nav-link" href="{{ url('/commuter') }}">Book</a>
                     </li>
                     <li class="a-list">
-                        <a class="nav-link" href="/about">About</a>
+                        <a class="nav-link" href="{{ url('/explore') }}">Explore</a>
                     </li>
                     <li class="a-list">
-                        <a class="nav-link" href="/help">Help & Support</a>
+                        <a class="nav-link" href="{{ url('/about') }}">About</a>
                     </li>
-                    <li class="nav-item1">
-                        <button class="btn btn-outline-warning my-2 my-sm-0 ml-3" type="submit">Login</button>
+                    <li class="a-list">
+                        <a class="nav-link" href="{{ url('/help') }}">Support</a>
                     </li>
-                    <li class="nav-item2">
-                        <button class="btn btn-outline-warning my-2 my-sm-0 ml-2" type="submit">Sign Up</button>
+                    @auth
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display: flex; align-items: center;">
+                        <div class="user-avatar">
+                            <span>{{ auth()->user()->name[0] }}</span>
+                        </div>
+                    </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-item disabled"> Hello, {{ auth()->user()->name }}</div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
                     </li>
- 
+
+                    @else
+                        <li class="nav-item1">
+                            <a class="btn btn-outline-warning my-2 my-sm-0 ml-3" href="{{ route('login') }}">Login</a>
+                        </li>
+                        <li class="nav-item2">
+                            <a class="btn btn-outline-warning my-2 my-sm-0 ml-2" href="{{ route('register') }}">Sign Up</a>
+                        </li>
+                    @endauth
                 </ul>
             </div>
         </div>
     </nav>
     
-    <form method="POST" action="{{ route('storeReservation') }}">
-    @csrf
+    @foreach ($reservations as $reservation)
     <div class="container1">
         <div class="qrCodeBx">
             <img src="{{ asset('import_commuter/assets/images/qr.png') }}" id="qrCode">
         </div>
+        <p style ="color: red;">*Generate QR first before downloading</p>
         <!-- <button type="submit" id="qrGenerator2">Confirm Booking</button> -->
         <button type="button" id="qrGenerator">Generate QR</button>
         <button type="button" id="downloadQR">Download QR</button>
     </div>
-    </form>
-
+    @endforeach
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
@@ -167,8 +201,8 @@ const qrCode = document.querySelector('#qrCode');
 const qrGenerator = document.querySelector('#qrGenerator');
 const downloadQR = document.querySelector('#downloadQR');
 const baseURL = "https://api.qrserver.com/v1/create-qr-code/"
-const data = "reservation_id : "; // set a fixed URL or a specific message as the QR code data
-
+//const data = "reservation_id : "; // set a fixed URL or a specific message as the QR code data
+const data = "{{$reservation->id}}";
 qrGenerator.addEventListener('click',()=>{
     const size = `350x350`
     qrCode.src = `${baseURL}?/size=${size}&data=${data}`

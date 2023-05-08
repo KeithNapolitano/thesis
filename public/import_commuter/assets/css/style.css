@@ -82,7 +82,7 @@ ul {
     text-align: center;
     line-height: 40px; /* updated line-height */
     border-radius: 50%;
-    background-color: blue;
+    background-color: #0072a0;
     margin-right: 8px;
     display: flex; /* added */
     align-items: center; /* added */
@@ -298,9 +298,9 @@ section.body {
     overflow-x: hidden;
 }
 
-/*color of booked seats*/
+/* color of booked seats */
 .booked + .radio-btn {
-    background-color: gray;
+    background-color: red;
 }
 
 /*form*/

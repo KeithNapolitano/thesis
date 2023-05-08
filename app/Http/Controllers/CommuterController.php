@@ -21,19 +21,18 @@ class CommuterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-public function getRoutes(Request $request)
-{
-    $routes = Route::all(); // Assuming you have a Route model and a "routes" table in your database
-    $trips = Trip::all(); // Retrieve the trips
-    $seats = Seat::all();
-
-    // Retrieve the selected trip_id from the request
-    $trip_id = $request->input('trip_id');
-
-    return view('commuter.commuter', compact('routes', 'trips', 'seats', 'trip_id'));
-}
-
+    public function getRoutes(Request $request)
+    {
+        $routes = Route::all();
+        $trips = Trip::all();
+        $seats = Seat::all();
+        // Get the selected trip ID from the request
+        $trip_id = $request->input('trip_id');
+        
+        return view('commuter.commuter', compact('routes', 'trips', 'seats', 'trip_id'));
+    }
+    
+         
 public function processRoutes(Request $request)
 {
     $trip_id = $request->input('trip_id');
