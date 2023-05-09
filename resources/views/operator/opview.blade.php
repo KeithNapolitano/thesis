@@ -277,19 +277,15 @@
                                 <div id='refcode-{{ $reservation->id }}' class='refcode' style='display:none'>
                                     <p>{{ $reservation->ref_num }}</p>
                                 </div>
-
                                 <div id='name-{{ $user->name }}' class='name'>
                                     <p>{{ $user->name }}</p>
                                 </div>
-
                             </li>
                         @endif
                     @endforeach
                 @endif
             @endforeach
         </ul>
-
-
 
         <script>
             $(function() {
