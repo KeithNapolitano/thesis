@@ -266,7 +266,6 @@
             </div>
         </div>
 
-        <ul>
             @foreach ($reservations as $reservation)
                 @if ($reservation->trip_id == $trip->id)
                     @foreach ($users as $user)
@@ -276,7 +275,8 @@
                                 <div class='seats'>
                                     <?php $seats = explode(',', $reservation->seat); ?>
                                     @foreach ($seats as $seat)
-                                        <a href='#{{ $reservation->id }}-{{ $seat }}' class='my-link seat'>{{ $seat }}</a>
+                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                            class='my-link seat'>{{ $seat }}</a>
                                     @endforeach
                                 </div>
                                 <div id='refcode-{{ $reservation->id }}' class='refcode' style='display:none'>
@@ -290,7 +290,6 @@
                     @endforeach
                 @endif
             @endforeach
-        </ul>
 
         <script>
             $(function() {
