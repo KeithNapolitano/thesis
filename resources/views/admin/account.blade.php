@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{{asset('import_admin/assets/css/styles.css')}}">
 </head>
 
-<body style="background: rgb(205,220,235);">
+<body style="background: rgb(255, 255, 255);">
     <nav class="navbar navbar-light navbar-expand-xxl sticky-top bg-white" style="height: 77px;padding: 17px 0px;background: rgba(255,255,255,0.62);">
         <div class="container-fluid"><a class="navbar-brand text-end" href="index" style="height: 50px;"><img src="{{asset('import_admin/assets/img/logo.png')}}" style="width: 100px;"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1" style="height: 40px;width: 45px;"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon" style="width: 19px;height: 13px;"></span></button>
             <div class="collapse navbar-collapse text-center" id="navcol-1" style="margin: 22px;width: 356px;height: 100;">

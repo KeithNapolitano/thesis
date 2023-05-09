@@ -32,7 +32,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body style="background: rgb(205,220,235);">
+<body style="background: rgb(250, 251, 252);">
     <nav class="navbar navbar-light navbar-expand-xxl sticky-top bg-white"
         style="height: 77px;padding: 17px 0px;background: rgba(255,255,255,0.62);">
         <div class="container-fluid"><a class="navbar-brand text-end" href="index" style="height: 50px;"><img
