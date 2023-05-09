@@ -79,8 +79,8 @@ class RoutesController extends Controller
         $trips = Trip::all();
         $users = User::all();
         $seats = Seat::all();
-        $reservation = Reservation::all();
-        return view('/operator/opview')->with('reservation', $reservation)->with('routes', $routes)->with('trips', $trips)->with('users', $users)->with('seats', $seats);
+        $reservations = Reservation::all();
+        return view('/operator/opview')->with('reservations', $reservations)->with('routes', $routes)->with('trips', $trips)->with('users', $users)->with('seats', $seats);
     }
     public function OPSchedshowDestination()
     {
@@ -94,9 +94,10 @@ class RoutesController extends Controller
         $routes = Route::all();
         $trips = Trip::all();
         $seats = Seat::all();
-        $reservation = Reservation::all();
-        return view('/operator/qr')->with('routes', $routes)->with('trips', $trips)->with('seats', $seats)->with('reservation', $reservation);
+        $reservations = Reservation::all();
+        return view('/operator/qr')->with('routes', $routes)->with('trips', $trips)->with('seats', $seats)->with('reservations', $reservations);
     }
+
     /**
      * Show the form for editing the specified resource.
      *

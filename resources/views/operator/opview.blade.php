@@ -19,6 +19,8 @@
 </head>
 
 <body>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <nav class="navbar navbar-light navbar-expand-md py-3">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"></a><img
                 src="{{ asset('import/assets/img/Logo.png') }}"><button data-bs-toggle="collapse" class="navbar-toggler"
@@ -132,6 +134,7 @@
     </div>
 
 
+
     <div class="text-center" style="width: 100%;height: 100%;"></div>
     <div class="container text-center">
         <div></div>
@@ -145,8 +148,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><button id="seat-14"
-                                    class="{{ $seat->seat14 == 1 ? 'reserved' : 'open' }}"onclick="handleSeatClick(this)">14</button>
+                            <td><button id="seat-14" class="{{ $seat->seat14 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">14</button>
                             </td>
                         </tr>
 
@@ -235,6 +238,8 @@
 
                         // update selected button
                         selectedButton = button;
+
+
                     }
                 }
             </script>
@@ -260,6 +265,52 @@
                 </div>
             </div>
         </div>
+
+        <ul>
+            @foreach ($reservations as $reservation)
+                @if ($reservation->trip_id == $trip->id)
+                    @foreach ($users as $user)
+                        @if ($user->id == $reservation->user_id)
+                            <li class="reservation" data-reservation-id="{{ $reservation->id }}"
+                                data-refcode="{{ $reservation->ref_num }}" data-user-name="{{ $user->name }}">
+                                <a href='#{{ $reservation->id }}' class='my-link'>{{ $reservation->id }}</a>
+                                <div id='refcode-{{ $reservation->id }}' class='refcode' style='display:none'>
+                                    <p>{{ $reservation->ref_num }}</p>
+                                </div>
+
+                                <div id='name-{{ $user->name }}' class='name'>
+                                    <p>{{ $user->name }}</p>
+                                </div>
+
+                            </li>
+                        @endif
+                    @endforeach
+                @endif
+            @endforeach
+        </ul>
+
+
+
+        <script>
+            $(function() {
+                $('body').on('click', '.my-link', function(e) {
+                    e.preventDefault();
+
+                    // get the ID of the clicked reservation
+                    var resId = $(this).attr('href').substring(1);
+
+                    // retrieve data from list item using data attributes
+                    var refcode = $('.reservation[data-reservation-id="' + resId + '"]').data('refcode');
+                    var name = $('.reservation[data-reservation-id="' + resId + '"]').data('user-name');
+
+                    // update span tags with retrieved data
+                    $('#refcode-display').text(refcode);
+                    $('#name-display').text(name);
+                });
+            });
+        </script>
+
+
         <div style="padding-top: 0;margin-bottom: -3px;margin-top: -35px;"></div>
         <div class="row mb-5" style="margin-top: 48px;margin-bottom: 50px;">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
@@ -269,20 +320,26 @@
                         <div class="col">
                             <ul class="list-group">
                                 <li class="list-group-item"><span><strong>Seat
-                                            assigned:&nbsp;</strong></span><span>Seat x</span></li>
-                                <li class="list-group-item"><span><strong>Name:</strong>&nbsp;</span><span>Doggo
-                                        Awawaw<br></span></li>
-                                <li class="list-group-item"><span><strong>Payment
-                                            Reference Code:&nbsp;</strong></span><span>ASD123ZXC<br></span></li>
-                                <li class="list-group-item"><span><strong>
-                                            Amount Paid:&nbsp;</strong></span><span>Php
-                                        500.00<br></span></li>
+                                            assigned:&nbsp;</strong></span><span>Waiting for selection</span></li>
+                                <li class="list-group-item">
+                                    <span><strong>User Name:&nbsp;</strong></span>
+                                    <span class="data-display" id="name-display">Waiting for selection here</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <span><strong>Payment Reference Code:&nbsp;</strong></span>
+                                    <span class="data-display" id="refcode-display">Waiting for selection</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <span><strong>Amount Paid:&nbsp;</strong></span>
+                                    <span class="data-display" id="amount-display">Waiting for selection here</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
 
         <div class="row mb-5" style="margin-top: 48px;margin-bottom: 50px;">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
@@ -378,7 +435,7 @@
             </div>
         </div>
     </footer>
-    <script src="{{ asset('import/assets/js/jquery.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('import/assets/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('import/assets/js/bs-init.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
