@@ -44,7 +44,7 @@ class FinancesController extends Controller
             $yearlyIncomes = $yearlyTrips->map(function ($trips) {
                 return $trips->sum('orig_fare') + $trips->sum('extra_fare');
             });
-            
+
             return view('admin.account', [
                 // 'fare'=> Trip::select('orig_fare')->get,
                 // 'daily' => Trip::where('dates', $now)->sum(Trip::raw("orig_fare + extra_fare"))
@@ -69,6 +69,8 @@ class FinancesController extends Controller
                 'weeklyIncomes' => $weeklyIncomes,
                 'monthlyIncomes' => $monthlyIncomes,
                 'yearlyIncomes' => $yearlyIncomes,
+                'weekstart' => $weekstart,
+                'weekend' => $weekend,
             ]);
 
     }

@@ -165,19 +165,26 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Week Number</th>
-                                            <th scope="col">Week's Income</th>
+                                            <th scope="col">Trip ID</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Driver</th>
+                                            <th scope="col">Destination</th>
+                                            <th scope="col">Income</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($weekly as $weekNumber => $weeklyIncome)
-                                            <tr>
-                                                <td>{{ $weekNumber+1 }}</td>
-                                                <td>{{ $weeklyIncome['weekly'] }}</td>
-                                            </tr>
+                                        @foreach ($trips as $trip)
+                                            @if (Carbon\Carbon::parse($trip->dates)->between($weekstart, $weekend))
+                                                <tr>
+                                                    <td>{{ $trip->id }}</td>
+                                                    <td>{{ $trip->dates }}</td>
+                                                    <td>{{ $trip->driver_name }}</td>
+                                                    <td>{{ $trip->route->descr }}</td>
+                                                    <td>{{ $trip->orig_fare + $trip->extra_fare }}</td>
+                                                </tr>
+                                            @endif
                                         @endforeach
                                     </tbody>
-                                </table>
                                 </table>
                             </div>
                             <div class="modal-footer">
