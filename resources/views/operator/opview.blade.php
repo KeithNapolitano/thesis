@@ -273,7 +273,12 @@
                         @if ($user->id == $reservation->user_id)
                             <li class="reservation" data-reservation-id="{{ $reservation->id }}"
                                 data-refcode="{{ $reservation->ref_num }}" data-user-name="{{ $user->name }}">
-                                <a href='#{{ $reservation->id }}' class='my-link'>{{ $reservation->id }}</a>
+                                <div class='seats'>
+                                    <?php $seats = explode(',', $reservation->seat); ?>
+                                    @foreach ($seats as $seat)
+                                        <a href='#{{ $reservation->id }}-{{ $seat }}' class='my-link seat'>{{ $seat }}</a>
+                                    @endforeach
+                                </div>
                                 <div id='refcode-{{ $reservation->id }}' class='refcode' style='display:none'>
                                     <p>{{ $reservation->ref_num }}</p>
                                 </div>
@@ -292,8 +297,10 @@
                 $('body').on('click', '.my-link', function(e) {
                     e.preventDefault();
 
-                    // get the ID of the clicked reservation
-                    var resId = $(this).attr('href').substring(1);
+                    // get the reservation ID and seat number from the href attribute
+                    var parts = $(this).attr('href').substring(1).split('-');
+                    var resId = parts[0];
+                    var seatNum = parts[1];
 
                     // retrieve data from list item using data attributes
                     var refcode = $('.reservation[data-reservation-id="' + resId + '"]').data('refcode');
@@ -302,6 +309,7 @@
                     // update span tags with retrieved data
                     $('#refcode-display').text(refcode);
                     $('#name-display').text(name);
+                    $('#seat-display').text(seatNum);
                 });
             });
         </script>
@@ -315,8 +323,10 @@
                     <div class="row">
                         <div class="col">
                             <ul class="list-group">
-                                <li class="list-group-item"><span><strong>Seat
-                                            assigned:&nbsp;</strong></span><span>Waiting for selection</span></li>
+                                <li class="list-group-item">
+                                    <span><strong>Seat assigned:&nbsp;</strong></span>
+                                    <span class="data-display" id="seat-display">Waiting for selection</span>
+                                </li>
                                 <li class="list-group-item">
                                     <span><strong>User Name:&nbsp;</strong></span>
                                     <span class="data-display" id="name-display">Waiting for selection here</span>
