@@ -242,7 +242,6 @@
                         // update selected button
                         selectedButton = button;
 
-
                     }
                 }
             </script>
@@ -271,19 +270,17 @@
 
 
         @foreach ($reservations as $reservation)
-        @if ($trip->id == $reservation->trip_id)
-
-
-            <li class="reservation"
-                data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
-                <div class='seats'>
-                    <?php $seats = explode(',', $reservation->seat); ?>
-                    @foreach ($seats as $seatdisplay)
-                        <a href='#{{ $reservation->id }}-{{ $seat }}'
-                            class='my-link seat'>{{ $seatdisplay }}</a>
-                    @endforeach
-                </div>
-            </li>
+            @if ($trip->id == $reservation->trip_id)
+                <li class="reservation"
+                    data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                    <div class='seats'>
+                        <?php $seats = explode(',', $reservation->seat); ?>
+                        @foreach ($seats as $seatdisplay)
+                            <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                class='my-link seat'>{{ $seatdisplay }}</a>
+                        @endforeach
+                    </div>
+                </li>
             @endif
         @endforeach
         <div class="row mb-5 mt-3 passenger-details">
