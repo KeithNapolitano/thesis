@@ -266,58 +266,59 @@
             </div>
         </div>
 
-            @foreach ($reservations as $reservation)
-                @if ($reservation->trip_id == $trip->id)
-                    @foreach ($users as $user)
-                        @if ($user->id == $reservation->user_id)
-                            <li class="reservation" data-reservation-id="{{ $reservation->id }}"
-                                data-refcode="{{ $reservation->ref_num }}" data-user-name="{{ $user->name }}">
-                                <div class='seats'>
-                                    <?php $seats = explode(',', $reservation->seat); ?>
-                                    @foreach ($seats as $seat)
-                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
-                                            class='my-link seat'>{{ $seat }}</a>
-                                    @endforeach
-                                </div>
-                                <div id='refcode-{{ $reservation->id }}' class='refcode' style='display:none'>
-                                    <p>{{ $reservation->ref_num }}</p>
-                                </div>
-                                <div id='name-{{ $user->name }}' class='name'>
-                                    <p>{{ $user->name }}</p>
-                                </div>
-                            </li>
-                        @endif
+        @foreach ($reservations as $reservation)
+            <li class="reservation"
+                data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                <div class='seats'>
+                    <?php $seats = explode(',', $reservation->seat); ?>
+                    @foreach ($seats as $seat)
+                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                            class='my-link seat'>{{ $seat }}</a>
                     @endforeach
-                @endif
-            @endforeach
+                </div>
+            </li>
+        @endforeach
 
         <script>
             $(function() {
+                var $refcodeDisplay = $('#refcode-display');
+                var $nameDisplay = $('#name-display');
+                var $seatDisplay = $('#seat-display');
+                var $amountDisplay = $('#amount-display');
+
                 $('body').on('click', '.my-link', function(e) {
                     e.preventDefault();
 
-                    // get the reservation ID and seat number from the href attribute
-                    var parts = $(this).attr('href').substring(1).split('-');
-                    var resId = parts[0];
-                    var seatNum = parts[1];
+                    // Retrieve data using .data() method
+                    var reservation = $(this).closest('.reservation').data('reservation');
 
-                    // retrieve data from list item using data attributes
-                    var refcode = $('.reservation[data-reservation-id="' + resId + '"]').data('refcode');
-                    var name = $('.reservation[data-reservation-id="' + resId + '"]').data('user-name');
+                    // Check if there are multiple reservations with the same refcode
+                    var sameRefcodeReservations = $('[data-reservation]').filter(function() {
+                        return $(this).data('reservation').ref_num === reservation.ref_num;
+                    });
 
-                    // update span tags with retrieved data
-                    $('#refcode-display').text(refcode);
-                    $('#name-display').text(name);
-                    $('#seat-display').text(seatNum);
+                    // Calculate the total amount paid, taking into account all reservations with the same refcode
+                    var amountPaid = parseFloat("{{ $route->fare }}") * sameRefcodeReservations.length;
+
+                    sameRefcodeReservations.each(function() {
+                        var res = $(this).data('reservation');
+                        if (res.id !== reservation.id) {
+                            amountPaid += parseFloat("{{ $route->fare }}");
+                        }
+                    });
+
+                    // Update display elements with retrieved data
+                    $refcodeDisplay.text(reservation.ref_num);
+                    $nameDisplay.text(reservation.user.name);
+                    $seatDisplay.text($(this).text());
+                    $amountDisplay.text(amountPaid.toFixed(2));
                 });
             });
         </script>
 
-
-        <div style="padding-top: 0;margin-bottom: -3px;margin-top: -35px;"></div>
-        <div class="row mb-5" style="margin-top: 48px;margin-bottom: 50px;">
+        <div class="row mb-5 mt-3 passenger-details">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
-                <p class="fs-3" style="margin: 0px;"><strong>Passenger Details</strong></p>
+                <p class="fs-3"><strong>Passenger Details</strong></p>
                 <div class="container">
                     <div class="row">
                         <div class="col">
@@ -334,10 +335,12 @@
                                     <span><strong>Payment Reference Code:&nbsp;</strong></span>
                                     <span class="data-display" id="refcode-display">Waiting for selection</span>
                                 </li>
-                                <li class="list-group-item">
-                                    <span><strong>Amount Paid:&nbsp;</strong></span>
-                                    <span class="data-display" id="amount-display">Waiting for selection here</span>
-                                </li>
+                                @if ($route->id == $trip->id)
+                                    <li class="list-group-item">
+                                        <span><strong>Amount Paid for single seat:&nbsp;</strong></span>
+                                        <span class="data-display" id="amount-display">Waiting for selection</span>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </div>
