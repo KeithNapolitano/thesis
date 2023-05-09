@@ -135,12 +135,14 @@
 
 
 
+
     <div class="text-center" style="width: 100%;height: 100%;"></div>
     <div class="container text-center">
         <div></div>
         <div class="row mb-5" style="margin-top: 16px;">
             <div class="col">
                 <div style="width: auto;height: auto;">
+
                     <table id="matrix">
 
                         <tr>
@@ -205,6 +207,7 @@
                     </table>
                 </div>
             </div>
+
             <script>
                 let selectedButton = null; // no button is initially selected
                 const seatStatus = { // keep track of which seats are reserved
@@ -266,56 +269,23 @@
             </div>
         </div>
 
+
         @foreach ($reservations as $reservation)
+        @if ($trip->id == $reservation->trip_id)
+
+
             <li class="reservation"
                 data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
                 <div class='seats'>
                     <?php $seats = explode(',', $reservation->seat); ?>
-                    @foreach ($seats as $seat)
+                    @foreach ($seats as $seatdisplay)
                         <a href='#{{ $reservation->id }}-{{ $seat }}'
-                            class='my-link seat'>{{ $seat }}</a>
+                            class='my-link seat'>{{ $seatdisplay }}</a>
                     @endforeach
                 </div>
             </li>
+            @endif
         @endforeach
-
-        <script>
-            $(function() {
-                var $refcodeDisplay = $('#refcode-display');
-                var $nameDisplay = $('#name-display');
-                var $seatDisplay = $('#seat-display');
-                var $amountDisplay = $('#amount-display');
-
-                $('body').on('click', '.my-link', function(e) {
-                    e.preventDefault();
-
-                    // Retrieve data using .data() method
-                    var reservation = $(this).closest('.reservation').data('reservation');
-
-                    // Check if there are multiple reservations with the same refcode
-                    var sameRefcodeReservations = $('[data-reservation]').filter(function() {
-                        return $(this).data('reservation').ref_num === reservation.ref_num;
-                    });
-
-                    // Calculate the total amount paid, taking into account all reservations with the same refcode
-                    var amountPaid = parseFloat("{{ $route->fare }}") * sameRefcodeReservations.length;
-
-                    sameRefcodeReservations.each(function() {
-                        var res = $(this).data('reservation');
-                        if (res.id !== reservation.id) {
-                            amountPaid += parseFloat("{{ $route->fare }}");
-                        }
-                    });
-
-                    // Update display elements with retrieved data
-                    $refcodeDisplay.text(reservation.ref_num);
-                    $nameDisplay.text(reservation.user.name);
-                    $seatDisplay.text($(this).text());
-                    $amountDisplay.text(amountPaid.toFixed(2));
-                });
-            });
-        </script>
-
         <div class="row mb-5 mt-3 passenger-details">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
                 <p class="fs-3"><strong>Passenger Details</strong></p>
@@ -347,6 +317,41 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            $(function() {
+                var $displayElements = $('.data-display');
+
+                $('body').on('click', '.my-link', function(e) {
+                    e.preventDefault();
+
+                    // Retrieve data using .data() method
+                    var reservation = $(this).closest('.reservation').data('reservation');
+
+                    // Check if there are multiple reservations with the same refcode
+                    var sameRefcodeReservations = $('[data-reservation]').filter(function() {
+                        return $(this).data('reservation').ref_num === reservation.ref_num;
+                    });
+
+                    // Calculate the total amount paid, taking into account all reservations with the same refcode
+                    var amountPaid = parseFloat("{{ $route->fare }}") * sameRefcodeReservations.length;
+
+                    sameRefcodeReservations.each(function() {
+                        var res = $(this).data('reservation');
+                        if (res.id !== reservation.id) {
+                            amountPaid += parseFloat("{{ $route->fare }}");
+                        }
+                    });
+
+                    // Update display elements with retrieved data
+                    $displayElements.eq(0).text($(this).text());
+                    $displayElements.eq(1).text(reservation.user.name);
+                    $displayElements.eq(2).text(reservation.ref_num);
+                    $displayElements.eq(3).text(amountPaid.toFixed(2));
+                });
+            });
+        </script>
+
 
 
         <div class="row mb-5" style="margin-top: 48px;margin-bottom: 50px;">
