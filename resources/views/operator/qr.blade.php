@@ -64,7 +64,7 @@
                             <li class="list-group-item">
                                 <span><strong>Reservation status:</strong></span>
                                 <span id="output" style="margin-left: 9px;">Pending</span>
-                                <input type="hidden" name="present" value="">
+                                <input  name="present" value="">
                             </li>
                         </ul>
                         <button class="btn btn-primary" type="submit">Submit</button>
