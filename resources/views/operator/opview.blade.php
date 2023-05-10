@@ -150,58 +150,359 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><button id="seat-14" class="{{ $seat->seat14 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">14</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 14)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-14" class="reserved"
+                                                                onclick="handleSeatClick(this)">14</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @if ($seat->seat14 == 0)
+                                    <button id="seat-14" class="open" onclick="handleSeatClick(this)">14</button>
+                                @endif
                             </td>
                         </tr>
 
                         <tr>
-                            <td><button id="seat-1" class="{{ $seat->seat1 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">1</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 1)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-1" class="reserved"
+                                                                onclick="handleSeatClick(this)">1</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @if ($seat->seat1 == 0)
+                                    <button id="seat-1" class="open" onclick="handleSeatClick(this)">1</button>
+                                @endif
                             </td>
-                            <td><button id="seat-4" class="{{ $seat->seat4 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">4</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 4)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-4" class="reserved"
+                                                                onclick="handleSeatClick(this)">4</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @if ($seat->seat4 == 0)
+                                    <button id="seat-4" class="open" onclick="handleSeatClick(this)">4</button>
+                                @endif
                             </td>
-                            <td><button id="seat-7" class="{{ $seat->seat7 == 1 ? 'reserved' : 'open' }} "
-                                    onclick="handleSeatClick(this)">7</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 7)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-7" class="reserved"
+                                                                onclick="handleSeatClick(this)">7</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @if ($seat->seat7 == 0)
+                                    <button id="seat-7" class="open" onclick="handleSeatClick(this)">7</button>
+                                @endif
                             </td>
-                            <td><button id="seat-10" class="{{ $seat->seat10 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">10</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 10)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-10" class="reserved"
+                                                                onclick="handleSeatClick(this)">10</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @if ($seat->seat10 == 0)
+                                    <button id="seat-10" class="open" onclick="handleSeatClick(this)">10</button>
+                                @endif
                             </td>
-                            <td><button id="seat-13" class="{{ $seat->seat13 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">13</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 13)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-13" class="reserved"
+                                                                onclick="handleSeatClick(this)">13</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @if ($seat->seat13 == 0)
+                                    <button id="seat-13" class="open" onclick="handleSeatClick(this)">13</button>
+                                @endif
                             </td>
                         </tr>
 
                         <tr>
                             <td></td>
-                            <td><button id="seat-3" class="{{ $seat->seat3 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">3</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 3)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-3" class="reserved"
+                                                                onclick="handleSeatClick(this)">3</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @if ($seat->seat3 == 0)
+                                    <button id="seat-3" class="open" onclick="handleSeatClick(this)">3</button>
+                                @endif
                             </td>
-                            <td><button id="seat-6" class="{{ $seat->seat6 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">6</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 6)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-6" class="reserved"
+                                                                onclick="handleSeatClick(this)">6</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @if ($seat->seat6 == 0)
+                                    <button id="seat-6" class="open" onclick="handleSeatClick(this)">6</button>
+                                @endif
                             </td>
-                            <td><button id="seat-9" class="{{ $seat->seat9 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">9</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 9)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-9" class="reserved"
+                                                                onclick="handleSeatClick(this)">9</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @if ($seat->seat9 == 0)
+                                    <button id="seat-9" class="open" onclick="handleSeatClick(this)">9</button>
+                                @endif
                             </td>
-                            <td><button id="seat-12" class="{{ $seat->seat12 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">12</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 12)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-12" class="reserved"
+                                                                onclick="handleSeatClick(this)">12</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+
+                                @if ($seat->seat12 == 0)
+                                    <button id="seat-12" class="open" onclick="handleSeatClick(this)">12</button>
+                                @endif
                             </td>
                         </tr>
 
                         <tr>
                             <td><button class="bg-secondary">Driver Seat</button></td>
-                            <td><button id="seat-2" class="{{ $seat->seat2 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">2</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 2)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-2" class="reserved"
+                                                                onclick="handleSeatClick(this)">2</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+
+                                @if ($seat->seat2 == 0)
+                                    <button id="seat-2" class="open" onclick="handleSeatClick(this)">2</button>
+                                @endif
                             </td>
-                            <td><button id="seat-5" class="{{ $seat->seat5 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">5</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 5)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-5" class="reserved"
+                                                                onclick="handleSeatClick(this)">5</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+
+                                @if ($seat->seat5 == 0)
+                                    <button id="seat-5" class="open" onclick="handleSeatClick(this)">5</button>
+                                @endif
                             </td>
-                            <td><button id="seat-8" class="{{ $seat->seat8 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">8</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 8)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-8" class="reserved"
+                                                                onclick="handleSeatClick(this)">8</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+
+                                @if ($seat->seat8 == 0)
+                                    <button id="seat-8" class="open" onclick="handleSeatClick(this)">8</button>
+                                @endif
                             </td>
-                            <td><button id="seat-11" class="{{ $seat->seat11 == 1 ? 'reserved' : 'open' }}"
-                                    onclick="handleSeatClick(this)">11</button>
+                            <td>
+                                @foreach ($reservations as $reservation)
+                                    @if ($trip->id == $reservation->trip_id)
+                                        <div class="reservation"
+                                            data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                                            <div class='seats'>
+                                                <?php $seats = explode(',', $reservation->seat); ?>
+                                                @foreach ($seats as $seatdisplay)
+                                                    @if ($seatdisplay == 11)
+                                                        <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                                            class='my-link seat'>
+                                                            <button id="seat-11" class="reserved"
+                                                                onclick="handleSeatClick(this)">11</button>
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+
+                                @if ($seat->seat11 == 0)
+                                    <button id="seat-11" class="open" onclick="handleSeatClick(this)">11</button>
+                                @endif
                             </td>
                         </tr>
                     </table>
@@ -269,20 +570,7 @@
         </div>
 
 
-        @foreach ($reservations as $reservation)
-            @if ($trip->id == $reservation->trip_id)
-                <li class="reservation"
-                    data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
-                    <div class='seats'>
-                        <?php $seats = explode(',', $reservation->seat); ?>
-                        @foreach ($seats as $seatdisplay)
-                            <a href='#{{ $reservation->id }}-{{ $seat }}'
-                                class='my-link seat'>{{ $seatdisplay }}</a>
-                        @endforeach
-                    </div>
-                </li>
-            @endif
-        @endforeach
+
         <div class="row mb-5 mt-3 passenger-details">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
                 <p class="fs-3"><strong>Passenger Details</strong></p>
@@ -296,18 +584,16 @@
                                 </li>
                                 <li class="list-group-item">
                                     <span><strong>User Name:&nbsp;</strong></span>
-                                    <span class="data-display" id="name-display">Waiting for selection here</span>
+                                    <span class="data-display" id="name-display">Waiting for selection</span>
                                 </li>
                                 <li class="list-group-item">
                                     <span><strong>Payment Reference Code:&nbsp;</strong></span>
                                     <span class="data-display" id="refcode-display">Waiting for selection</span>
                                 </li>
-                                @if ($route->id == $trip->id)
                                     <li class="list-group-item">
                                         <span><strong>Amount Paid for single seat:&nbsp;</strong></span>
                                         <span class="data-display" id="amount-display">Waiting for selection</span>
                                     </li>
-                                @endif
                             </ul>
                         </div>
                     </div>
@@ -325,26 +611,14 @@
                     // Retrieve data using .data() method
                     var reservation = $(this).closest('.reservation').data('reservation');
 
-                    // Check if there are multiple reservations with the same refcode
-                    var sameRefcodeReservations = $('[data-reservation]').filter(function() {
-                        return $(this).data('reservation').ref_num === reservation.ref_num;
-                    });
-
-                    // Calculate the total amount paid, taking into account all reservations with the same refcode
-                    var amountPaid = parseFloat("{{ $route->fare }}") * sameRefcodeReservations.length;
-
-                    sameRefcodeReservations.each(function() {
-                        var res = $(this).data('reservation');
-                        if (res.id !== reservation.id) {
-                            amountPaid += parseFloat("{{ $route->fare }}");
-                        }
-                    });
+                    // Store amountPaid in session storage
+                    sessionStorage.setItem('amountPaid', parseFloat("{{ $route->fare }}").toFixed(2));
 
                     // Update display elements with retrieved data
                     $displayElements.eq(0).text($(this).text());
                     $displayElements.eq(1).text(reservation.user.name);
                     $displayElements.eq(2).text(reservation.ref_num);
-                    $displayElements.eq(3).text(amountPaid.toFixed(2));
+                    $displayElements.eq(3).text(parseFloat("{{ $route->fare }}").toFixed(2));
                 });
             });
         </script>
