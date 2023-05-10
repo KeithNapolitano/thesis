@@ -19,6 +19,8 @@
 </head>
 
 <body>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <nav class="navbar navbar-light navbar-expand-md py-3">
         <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"></a><img
                 src="{{ asset('import/assets/img/Logo.png') }}"><button data-bs-toggle="collapse" class="navbar-toggler"
@@ -132,12 +134,15 @@
     </div>
 
 
+
+
     <div class="text-center" style="width: 100%;height: 100%;"></div>
     <div class="container text-center">
         <div></div>
         <div class="row mb-5" style="margin-top: 16px;">
             <div class="col">
                 <div style="width: auto;height: auto;">
+
                     <table id="matrix">
 
                         <tr>
@@ -145,8 +150,8 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><button id="seat-14"
-                                    class="{{ $seat->seat14 == 1 ? 'reserved' : 'open' }}"onclick="handleSeatClick(this)">14</button>
+                            <td><button id="seat-14" class="{{ $seat->seat14 == 1 ? 'reserved' : 'open' }}"
+                                    onclick="handleSeatClick(this)">14</button>
                             </td>
                         </tr>
 
@@ -202,6 +207,7 @@
                     </table>
                 </div>
             </div>
+
             <script>
                 let selectedButton = null; // no button is initially selected
                 const seatStatus = { // keep track of which seats are reserved
@@ -235,6 +241,7 @@
 
                         // update selected button
                         selectedButton = button;
+
                     }
                 }
             </script>
@@ -260,29 +267,89 @@
                 </div>
             </div>
         </div>
-        <div style="padding-top: 0;margin-bottom: -3px;margin-top: -35px;"></div>
-        <div class="row mb-5" style="margin-top: 48px;margin-bottom: 50px;">
+
+
+        @foreach ($reservations as $reservation)
+            @if ($trip->id == $reservation->trip_id)
+                <li class="reservation"
+                    data-reservation="{{ json_encode($reservation->only('id', 'ref_num', 'user')) }}">
+                    <div class='seats'>
+                        <?php $seats = explode(',', $reservation->seat); ?>
+                        @foreach ($seats as $seatdisplay)
+                            <a href='#{{ $reservation->id }}-{{ $seat }}'
+                                class='my-link seat'>{{ $seatdisplay }}</a>
+                        @endforeach
+                    </div>
+                </li>
+            @endif
+        @endforeach
+        <div class="row mb-5 mt-3 passenger-details">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
-                <p class="fs-3" style="margin: 0px;"><strong>Passenger Details</strong></p>
+                <p class="fs-3"><strong>Passenger Details</strong></p>
                 <div class="container">
                     <div class="row">
                         <div class="col">
                             <ul class="list-group">
-                                <li class="list-group-item"><span><strong>Seat
-                                            assigned:&nbsp;</strong></span><span>Seat x</span></li>
-                                <li class="list-group-item"><span><strong>Name:</strong>&nbsp;</span><span>Doggo
-                                        Awawaw<br></span></li>
-                                <li class="list-group-item"><span><strong>Payment
-                                            Reference Code:&nbsp;</strong></span><span>ASD123ZXC<br></span></li>
-                                <li class="list-group-item"><span><strong>
-                                            Amount Paid:&nbsp;</strong></span><span>Php
-                                        500.00<br></span></li>
+                                <li class="list-group-item">
+                                    <span><strong>Seat assigned:&nbsp;</strong></span>
+                                    <span class="data-display" id="seat-display">Waiting for selection</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <span><strong>User Name:&nbsp;</strong></span>
+                                    <span class="data-display" id="name-display">Waiting for selection here</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <span><strong>Payment Reference Code:&nbsp;</strong></span>
+                                    <span class="data-display" id="refcode-display">Waiting for selection</span>
+                                </li>
+                                @if ($route->id == $trip->id)
+                                    <li class="list-group-item">
+                                        <span><strong>Amount Paid for single seat:&nbsp;</strong></span>
+                                        <span class="data-display" id="amount-display">Waiting for selection</span>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <script>
+            $(function() {
+                var $displayElements = $('.data-display');
+
+                $('body').on('click', '.my-link', function(e) {
+                    e.preventDefault();
+
+                    // Retrieve data using .data() method
+                    var reservation = $(this).closest('.reservation').data('reservation');
+
+                    // Check if there are multiple reservations with the same refcode
+                    var sameRefcodeReservations = $('[data-reservation]').filter(function() {
+                        return $(this).data('reservation').ref_num === reservation.ref_num;
+                    });
+
+                    // Calculate the total amount paid, taking into account all reservations with the same refcode
+                    var amountPaid = parseFloat("{{ $route->fare }}") * sameRefcodeReservations.length;
+
+                    sameRefcodeReservations.each(function() {
+                        var res = $(this).data('reservation');
+                        if (res.id !== reservation.id) {
+                            amountPaid += parseFloat("{{ $route->fare }}");
+                        }
+                    });
+
+                    // Update display elements with retrieved data
+                    $displayElements.eq(0).text($(this).text());
+                    $displayElements.eq(1).text(reservation.user.name);
+                    $displayElements.eq(2).text(reservation.ref_num);
+                    $displayElements.eq(3).text(amountPaid.toFixed(2));
+                });
+            });
+        </script>
+
+
 
         <div class="row mb-5" style="margin-top: 48px;margin-bottom: 50px;">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
@@ -378,7 +445,7 @@
             </div>
         </div>
     </footer>
-    <script src="{{ asset('import/assets/js/jquery.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset('import/assets/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('import/assets/js/bs-init.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
