@@ -63,6 +63,7 @@
                         $matchingRoute = null;
                         $matchingSeat = null;
                         $matchingTrip = null;
+
                         foreach ($routes as $route) {
                             if ($vanData->route_id == $route->id) {
                                 $matchingRoute = $route;
@@ -81,6 +82,8 @@
                                 break;
                             }
                         }
+
+                        $pendingtotal = $seat->reserved * $route->fare;
 
                         if ($matchingRoute != null) {
                             // Display the route description
@@ -104,6 +107,7 @@
                                 </span><span>" .
             $vanData->dates .
             '</span></li>';
+        echo "<li class=\"list-group-item\"><span><strong>Total Price:&nbspPhp&nbsp</strong></span><span>" . $pendingtotal . '</span></li>';
         echo '</ul>';
         echo '</div>';
         echo '</div>';
@@ -590,10 +594,11 @@
                                     <span><strong>Payment Reference Code:&nbsp;</strong></span>
                                     <span class="data-display" id="refcode-display">Waiting for selection</span>
                                 </li>
-                                    <li class="list-group-item">
-                                        <span><strong>Amount Paid for single seat:&nbsp;</strong></span>
-                                        <span class="data-display" id="amount-display">Waiting for selection</span>
-                                    </li>
+                                <li class="list-group-item">
+                                    <span><strong>Price paid for single seat:&nbsp;</strong></span>
+                                    <span class="data-display" id="amount-display">Waiting for selection</span>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -610,10 +615,6 @@
 
                     // Retrieve data using .data() method
                     var reservation = $(this).closest('.reservation').data('reservation');
-
-                    // Store amountPaid in session storage
-                    sessionStorage.setItem('amountPaid', parseFloat("{{ $route->fare }}").toFixed(2));
-
                     // Update display elements with retrieved data
                     $displayElements.eq(0).text($(this).text());
                     $displayElements.eq(1).text(reservation.user.name);
@@ -622,7 +623,6 @@
                 });
             });
         </script>
-
 
 
         <div class="row mb-5" style="margin-top: 48px;margin-bottom: 50px;">
