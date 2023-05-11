@@ -21,18 +21,58 @@ class CommuterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getRoutes(Request $request)
-    {
-        $routes = Route::all();
-        $trips = Trip::all();
-        $seats = Seat::all();
-        // Get the selected trip ID from the request
-        $trip_id = $request->input('trip_id');
-        
-        return view('commuter.commuter', compact('routes', 'trips', 'seats', 'trip_id'));
-    }
+public function getRoutes(Request $request)
+{
+    $routes = Route::all();
+    $trips = Trip::all();
     
-         
+    // Get the selected trip ID from the request
+    $trip_id = $request->input('trip_id');
+   
+    $seats = Seat::whereIn('trip_id', $trips->pluck('id'))->get();
+
+    return view('commuter.commuter', compact('routes', 'trips', 'seats', 'trip_id'));
+}
+ 
+public function getDestinations(Request $request)
+{
+    $routes = Route::all();
+    $trips = Trip::all();
+    
+    // Get the selected trip ID from the request
+    $trip_id = $request->input('trip_id');
+   
+    $seats = Seat::whereIn('trip_id', $trips->pluck('id'))->get();
+
+    return view('commuter.destinations', compact('routes', 'trips', 'seats', 'trip_id'));
+}
+
+public function getAbout(Request $request)
+{
+    $routes = Route::all();
+    $trips = Trip::all();
+    
+    // Get the selected trip ID from the request
+    $trip_id = $request->input('trip_id');
+   
+    $seats = Seat::whereIn('trip_id', $trips->pluck('id'))->get();
+
+    return view('commuter.about-us', compact('routes', 'trips', 'seats', 'trip_id'));
+}
+
+public function getContact(Request $request)
+{
+    $routes = Route::all();
+    $trips = Trip::all();
+    
+    // Get the selected trip ID from the request
+    $trip_id = $request->input('trip_id');
+   
+    $seats = Seat::whereIn('trip_id', $trips->pluck('id'))->get();
+
+    return view('commuter.contact', compact('routes', 'trips', 'seats', 'trip_id'));
+}
+
 public function processRoutes(Request $request)
 {
     $trip_id = $request->input('trip_id');
