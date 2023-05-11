@@ -307,7 +307,7 @@ section.body {
 
 /* color of booked seats */
 .booked + .radio-btn {
-    background-color: red;
+    background-color: gray;
 }
 
 .from {
