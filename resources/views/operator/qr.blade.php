@@ -30,12 +30,12 @@
                                 style="font-weight: normal !important; color: rgb(0, 0, 0);">Schedule</span></a></li>
                     <li>
                         @if (request()->has('url'))
-                        <a class="nav-link" href="{{ request('url') }}">
-                            <span style="color: rgb(0, 0, 0);">Operator view</span>
-                        </a>
-                    @else
-                        <!-- Add fallback link here if the 'url' query parameter is not present -->
-                    @endif
+                            <a class="nav-link" href="{{ request('url') }}">
+                                <span style="color: rgb(0, 0, 0);">Operator view</span>
+                            </a>
+                        @else
+                            <!-- Add fallback link here if the 'url' query parameter is not present -->
+                        @endif
                     </li>
                     <li class="nav-item"><a class="nav-link" href="qr"><strong><span
                                     style="color: rgb(0, 0, 0);">QR
@@ -53,22 +53,24 @@
                     <h2 class="fw-bold">Scan the QR Code Here</h2>
                     <p class="my-3">Make sure the entirety of the QR code is visible within the bounds of the camera.
                         The status will be updated below.</p>
-                    <form method="POST" id="trip-form" action="">
+                    @foreach ($reservations as $reservation)
+                    @endforeach
+                    <form method="POST" id="trip-form"
+                        action="{{ route('trip.QRupdate', ['id' => $reservation->id]) }}">
                         @csrf
                         @method('PUT')
-                        <div class="my-2 me-2">
-                            <!-- add any additional form fields here -->
-                        </div>
-                        <div class="my-2"></div>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <span><strong>Reservation status:</strong></span>
-                                <span id="output" style="margin-left: 9px;">Pending</span>
-                                <input  name="present" value="">
-                            </li>
-                        </ul>
+                                <input type="hidden" name="present" value="">
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </form>
+
+                    @if (session('error'))
+                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
+
+                    @if (session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+
                 </div>
             </div>
             <div class="col-md-6 mb-4">
@@ -77,7 +79,6 @@
                     <script>
                         function onScanSuccess(decodedText, decodedResult) {
                             console.log(`Code matched = ${decodedText}`, decodedResult);
-                            document.getElementById("output").innerHTML = decodedText;
                             document.getElementsByName("present")[0].value = decodedText; // Update input value
                         }
 

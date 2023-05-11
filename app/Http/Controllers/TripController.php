@@ -162,6 +162,33 @@ class TripController extends Controller
             ->route('operator.opview', ['van_plate' => $request->input('van_plate'), 'id' => $id])
             ->with('message', 'Trip has been updated.');
     }
+    public function QRupdate(OPTripFormUpdateRequest $request, $id)
+    {
+        // Find the reservation by ID or return an error
+        $reservation = Reservation::find($id);
+        if (!$reservation) {
+            return back()->with('error', 'Reservation does not exist.');
+        }
+
+        // Check if reservation is already present or return an error
+        $present = $request->input('present');
+        $reservationWithPresentValue = Reservation::where('id', $present)->first();
+        if ($reservationWithPresentValue) {
+            if ($reservationWithPresentValue->present == 1) {
+                return back()->with('error', 'Reservation is already marked as present.');
+            } else {
+                $reservationWithPresentValue->present = 1;
+                $reservationWithPresentValue->save();
+                $seatNumber = $reservationWithPresentValue->seat;
+                $reservationWithPresentValue->present = 1;
+                $reservationWithPresentValue->save();
+                return redirect(url()->previous())->with('success', 'Reservation confirmation successful. Please guide them to seat/s ' . $seatNumber . '.');
+            }
+        } else {
+            return back()->with('error', 'Reservation does not exist.');
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
