@@ -30,22 +30,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth', 'isUser')->group(function () {
     Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes')->name('commuter.main');
     Route::post('/commuter', '\App\Http\Controllers\CommuterController@processRoutes')->name('commuter.processRoutes');
-    Route::get('/explore', function () {
-        return view('commuter.explore');
-    });
     Route::get('/book', '\App\Http\Controllers\ReservationController@getReservations');
     Route::post('/book', [ReservationController::class, 'store'])->name('storeReservation');
-    Route::get('/about', function () {
-        return view('commuter.about');
-    });
-    Route::get('/help', function () {
-        return view('commuter.help');
-    });
-    Route::get('commuter/details', function () {
-        return view('commuter.details');
-    });
-    Route::post('/commuter/details', [CommuterController::class, 'processRoutes']);
-});
+    Route::get('/about', '\App\Http\Controllers\CommuterController@getAbout');
+    Route::get('/destination', '\App\Http\Controllers\CommuterController@getDestinations');
+    Route::get('/contact', '\App\Http\Controllers\CommuterController@getContact');
 
 Route::get('/', function () {
     return view('welcome');
