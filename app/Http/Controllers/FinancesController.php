@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Trip;
+use App\Models\Route;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
 class FinancesController extends Controller
@@ -16,12 +18,39 @@ class FinancesController extends Controller
             $monthend = now()->endOfMonth()->format('Y-m-d');
             $yearstart = now()->startOfYear()->format('Y-m-d');
             $yearend = now()->endOfYear()->format('Y-m-d');
+            $trips = Trip::all();
+            $routes = Route::all();
 
-            
+            $weeklyTrips = $trips->groupBy(function ($trip) {
+                return Carbon::parse($trip->dates)->weekOfYear;
+            });
+        
+            $weeklyIncomes = $weeklyTrips->map(function ($trips) {
+                return $trips->sum('orig_fare') + $trips->sum('extra_fare');
+            });
+
+            $monthlyTrips = $trips->groupBy(function ($trip) {
+                return Carbon::parse($trip->dates)->format('F Y');
+            });
+
+            $monthlyIncomes = $monthlyTrips->map(function ($trips) {
+                return $trips->sum('orig_fare') + $trips->sum('extra_fare');
+            });
+
+            $yearlyTrips = $trips->groupBy(function ($trip) {
+                return Carbon::parse($trip->dates)->year;
+            });
+
+            $yearlyIncomes = $yearlyTrips->map(function ($trips) {
+                return $trips->sum('orig_fare') + $trips->sum('extra_fare');
+            });
+
             return view('admin.account', [
                 // 'fare'=> Trip::select('orig_fare')->get,
                 // 'daily' => Trip::where('dates', $now)->sum(Trip::raw("orig_fare + extra_fare"))
                 // ->get(),
+                'trips' => $trips,
+                'routes' => $routes,
                 'daily' => Trip::select(Trip::raw("SUM(orig_fare + extra_fare) as daily"))
                     ->where('dates', $now)->get(),
                 'dailytrips' => Trip::where('dates', $now)->count(),
@@ -37,6 +66,11 @@ class FinancesController extends Controller
                 'yearly' => Trip::select(Trip::raw("SUM(orig_fare + extra_fare) as yearly"))
                     ->whereBetween('dates', [$yearstart, $yearend])->get(),
                 'yearlytrips' => Trip::whereBetween('dates', [$yearstart, $yearend])->count(),
+                'weeklyIncomes' => $weeklyIncomes,
+                'monthlyIncomes' => $monthlyIncomes,
+                'yearlyIncomes' => $yearlyIncomes,
+                'weekstart' => $weekstart,
+                'weekend' => $weekend,
             ]);
 
     }

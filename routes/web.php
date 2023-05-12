@@ -27,41 +27,51 @@ use Illuminate\Support\Facades\Route;
 */
 
 //FOR COMMUTER
-Route::middleware('auth')->group(function(){
-    Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes');
+Route::middleware('auth', 'isUser')->group(function () {
+    Route::get('/commuter', '\App\Http\Controllers\CommuterController@getRoutes')->name('commuter.main');
     Route::post('/commuter', '\App\Http\Controllers\CommuterController@processRoutes')->name('commuter.processRoutes');
     Route::get('/book', '\App\Http\Controllers\ReservationController@getReservations');
     Route::post('/book', [ReservationController::class, 'store'])->name('storeReservation');
     Route::get('/about', '\App\Http\Controllers\CommuterController@getAbout');
     Route::get('/destination', '\App\Http\Controllers\CommuterController@getDestinations');
     Route::get('/contact', '\App\Http\Controllers\CommuterController@getContact');
-});
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('sigo');
 
-Route::get('/logout', function(){
+Route::get('/logout', function () {
     Auth::logout();
     return redirect('/login');
 });
 
 //FOR OPERATOR
-Route::prefix('operator')->group(function () {
-    Route::get('/opview', [RoutesController::class, 'OPshowDestination'])->name('operator.opview');
-    Route::put('/{id}', [TripController::class, 'OPupdate'])->name('trip.OPupdate');
-    Route::get('/qr', [RoutesController::class, 'OPQRshowDestination'])->name('operator.qr');
-    Route::get('/schedule', [RoutesController::class, 'OPSchedshowDestination'])->name('operator.schedule');
-});
+Route::prefix('operator')
+    ->middleware(['auth', 'isOperator'])
+    ->group(function () {
+        Route::get('/opview', [RoutesController::class, 'OPshowDestination'])->name('operator.opview');
+        Route::put('/{id}', [TripController::class, 'OPupdate'])->name('trip.OPupdate');
+        Route::put('/qr/{id}', [TripController::class, 'QRupdate'])->name('trip.QRupdate'); // Added this line
+        Route::get('/qr', [RoutesController::class, 'OPQRshowDestination'])->name('operator.qr');
+        Route::get('/schedule', [RoutesController::class, 'OPSchedshowDestination'])->name('operator.schedule');
+    });
 
 Route::get('/home', HomeController::class);
 Route::get('/seat/create', [SeatController::class, 'create']);
 Route::post('/seat', [SeatController::class, 'store'])->name('seat.store');
 
-
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+Route::get('/landing', function () {
+    return view('landing');
+})
+    ->middleware(['auth', 'verified'])
+    ->name('landing');
+// })->name('landing');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -69,28 +79,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
-//update and destory only. edit===update(popup)
-// Route::prefix('/superadmin')->middleware('auth')->group(function () {
-//     // Route::get('/edit', [UserController::class, 'edit'])->name('user.edit');
-//     Route::patch('/', [UserController::class, 'update'])->name('user.update');
-//     Route::delete('/', [UserController::class, 'destroy'])->name('user.destroy');
-// });
+Route::prefix('/trip')
+    ->middleware(['auth', 'isAdmin'])
+    ->group(function () {
+        Route::get('/', [TripController::class, 'index'])->name('trip.index');
+        Route::get('/account', [FinancesController::class, 'finances'])->name('trip.account');
+        Route::get('/create', [TripController::class, 'create'])->name('trip.create');
+        Route::get('/create', [UserController::class, 'index'])->name('trip.create');
+        Route::post('/', [TripController::class, 'store'])->name('trip.store');
+        Route::get('/create', [RoutesController::class, 'showDestination'])->name('trip.create');
+        Route::get('/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');
+        Route::put('/{id}', [TripController::class, 'update'])->name('trip.update');
+        Route::delete('/{id}', [TripController::class, 'destroy'])->name('trip.destroy');
+    });
 
-Route::prefix('/trip')->middleware(['auth', 'isAdmin'])->group(function (){
-    Route::get('/', [TripController::class, 'index'])->name('trip.index');
-    Route::get('/account', [FinancesController::class, 'finances'])->name('trip.account');
-    Route::get('/create', [TripController::class, 'create'])->name('trip.create');
-    Route::get('/create', [UserController::class, 'index'])->name('trip.create');
-    Route::post('/', [TripController::class, 'store'])->name('trip.store');
-    Route::get('/create', [RoutesController::class, 'showDestination'])->name('trip.create');
-    Route::get('/edit/{id}', [TripController::class, 'edit'])->name('trip.edit');
-    Route::put('/{id}', [TripController::class, 'update'])->name('trip.update');
-    Route::delete('/{id}', [TripController::class, 'destroy'])->name('trip.destroy');
-});
-
-Route::prefix('/reservation')->group(function (){
+Route::prefix('/reservation')->group(function () {
     Route::get('/', [ReservationController::class, 'index'])->name('reservation.index');
     Route::get('/{id}', [ReservationController::class, 'show'])->name('reservation.show');
     Route::get('/create', [ReservationController::class, 'create'])->name('reservation.create');
@@ -110,7 +115,7 @@ Route::prefix('/reservation')->group(function (){
 //     Route::delete('/{id}', [VanController::class, 'destroy'])->name('van.destroy');
 // });
 
-Route::prefix('/route')->group(function (){
+Route::prefix('/route')->group(function () {
     Route::get('/', [RoutesController::class, 'index'])->name('route.index');
     //Route::get('/{id}', [RoutesController::class, 'show'])->name('route.show');
     Route::get('/create', [RoutesController::class, 'create'])->name('route.create');
