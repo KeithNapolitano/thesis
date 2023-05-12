@@ -86,16 +86,19 @@ class RoutesController extends Controller
     {
         $routes = Route::all();
         $trips = Trip::all();
+        $users = User::all();
         $seats = Seat::all();
-        return view('/operator/schedule')->with('routes', $routes)->with('trips', $trips)->with('seats', $seats);
+        $reservations = Reservation::all();
+        return view('/operator/schedule')->with('reservations', $reservations)->with('routes', $routes)->with('trips', $trips)->with('users', $users)->with('seats', $seats);
     }
     public function OPQRshowDestination()
     {
         $routes = Route::all();
         $trips = Trip::all();
+        $users = User::all();
         $seats = Seat::all();
         $reservations = Reservation::all();
-        return view('/operator/qr')->with('routes', $routes)->with('trips', $trips)->with('seats', $seats)->with('reservations', $reservations);
+        return view('/operator/qr')->with('reservations', $reservations)->with('routes', $routes)->with('trips', $trips)->with('users', $users)->with('seats', $seats);
     }
 
     /**
