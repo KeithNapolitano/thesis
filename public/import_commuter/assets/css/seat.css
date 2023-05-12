@@ -74,7 +74,7 @@ body {
 
 .radio-btn .hobbies-icon i {
   color: #8373e6;
-  line-height: 80px;
+  line-height: 40px;
   font-size: 60px;
 }
 
@@ -185,6 +185,7 @@ body {
     position: relative;
     text-align: center;
     cursor: pointer;
+    overflow: hidden; /* Add this line */
   }
   
   .radio-btn > i {

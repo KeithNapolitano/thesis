@@ -602,7 +602,7 @@
                                         <span class="number_plate badge badge-primary fs-12"></span></h2>
                                         <h3 class ="seatselect"> Selected Seats <span id="counter">0</span>:</h3>
                                         <ul id="selected-seats"></ul>
-                                        <p>Total: <b><span id="total">0</span> PhP</b></p>
+                                        <p>Total: <b><span id="total">0</span> </b></p>
                                         <button type="submit" class="book_btn1 btn btn-circle book_btn"> Select Seat </button>
                                     </div>
                                 </div>
