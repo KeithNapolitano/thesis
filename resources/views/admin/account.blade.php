@@ -131,7 +131,6 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($trips as $trip)
-                                            @foreach ($routes as $route)
                                             <tr>
                                                 @if($trip->dates == now()->format('Y-m-d'))
                                                     <th scope="row">{{ $trip->id }}</th>
@@ -141,7 +140,6 @@
                                                     <td>{{ $trip->orig_fare }}</td>
                                                 @endif
                                             </tr>
-                                            @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>

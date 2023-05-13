@@ -27,7 +27,9 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="schedule"><strong><span
                                     style="color: rgb(0, 0, 0);">Schedule</span></strong></a></li>
-
+                    <li class="nav-item"><a class="nav-link" href="qr"><span
+                                    style="color: rgb(0, 0, 0);">QR
+                                    Scanner</span></a></li>
                 </ul><a class="btn btn-primary" role="button" href="{{ route('logout') }}"
                     style="margin-left: 20px;">Log Out</a>
             </div>
@@ -41,6 +43,10 @@
                 <h2 class="fw-bold" style="font-size: 26px;">Schedule</h2>
                 <p class="text-muted w-lg-50" style="font-size: 16px;">
                     Listed below are all vans available during this day
+                </p>
+                <p class="text-muted w-lg-50" style="font-size: 16px;">
+                    <span style="color:blue;">Blue = waiting for departure </span> <br>
+                    <span style="color:green;">Green = departed van </span>
                 </p>
             </div>
         </div>
@@ -99,9 +105,15 @@
                         <div class="card" style="min-width: 150px">
 
                             <div class="card-body" style="padding: 16px; ">
-                                <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px;"><strong>Toyota
+                                @if ($trip->trip_status == 1)
+                                <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px; color:green;"><strong>Toyota
                                         HiAce&nbsp;
-                                    </strong><br><strong>{{ $trip->van_plate }}</strong><br><span></span></h4>
+                                    </strong><br><strong style="color:green;">{{ $trip->van_plate }}</strong><br><span></span></h4>
+                                    @else
+                                    <h4 class="fs-5 card-title" style="font-size: 26px;margin-bottom: 0px; color:blue;"><strong>Toyota
+                                        HiAce&nbsp;
+                                    </strong><br><strong style="color:blue;">{{ $trip->van_plate }}</strong><br><span></span></h4>
+                                    @endif
                                 @foreach ($routes as $route)
                                     @if ($trip->route_id == $route->id)
                                         <p class="fs-6 card-text" style="margin-bottom: 8px;">Davao City to
@@ -152,8 +164,8 @@
             <div class="text-muted d-flex justify-content-between align-items-center pt-3">
                 <p class="mb-0">Copyright © 2022 siGÓ<br></p>
                 <ul class="list-inline mb-0">
-                    <li class="list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width="1em"
-                            height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-facebook">
+                    <li class="list-inline-item"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                            fill="currentColor" viewBox="0 0 16 16" class="bi bi-facebook">
                             <path
                                 d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z">
                             </path>
