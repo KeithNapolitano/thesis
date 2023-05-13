@@ -98,6 +98,14 @@
         echo "<div class=\"row\">";
         echo "<div class=\"col\">";
         echo "<ul class=\"list-group\">";
+        if ($vanData->trip_status == 1) {
+            echo "<li class=\"list-group-item\"><span style='color:green;'><strong>Trip departed</strong></span><span> <br></span></li>";
+        }
+        else
+        {
+            echo "<li class=\"list-group-item\"><span style='color:blue;'><strong>Trip waiting</strong></span><span> <br></span></li>";
+        }
+
         echo "<li class=\"list-group-item\"><span><strong>Assigned
                                         van plate:&nbsp;</strong></span><span> " .
             $vanData->van_plate .

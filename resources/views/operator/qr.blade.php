@@ -53,13 +53,14 @@
                     <h2 class="fw-bold">Scan the QR Code Here</h2>
                     <p class="my-3">Make sure the entirety of the QR code is visible within the bounds of the camera.
                         The status will be updated below.</p>
+                    <p>Status: </p><span id="checking"><b style='color:orange;'>Checking...</b></span>
                     @foreach ($reservations as $reservation)
                     @endforeach
                     <form method="POST" id="trip-form"
                         action="{{ route('trip.QRupdate', ['id' => $reservation->id]) }}">
                         @csrf
                         @method('PUT')
-                                <input type="hidden" name="present" value="">
+                        <input type="hidden" name="present" value="">
                         <button class="btn btn-primary" type="submit">Submit</button>
                     </form>
 
@@ -80,12 +81,13 @@
                         function onScanSuccess(decodedText, decodedResult) {
                             console.log(`Code matched = ${decodedText}`, decodedResult);
                             document.getElementsByName("present")[0].value = decodedText; // Update input value
+                            document.getElementById("checking").innerHTML =
+                                "<b style='color:green;'>QR scan successful!</b> Press submit to check."; // Update output text
                         }
 
-
                         function onScanFailure(error) {
-                            // handle scan failure, usually better to ignore and keep scanning.
-                            // for example:
+                            // Handle scan failure, usually better to ignore and keep scanning.
+                            // For example:
                             console.warn(`Code scan error = ${error}`);
                         }
 
