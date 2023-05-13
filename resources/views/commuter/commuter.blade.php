@@ -260,7 +260,7 @@
                         <div class="hp-room-item set-bg" data-setbg="{{ asset('import_commuter/assets/images/dvo.png') }}">
                             <div class="hr-text">
                                 <h3 style="font-weight: 400; font-family: 'Lora', serif !important;">South Cotabato</h3>
-                                <h2 style="font-weight: 400; font-family: 'Lora', serif !important;">₱ 600</h2>
+                                <h2 style="font-weight: 400; font-family: 'Lora', serif !important; color: #dfa974;">₱ 600</h2>
                                 <table>
                                 <tbody>
                                     <tr>
@@ -289,7 +289,7 @@
                     <div class="hp-room-item set-bg" data-setbg="{{ asset('import_commuter/assets/images/bor.png') }}">
                             <div class="hr-text">
                                 <h3 style="font-weight: 400; font-family: 'Lora', serif !important;">Koronadal</h3>
-                                <h2 style="font-weight: 400; font-family: 'Lora', serif !important;">₱ 400</h2>
+                                <h2 style="font-weight: 400; font-family: 'Lora', serif !important; color: #dfa974;">₱ 400</h2>
                                 <table>
                                 <tbody>
                                     <tr>
@@ -318,7 +318,7 @@
                     <div class="hp-room-item set-bg" data-setbg="{{ asset('import_commuter/assets/images/sia.png') }}">
                             <div class="hr-text">
                                 <h3 style="font-weight: 400; font-family: 'Lora', serif !important;">General Santos City</h3>
-                                <h2 style="font-weight: 400; font-family: 'Lora', serif !important;">₱ 300</h2>
+                                <h2 style="font-weight: 400; font-family: 'Lora', serif !important; color: #dfa974;">₱ 300</h2>
                                 <table>
                                 <tbody>
                                     <tr>
@@ -347,7 +347,7 @@
                     <div class="hp-room-item set-bg" data-setbg="{{ asset('import_commuter/assets/images/but.png') }}">
                             <div class="hr-text">
                                 <h3 style="font-weight: 400; font-family: 'Lora', serif !important;">Tagum City</h3>
-                                <h2 style="font-weight: 400; font-family: 'Lora', serif !important;" >₱ 150</h2>
+                                <h2 style="font-weight: 400; font-family: 'Lora', serif !important; color: #dfa974;" >₱ 150</h2>
                                 <table>
                                 <tbody>
                                     <tr>
@@ -385,7 +385,7 @@
                 <div class="col-lg-12">
                     <div class="section-title">
                         <span>Testimonials</span>
-                        <h2 style="font-weight: 400; font-family: 'Lora', serif !important;">What Customers Say?</h2>
+                        <h2 style="font-weight: 400; font-family: 'Lora', serif !important; ">What Customers Say?</h2>
                     </div>
                 </div>
             </div>
@@ -782,7 +782,7 @@
                                         <span class="number_plate badge badge-primary fs-12"></span></h2>
                                         <h3 class ="seatselect"> Selected Seats <span id="counter">0</span>:</h3>
                                         <ul id="selected-seats"></ul>
-                                        <p>Total: <b><span id="total">0</span></b></p>
+                                        <!-- <p>Total: <b><span id="total">0</span></b></p> -->
                                         <button type="submit" class="book_btn1 btn btn-circle book_btn"> Select Seat </button>
                                     </div>
                                 </div>
@@ -840,9 +840,10 @@
   </script>
  <!-- ----------------------------------------------------------------------------------------------------------------------- -->
   <!--end of js-->
+
   <script>
   
-  let economy_price = {{ $trip->route->fare }};
+  let economy_price 
   let firstSeatLabel = 1;
   var details = [];
   
@@ -868,7 +869,7 @@
               $label.find('.radio-btn').addClass('animated rubberBand');
   
               // Add selected seat to cart
-              $('<li class="p-b-4">Seat # ' + seatId + ': \xa0 <b>₱  ' + seatPrice + '\xa0\xa0\xa0\xa0\xa0\xa0' +
+              $('<li class="p-b-4">Seat # ' + seatId + '\xa0\xa0\xa0\xa0\xa0\xa0' +
                   '</b> <a href="javascript:void(0);"' +
                   ' class="cancel-cart-item btn btn-danger btn-sm"><i class="fa fa-trash"></i> Cancel </a></li>')
                   .attr('id', 'cart-item-' + seatId)
@@ -931,6 +932,12 @@
   
   </script>
 
+    <script>
+        function setTripId(tripId) {
+            document.getElementById("trip_id").value = tripId;
+            
+        }
+    </script>
     <script>
         function setTripId(tripId) {
             document.getElementById("trip_id").value = tripId;

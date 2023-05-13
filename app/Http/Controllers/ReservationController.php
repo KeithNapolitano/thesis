@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Models\Route;
+use App\Models\Trip;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -37,8 +39,11 @@ class ReservationController extends Controller
      public function getReservations(Request $request)
      {
          $reservations = Reservation::all();
+         $routes = Route::all();
+         $trips = Trip::all();
+     
+         return view('commuter.book', compact('routes', 'trips','reservations'));
 
-         return view('commuter.book', ['reservations' => $reservations]);
      }
 
     // public function store(ReservationFormRequest $request)
@@ -69,9 +74,6 @@ class ReservationController extends Controller
     {
         //
     }
-
-
-
 
     /**
      * Show the form for editing the specified resource.
