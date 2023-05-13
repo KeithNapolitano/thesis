@@ -180,9 +180,13 @@ class TripController extends Controller
                 $reservationWithPresentValue->present = 1;
                 $reservationWithPresentValue->save();
                 $seatNumber = $reservationWithPresentValue->seat;
+                $tripid = Trip::findOrFail($reservationWithPresentValue->trip_id);
+                $routename = Route::findOrFail($tripid->route_id);
                 $reservationWithPresentValue->present = 1;
                 $reservationWithPresentValue->save();
-                return redirect(url()->previous())->with('success', 'Reservation confirmation successful. Please guide them to seat/s ' . $seatNumber . '.');
+                return redirect(url()->previous())->with('success', 'Reservation confirmation successful.
+                Please guide them to seat/s ' . $seatNumber . ' in the ' . $routename->descr . ' van with plate number ' . $tripid->van_plate .
+                '. Expect a payment of ' . $routename->fare . ' per seat reserved.');
             }
         } else {
             return back()->with('error', 'Reservation does not exist.');
