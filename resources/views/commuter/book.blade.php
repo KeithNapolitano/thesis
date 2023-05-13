@@ -39,8 +39,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="{{asset('import_commuter/assets/css/seat.css')}}">
 
-    <style>
-
+<style>
 /* Default styles */
 .container1 {
     position: relative;
@@ -116,6 +115,7 @@
   align-items: center;
   margin-top: 5px;
   padding-right: 5px;
+  margin-bottom: 10px;
 }
 
 #confirmBooking {
@@ -151,6 +151,21 @@
     }
 }
 
+table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
 </style>
 
     <!-- end of css -->
@@ -304,19 +319,48 @@
     
     @foreach ($reservations as $reservation)
     @endforeach
-    <div class="container1">
-        <div class="qrCodeBx">
-            <img src="{{ asset('import_commuter/assets/images/qr.png') }}" id="qrCode">
-        </div>
-        <p style="color: red;">*Generate QR first before downloading</p>
-        <div class="button-wrapper">
-            <button type="button" id="qrGenerator">Generate QR</button>
-            <button type="button" id="downloadQR">Download QR</button>
-        </div>
-        <form action="{{ url('commuter') }}" method="GET">
-            <button type="submit" id="confirmBooking">Confirm Booking</button>
-        </form>
+    @foreach ($trips as $trip)
+    @endforeach
+    @php
+    $latestReservation = $reservations->sortByDesc('id')->first();
+    $seatNumbers = explode(',', $latestReservation->seat ?? '');
+    $numSeats = count($seatNumbers);
+    $trip = $latestReservation->trip;
+    $fare = $trip->route->fare;
+    $totalFare = $numSeats * $fare;
+    $latestReservationCount = $reservations->where('id', $latestReservation->id)->count();
+    @endphp
+
+<div class="container1">
+    <div class="qrCodeBx">
+        <img src="{{ asset('import_commuter/assets/images/qr.png') }}" id="qrCode">
     </div>
+    <p style="color: red;">*Generate QR first before downloading</p>
+    <div class="button-wrapper">
+        <button type="button" id="qrGenerator">Generate QR</button>
+        <button type="button" id="downloadQR">Download QR</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Seat</th>
+                <th>Fare</th>
+                <th>Total Fare</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ $latestReservation->seat }}</td>
+                <td>{{ $fare }}</td>
+                <td>{{ $totalFare }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <form action="{{ url('commuter') }}" method="GET">
+        <button type="submit" id="confirmBooking">Confirm Booking</button>
+    </form>
+
+</div>
 
     <!-- Footer Section Begin -->
     <footer class="footer-section">
@@ -406,7 +450,6 @@ const qrCode = document.querySelector('#qrCode');
 const qrGenerator = document.querySelector('#qrGenerator');
 const downloadQR = document.querySelector('#downloadQR');
 const baseURL = "https://api.qrserver.com/v1/create-qr-code/"
-//const data = "reservation_id : "; // set a fixed URL or a specific message as the QR code data
 const data = "{{$reservation->id}}";
 qrGenerator.addEventListener('click',()=>{
     const size = `350x350`
