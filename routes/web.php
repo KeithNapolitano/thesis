@@ -35,6 +35,7 @@ Route::middleware('auth', 'isUser')->group(function () {
     Route::get('/about', '\App\Http\Controllers\CommuterController@getAbout');
     Route::get('/destination', '\App\Http\Controllers\CommuterController@getDestinations');
     Route::get('/contact', '\App\Http\Controllers\CommuterController@getContact');
+});
 
 Route::get('/', function () {
     return view('welcome');
