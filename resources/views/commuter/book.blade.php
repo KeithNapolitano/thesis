@@ -108,6 +108,7 @@
 #qrGenerator {
   margin-right: 10px; /* Add margin to the right of the "Generate QR" button */
 }
+
 .button-wrapper {
   display: flex;
   flex-direction: row;
@@ -340,7 +341,8 @@ table {
         <button type="button" id="qrGenerator">Generate QR</button>
         <button type="button" id="downloadQR">Download QR</button>
     </div>
-    <table>
+
+    <!-- <table>
         <thead>
             <tr>
                 <th>Seat</th>
@@ -355,13 +357,23 @@ table {
                 <td>{{ $totalFare }}</td>
             </tr>
         </tbody>
-    </table>
+    </table> -->
+
     <form action="{{ url('commuter') }}" method="GET">
         <button type="submit" id="confirmBooking">Confirm Booking</button>
     </form>
-
 </div>
 
+<div class="col-lg-4 col-xl-6 col-sm-4 col-md-5" style = "margin-top: -100px;">
+    <div class="booking-details">
+        <h2 class="header">Booking Summary
+        <h3> Route:  <span id="counter"></span>{{$trip->route->descr}}</h3>
+        <h3> Selected Seat(s) number:  <span id="counter"></span>{{ $latestReservation->seat }}</h3>
+        <ul id="selected-seats"></ul>
+        <p>Total fare: <b><span id="total"><td>{{ $totalFare }}</td></span></b></p>
+    <button type="submit" class="book_btn1 btn btn-circle book_btn"> Select Seat </button>
+    </div>
+</div>
     <!-- Footer Section Begin -->
     <footer class="footer-section">
         <div class="container">
