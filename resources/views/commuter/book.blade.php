@@ -318,11 +318,11 @@ table {
     </header>
     <!-- Header End -->
     
-    @foreach ($reservations as $reservation)
-    @endforeach
-    @foreach ($trips as $trip)
-    @endforeach
-    @php
+@foreach ($reservations as $reservation)
+@endforeach
+@foreach ($trips as $trip)
+@endforeach
+@php
     $latestReservation = $reservations->sortByDesc('id')->first();
     $seatNumbers = explode(',', $latestReservation->seat ?? '');
     $numSeats = count($seatNumbers);
@@ -341,39 +341,20 @@ table {
         <button type="button" id="qrGenerator">Generate QR</button>
         <button type="button" id="downloadQR">Download QR</button>
     </div>
-
-    <!-- <table>
-        <thead>
-            <tr>
-                <th>Seat</th>
-                <th>Fare</th>
-                <th>Total Fare</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ $latestReservation->seat }}</td>
-                <td>{{ $fare }}</td>
-                <td>{{ $totalFare }}</td>
-            </tr>
-        </tbody>
-    </table> -->
-
     <form action="{{ url('commuter') }}" method="GET">
         <button type="submit" id="confirmBooking">Confirm Booking</button>
     </form>
-</div>
-
-<div class="col-lg-4 col-xl-6 col-sm-4 col-md-5" style = "margin-top: -100px;">
+    </div>
+    <div class="col-lg-4 col-xl-6 col-sm-4 col-md-5" style = "margin-top: -100px;">
     <div class="booking-details">
-        <h2 class="header">Booking Summary
+        <h2 class="header">Booking Summary</h2>
         <h3> Route:  <span id="counter"></span>{{$trip->route->descr}}</h3>
         <h3> Selected Seat(s) number:  <span id="counter"></span>{{ $latestReservation->seat }}</h3>
         <ul id="selected-seats"></ul>
         <p>Total fare: <b><span id="total"><td>{{ $totalFare }}</td></span></b></p>
-    <button type="submit" class="book_btn1 btn btn-circle book_btn"> Select Seat </button>
-    </div>
 </div>
+</div>
+
     <!-- Footer Section Begin -->
     <footer class="footer-section">
         <div class="container">
@@ -457,16 +438,17 @@ table {
 
 <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 <script>
 const qrCode = document.querySelector('#qrCode');
 const qrGenerator = document.querySelector('#qrGenerator');
 const downloadQR = document.querySelector('#downloadQR');
-const baseURL = "https://api.qrserver.com/v1/create-qr-code/"
-const data = "{{$reservation->id}}";
-qrGenerator.addEventListener('click',()=>{
-    const size = `350x350`
-    qrCode.src = `${baseURL}?/size=${size}&data=${data}`
-})
+const baseURL = "https://api.qrserver.com/v1/create-qr-code/";
+const data = "{{$latestReservation->id}}";
+qrGenerator.addEventListener('click', () => {
+    const size = `350x350`;
+    qrCode.src = `${baseURL}?/size=${size}&data=${data}`;
+});
 
 downloadQR.addEventListener('click', () => {
     const qrCodeURL = qrCode.src;
@@ -478,6 +460,7 @@ downloadQR.addEventListener('click', () => {
 });
 
 </script>
+
 
 
 </html>
