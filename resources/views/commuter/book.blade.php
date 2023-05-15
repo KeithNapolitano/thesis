@@ -48,7 +48,7 @@
     padding: 40px;
     background: #fff;
     border-radius: 8px;
-    margin-left: 580px;
+    margin-left: 450px;
 }
 
 .container1 #textData {
@@ -344,16 +344,15 @@ table {
     <form action="{{ url('commuter') }}" method="GET">
         <button type="submit" id="confirmBooking">Confirm Booking</button>
     </form>
-    </div>
-    <div class="col-lg-4 col-xl-6 col-sm-4 col-md-5" style = "margin-top: -100px;">
-    <div class="booking-details">
-        <h2 class="header">Booking Summary</h2>
-        <h3> Route:  <span id="counter"></span>{{$trip->route->descr}}</h3>
-        <h3> Selected Seat(s) number:  <span id="counter"></span>{{ $latestReservation->seat }}</h3>
-        <ul id="selected-seats"></ul>
-        <p>Total fare: <b><span id="total"><td>{{ $totalFare }}</td></span></b></p>
 </div>
+<div class="booking-details" style = "margin-top: -650px; margin-left: 900px;">
+    <h2 class="header">Booking Summary</h2>
+    <h3> Route:  <span id="counter"></span>{{$trip->route->descr}}</h3>
+    <h3> Selected Seat(s) number:  <span id="counter"></span>{{ $latestReservation->seat }}</h3>
+    <ul id="selected-seats"></ul>
+    <p>Total fare: <b><span id="total"><td>{{ $totalFare }}</td></span></b></p>
 </div>
+
 
     <!-- Footer Section Begin -->
     <footer class="footer-section">
