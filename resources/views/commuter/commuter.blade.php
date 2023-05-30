@@ -550,6 +550,7 @@
 
                     <fieldset class="animated fadeIn">
                     @foreach ($trips as $trip)
+                    @if ($trip->trip_status != 1)
                         <div id="results">
                             <div class="row">
                                 <div class="col-md-12">
@@ -595,7 +596,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
+                    @endif
                     @endforeach
                     <div id="no-trip"></div>
                     <div class="row justify-content-center buttons">
@@ -932,18 +934,11 @@
   
   </script>
 
-    <script>
-        function setTripId(tripId) {
-            document.getElementById("trip_id").value = tripId;
-            
-        }
-    </script>
-    <script>
-        function setTripId(tripId) {
-            document.getElementById("trip_id").value = tripId;
-            
-        }
-    </script>
+<script>
+    function setTripId(tripId) {
+        document.getElementById("trip_id").value = tripId;
+    }
+</script>
 
 <script>
 // Get the modal
