@@ -48,6 +48,8 @@
     padding: 40px;
     background: #fff;
     border-radius: 8px;
+    justify-content: center;
+    align-items: center;
     margin-left: 450px;
 }
 
@@ -106,7 +108,15 @@
 }
 
 #qrGenerator {
-  margin-right: 10px; /* Add margin to the right of the "Generate QR" button */
+  width: 100%;
+  height: 50px;
+  background: #008cff;
+  border-radius: 50px;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .button-wrapper {
@@ -119,7 +129,7 @@
   margin-bottom: 10px;
 }
 
-#confirmBooking {
+#confirmBookingBtn {
   width: 100%;
   height: 50px;
   background: #008cff;
@@ -132,7 +142,7 @@
   margin-top: 10px; /* Add margin to separate the button from the previous buttons */
 }
 
-#confirmBooking:active {
+#confirmBookingBtn:active {
   transform: scale(0.98);
 }
 
@@ -166,6 +176,19 @@ table {
 
     th {
         background-color: #f2f2f2;
+    }
+
+    .qrCodeBx {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 200px; /* Adjust the height as needed */
+        border: 1px solid #ccc; /* Optional border for visual clarity */
+    }
+
+    .qrCodeBx img {
+        max-width: 100%;
+        max-height: 100%;
     }
 </style>
 
@@ -334,25 +357,24 @@ table {
 
 <div class="container1">
     <div class="qrCodeBx">
-        <img src="{{ asset('import_commuter/assets/images/qr.png') }}" id="qrCode">
+        <img src="{{ asset('import_commuter/assets/images/main logo.png') }}" id="qrCode">
     </div>
-    <p style="color: red;">*Generate QR first before downloading</p>
+    <p style="color: red;">*Upon conforming, the QR code will be automatically downloaded.</p>
     <div class="button-wrapper">
         <button type="button" id="qrGenerator">Generate QR</button>
-        <button type="button" id="downloadQR">Download QR</button>
     </div>
-    <form action="{{ url('commuter') }}" method="GET">
-        <button type="submit" id="confirmBooking">Confirm Booking</button>
+    <form action="{{ url('commuter') }}" method="GET" onsubmit="downloadQRCode(); return false;">
+        <button type="submit" id="confirmBookingBtn" disabled>Confirm Booking</button>
     </form>
 </div>
-<div class="booking-details" style = "margin-top: -650px; margin-left: 900px;">
+
+<div class="booking-details" style="margin-top: -650px; margin-left: 900px;">
     <h2 class="header">Booking Summary</h2>
-    <h3> Route:  <span id="counter"></span>{{$trip->route->descr}}</h3>
-    <h3> Selected Seat(s) number:  <span id="counter"></span>{{ $latestReservation->seat }}</h3>
+    <h3>Route: <span id="counter"></span>{{$trip->route->descr}}</h3>
+    <h3>Selected Seat(s) number: <span id="counter"></span>{{ $latestReservation->seat }}</h3>
     <ul id="selected-seats"></ul>
     <p>Total fare: <b><span id="total"><td>{{ $totalFare }}</td></span></b></p>
 </div>
-
 
     <!-- Footer Section Begin -->
     <footer class="footer-section">
@@ -438,28 +460,41 @@ table {
 <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
 <script>
 const qrCode = document.querySelector('#qrCode');
 const qrGenerator = document.querySelector('#qrGenerator');
-const downloadQR = document.querySelector('#downloadQR');
+const confirmBookingBtn = document.querySelector('#confirmBookingBtn');
 const baseURL = "https://api.qrserver.com/v1/create-qr-code/";
 const data = "{{$latestReservation->id}}";
-qrGenerator.addEventListener('click', () => {
+
+qrGenerator.addEventListener('click', generateQRCode);
+
+function generateQRCode() {
     const size = `350x350`;
     qrCode.src = `${baseURL}?/size=${size}&data=${data}`;
-});
+    confirmBookingBtn.removeAttribute('disabled');
+}
 
-downloadQR.addEventListener('click', () => {
+function downloadQRCode() {
     const qrCodeURL = qrCode.src;
     fetch(qrCodeURL)
         .then(response => response.blob())
         .then(blob => {
-            saveAs(blob, 'qr_code.png');
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'qr_code.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            // Redirect to the specified URL after the download
+            window.location.href = "{{ url('commuter') }}";
         });
-});
-
+}
 </script>
-
 
 
 </html>
