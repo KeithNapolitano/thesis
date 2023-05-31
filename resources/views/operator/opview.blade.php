@@ -100,9 +100,7 @@
         echo "<ul class=\"list-group\">";
         if ($vanData->trip_status == 1) {
             echo "<li class=\"list-group-item\"><span style='color:green;'><strong>Trip departed</strong></span><span> <br></span></li>";
-        }
-        else
-        {
+        } else {
             echo "<li class=\"list-group-item\"><span style='color:blue;'><strong>Trip waiting</strong></span><span> <br></span></li>";
         }
 
@@ -116,13 +114,14 @@
             $vanData->dates .
             '</span></li>';
         echo "<li class=\"list-group-item\"><span><strong>Total Price:&nbspPhp&nbsp</strong></span><span>" . $pendingtotal . '</span></li>';
+        echo '<liclass=\"list-group-item\"></li><button id="myBtn">Open Manifesto</button></li>';
         echo '</ul>';
         echo '</div>';
         echo '</div>';
         echo '</div>';
     } else {
         // Show an error message if there's no matching trip data
-                        echo "<h2 class=\"fs-2 fw-bold text-center\"><strong>No matching trip found</strong><br></h2>";
+        echo "<h2 class=\"fs-2 fw-bold text-center\"><strong>No matching trip found</strong><br></h2>";
                     }
                 } else {
                     // Show an error message if either van_plate or id parameter is missing
@@ -146,7 +145,112 @@
     </div>
 
 
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
+
+
+    <!-- Trigger/Open The Modal -->
+    @foreach ($users as $user)
+    @endforeach
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h5 class="modal-title" id="exampleModalLabel">Names List</h5>
+            <ul class="list-group">
+                {{-- Initialize empty array to track which names have been displayed --}}
+                @php($displayed_names = [])
+
+                @foreach ($users as $user)
+                    @foreach ($reservations as $reservation)
+                        @if ($trip->id == $reservation->trip_id && $user->id == $reservation->user_id)
+                            {{-- Check if name has already been displayed --}}
+                            @if (!in_array($user->name, $displayed_names))
+                                <li class="list-group-item"><span>{{ $user->name }}</span></li>
+
+                                {{-- Add name to array of displayed names --}}
+                                @php($displayed_names[] = $user->name)
+                            @endif
+                        @endif
+                    @endforeach
+                @endforeach
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
     <div class="text-center" style="width: 100%;height: 100%;"></div>
     <div class="container text-center">
@@ -688,8 +792,6 @@
             </div>
         </div>
     </div>
-
-
 
     <footer class="bg-primary-gradient">
         <div class="container py-4 py-lg-5" style="padding-top: 0px;">
